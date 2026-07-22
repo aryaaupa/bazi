@@ -1,112 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bazi | Adaptive AI for Digital Therapeutics</title>
-  <meta name="description" content="Bazi is the adaptive intelligence layer for software-based medicine, helping digital therapeutics predict disengagement and personalize treatment in real time.">
-  <meta name="theme-color" content="#071A2B">
-  <meta property="og:title" content="Bazi | Adaptive AI for Digital Therapeutics">
-  <meta property="og:description" content="The adaptive intelligence layer for software-based medicine.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Bazi","description":"Bazi is the adaptive intelligence layer for software-based medicine.","email":"hello@bazi.health"}</script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="nav" id="nav">
-    <div class="nav-inner shell">
-      <a class="brand" href="#top" aria-label="Bazi home">
-        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="7" height="28" rx="3.5"/><circle cx="22" cy="13" r="9" fill="none" stroke-width="7"/><circle cx="20" cy="27" r="7" fill="none" stroke-width="6"/></svg>
-        <span>Bazi</span>
-      </a>
-      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu"><span></span><span></span></button>
-      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
-        <a href="#product">Product</a><a href="#technology">Technology</a><a href="#applications">Applications</a><a href="#company">Company</a>
-        <a class="button button-small" href="#early-access">Request early access</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero dark" id="top">
-      <div class="grid-bg"></div>
-      <div class="shell hero-grid">
-        <div class="reveal">
-          <p class="eyebrow green">Adaptive AI for digital therapeutics</p>
-          <h1>Digital therapeutics are static. Patients are not.</h1>
-          <p class="hero-copy">Bazi predicts when a patient is beginning to disengage and adapts the therapeutic experience in real time. We help digital health companies turn fixed treatment paths into personalized software-based care.</p>
-          <div class="hero-actions"><a class="button" href="#early-access">Request early access</a><a class="button button-outline" href="#how-it-works">See how it works</a></div>
-        </div>
-        <div class="chart-card reveal" aria-label="Patient engagement timeline visualization">
-          <div class="chart-head"><span>Patient engagement timeline</span><span>Weeks 1 to 6</span></div>
-          <svg viewBox="0 0 560 340" role="img" aria-label="Bazi intervenes before predicted patient disengagement">
-            <g class="chart-grid"><line x1="40" x2="520" y1="40" y2="40"/><line x1="40" x2="520" y1="105" y2="105"/><line x1="40" x2="520" y1="170" y2="170"/><line x1="40" x2="520" y1="235" y2="235"/><line x1="40" x2="520" y1="300" y2="300"/></g>
-            <path class="predicted line-draw" d="M40,90 C140,110 220,150 340,230 C400,270 440,290 520,300"/>
-            <path class="adapted line-draw delay" d="M40,90 C140,110 220,150 300,190 C340,150 400,110 460,96 C480,92 500,90 520,84"/>
-            <circle cx="300" cy="190" r="6" class="point"/><circle cx="300" cy="190" r="12" class="pulse"/>
-            <text x="148" y="128">Engagement risk</text><line x1="300" y1="190" x2="300" y2="228" class="marker"/><text x="222" y="246" class="green-fill">Intervention selected</text><text x="390" y="77">Treatment adapted</text>
-          </svg>
-          <div class="legend"><span><i class="green-line"></i>Bazi-adapted engagement</span><span><i class="dash-line"></i>Predicted without Bazi</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="product"><div class="shell">
-      <div class="section-head reveal"><p class="eyebrow">The problem</p><h2>Digital treatment works only when patients stay with it.</h2><p>Digital therapeutics can support treatment across mental health, neurological care, chronic disease, pain management, and physical rehabilitation.</p></div>
-      <div class="chips reveal"><span>Depression and anxiety</span><span>ADHD</span><span>Chronic pain</span><span>Stroke recovery</span><span>Musculoskeletal rehabilitation</span><span>Chronic disease management</span></div>
-      <div class="body-copy reveal"><p>Most digital therapeutics follow predefined treatment paths, but patients respond differently. Disengagement often develops gradually, and most systems react only after engagement has already been lost.</p><p>Lower adherence can reduce both clinical value and commercial performance.</p></div>
-      <div class="compare-grid">
-        <article class="compare light-card reveal"><p class="eyebrow">Traditional digital therapeutic</p><ul><li>Fixed treatment sequence</li><li>Same logic for broad patient groups</li><li>Responds after inactivity</li><li>Limited personalization</li></ul></article>
-        <article class="compare dark-card reveal"><p class="eyebrow green">Bazi-enabled therapeutic</p><ul class="checks"><li>Continuously evaluates engagement</li><li>Predicts disengagement risk</li><li>Selects the next appropriate intervention</li><li>Adapts to individual behavior and progress</li></ul></article>
-      </div>
-    </div></section>
-
-    <section class="section section-tight" id="how-it-works"><div class="shell"><div class="section-head reveal"><p class="eyebrow">How it works</p><h2>An adaptive decision layer for every patient journey.</h2></div>
-      <div class="steps"><article class="reveal"><b>01</b><h3>Observe</h3><p>Bazi processes consented behavioral, contextual, and progress signals from the therapeutic experience.</p></article><article class="reveal"><b>02</b><h3>Predict</h3><p>Models estimate when engagement is weakening before a patient fully disengages.</p></article><article class="reveal"><b>03</b><h3>Decide</h3><p>A constrained decision engine selects the next appropriate intervention from an approved therapeutic library.</p></article><article class="reveal"><b>04</b><h3>Adapt</h3><p>The product adjusts timing, sequencing, prompts, difficulty, or support based on the individual patient.</p></article></div>
-    </div></section>
-
-    <section class="section dark" id="technology"><div class="shell"><div class="section-head reveal"><p class="eyebrow green">Product architecture</p><h2>Built to integrate, not replace.</h2><p>Bazi is an SDK and API layer for existing digital therapeutics. It adds an adaptive decision layer without requiring you to rebuild your product.</p></div>
-      <div class="architecture-grid"><ol class="pipeline reveal"><li>Existing therapeutic application</li><li>Bazi SDK</li><li>Signal processing</li><li>Disengagement prediction</li><li>Adaptive decision engine</li><li>Approved intervention library</li><li>Personalized therapeutic experience</li></ol>
-      <div class="reveal"><div class="code"><div class="code-top"><i></i><i></i><i></i><span>integration.js</span></div><pre><code><span class="kw">import</span> { Bazi } <span class="kw">from</span> <span class="str">"@bazi/sdk"</span>;
-
-<span class="kw">const</span> bazi = <span class="kw">new</span> Bazi({
-  therapyId: <span class="str">"rehab-program"</span>,
-  mode: <span class="str">"on-device"</span>
-});
-
-<span class="kw">const</span> decision = <span class="kw">await</span> bazi.recommend({
-  engagementSignals,
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bazi adaptive AI for digital therapeutics"><title>Bazi | Adaptive AI for Digital Therapeutics</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="container nav"><a class="brand" href="index.html"><span class="mark">β</span><span>Bazi</span></a><button class="menu" aria-expanded="false" aria-controls="navlinks">☰</button><nav id="navlinks"><a href="#product">Product</a><a href="#technology">Technology</a><a href="#applications">Applications</a><a href="demo.html">View Product Demo</a><a class="btn btn-outline" href="#early-access">Request Early Access</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="container hero-grid"><div><p class="eyebrow">ADAPTIVE AI FOR DIGITAL THERAPEUTICS</p><h1>Digital therapeutics are static. Patients are not.</h1><p class="lead">Bazi predicts when a patient is beginning to disengage and adapts the therapeutic experience in real time. We help digital health companies turn fixed treatment paths into personalized software-based care.</p><div class="actions"><a class="btn btn-primary" href="demo.html">View Product Demo</a><a class="btn btn-secondary" href="#early-access">Request Early Access</a></div><p class="note">Designed to operate within clinician-approved intervention boundaries.</p></div><div class="hero-card"><div class="card-head"><span>Engagement trajectory</span><span class="pill">Adaptive</span></div><svg viewBox="0 0 560 260" role="img" aria-label="Engagement declines then recovers after Bazi adaptation"><line x1="42" y1="220" x2="530" y2="220" class="axis"/><line x1="42" y1="35" x2="42" y2="220" class="axis"/><polyline points="45,70 120,82 198,115 270,158 335,192" class="line history"/><line x1="335" y1="38" x2="335" y2="220" class="intervention"/><polyline points="335,192 400,165 465,128 525,102" class="line projection"/><circle cx="335" cy="192" r="7" class="point"/><text x="350" y="60" class="chart-text">Bazi adaptation</text></svg><div class="flow"><span><b>1</b> Detect</span><i>→</i><span><b>2</b> Decide</span><i>→</i><span><b>3</b> Adapt</span></div></div></div></section>
+<section class="section light" id="product"><div class="container split"><div><p class="kicker">THE ENGAGEMENT PROBLEM</p><h2>Treatment software often reacts after the patient has already left.</h2></div><div><p>Digital therapeutics can deliver structured treatment at scale, but most follow a fixed path. A missed session may trigger a reminder, yet the system rarely understands the gradual pattern that led to disengagement.</p><p>Bazi analyzes changes across completion, timing, duration, fatigue, and treatment difficulty so therapeutic products can respond before a temporary decline becomes abandonment.</p></div></div></section>
+<section class="section dark" id="technology"><div class="container"><p class="kicker">HOW BAZI WORKS</p><h2>A closed-loop intelligence layer for software-based care.</h2><div class="cards four"><article><small>01</small><h3>Observe behavior</h3><p>Receive signals such as completion, session length, fatigue, and difficulty.</p></article><article><small>02</small><h3>Estimate risk</h3><p>Identify sustained behavioral change and estimate near-term disengagement.</p></article><article><small>03</small><h3>Select an intervention</h3><p>Evaluate only actions approved by the therapeutic provider.</p></article><article><small>04</small><h3>Adapt and learn</h3><p>Update the experience and measure whether engagement improves.</p></article></div></div></section>
+<section class="section light"><div class="container"><p class="kicker">PRODUCT ARCHITECTURE</p><h2>Integrate adaptive decisioning without rebuilding the therapeutic product.</h2><div class="architecture"><div><small>Existing product</small><b>Digital therapeutic</b><span>Sessions, exercises, assessments</span></div><i>→</i><div class="active"><small>Bazi layer</small><b>Adaptive decision engine</b><span>Risk, intervention, guardrails</span></div><i>→</i><div><small>Personalized output</small><b>Updated treatment experience</b><span>Pacing, timing, support, escalation</span></div></div><pre><code>const decision = await bazi.recommend({
+  patientSignals,
   treatmentProgress,
   approvedInterventions
 });
 
-renderIntervention(decision.nextIntervention);</code></pre></div>
-      <div class="capabilities"><span>On-device inference where appropriate</span><span>Privacy-conscious data handling</span><span>Low-latency decisions</span><span>Clinically constrained intervention selection</span><span>Configurable integration</span><span>Federated learning as a future capability</span></div></div></div>
-    </div></section>
-
-    <section class="section" id="applications"><div class="shell"><div class="section-head reveal"><p class="eyebrow">Applications</p><h2>One intelligence layer across software-based care.</h2></div><div class="cards">
-      <article class="reveal"><div class="icon">M</div><h3>Mental health</h3><p>Adapt therapeutic exercises, pacing, check-ins, and support based on changes in engagement.</p></article><article class="reveal"><div class="icon">R</div><h3>Physical rehabilitation</h3><p>Adjust exercise sequencing, difficulty, reminders, and recovery support based on adherence and progress.</p></article><article class="reveal"><div class="icon">N</div><h3>Neurological care</h3><p>Personalize cognitive or motor therapy pathways as patient behavior and performance evolve.</p></article><article class="reveal"><div class="icon">C</div><h3>Chronic disease</h3><p>Support sustained engagement with education, monitoring, routines, and long-term treatment plans.</p></article><article class="reveal"><div class="icon">P</div><h3>Pain management</h3><p>Adapt pacing, behavioral interventions, and support based on patient response patterns.</p></article>
-    </div></div></section>
-
-    <section class="section section-tight"><div class="shell"><div class="section-head reveal"><p class="eyebrow">Differentiation</p><h2>Personalization should happen before the patient leaves.</h2></div><div class="pillars"><article class="reveal"><h3>Predictive, not reactive</h3><p>Identify emerging disengagement before it becomes abandonment.</p></article><article class="reveal"><h3>Adaptive, not scripted</h3><p>Continuously select the most appropriate next step instead of following one fixed sequence.</p></article><article class="reveal"><h3>Private by design</h3><p>Support local inference and minimize unnecessary movement of sensitive patient data.</p></article></div><p class="statement reveal">Today’s therapy apps follow a script. Bazi helps them make decisions.</p></div></section>
-
-    <section class="section section-tight"><div class="shell"><div class="section-head reveal"><p class="eyebrow">Who it is for</p><h2>Built for digital health teams that already have a therapeutic product.</h2></div><div class="two-lists"><div class="reveal"><p class="eyebrow">Audience</p><ul><li>Digital therapeutics companies</li><li>Virtual care platforms</li><li>Rehabilitation technology companies</li><li>Behavioral health platforms</li><li>Research and clinical innovation teams</li></ul></div><div class="reveal"><p class="eyebrow">What Bazi adds</p><ul><li>Improve engagement</li><li>Increase treatment adherence</li><li>Personalize patient journeys</li><li>Learn which interventions work for different users</li><li>Add adaptive intelligence without rebuilding the core application</li></ul></div></div></div></section>
-
-    <section class="section dark"><div class="shell"><div class="section-head reveal"><p class="eyebrow green">Technical credibility</p><h2>Designed for clinically constrained AI.</h2></div><div class="tech-grid"><span>Multimodal behavioral signal processing</span><span>Time-series disengagement prediction</span><span>Contextual decision models</span><span>Constrained intervention selection</span><span>On-device model deployment</span><span>Auditable decisions and versioned models</span><span>Human-defined treatment boundaries</span><span>Privacy and security controls</span></div><p class="disclaimer reveal">Bazi does not diagnose patients or independently prescribe treatment. It operates within intervention boundaries defined by the therapeutic provider.</p></div></section>
-
-    <section class="section vision" id="company"><div class="shell vision-grid"><div class="reveal"><p class="eyebrow green">Vision</p><h2>The intelligence layer behind software-based medicine.</h2><p>Software is becoming a treatment modality, but most therapeutic software still behaves like a fixed program. Bazi is building the adaptive infrastructure that allows digital treatment to respond to each patient as they change.</p></div><div class="layer-visual reveal"><div class="categories"><span>Mental health</span><span>Rehabilitation</span><span>Neurological</span><span>Chronic care</span><span>Pain</span></div><div class="connections"></div><strong>Bazi adaptive intelligence layer</strong><i></i><span class="output">Personalized therapeutic experience</span></div></div></section>
-
-    <section class="section" id="early-access"><div class="form-shell"><div class="section-head center reveal"><h2>Build a therapeutic experience that adapts.</h2><p>For digital therapeutics companies, clinical collaborators, and pilot partners.</p></div>
-      <form id="accessForm" class="access-form reveal" novalidate><div class="form-grid"><label>Name<input name="name" autocomplete="name" required minlength="2"><small></small></label><label>Work email<input name="email" type="email" autocomplete="email" required><small></small></label><label>Company<input name="company" required minlength="2"><small></small></label><label>Role<input name="role" required minlength="2"><small></small></label><label class="full">Product category<select name="category" required><option value="">Select a category</option><option>Mental health</option><option>Physical rehabilitation</option><option>Neurological care</option><option>Chronic disease</option><option>Pain management</option><option>Other</option></select><small></small></label><label class="full">What are you building?<textarea name="details" rows="5" required minlength="10"></textarea><small></small></label></div><button class="button submit" type="submit">Request early access</button><p class="form-note">Demo form: submissions are stored only in this browser.</p></form>
-      <div id="success" class="success" hidden><div class="success-mark">✓</div><h3>Request received</h3><p>Thanks for reaching out. Your request was saved in this browser.</p><button class="text-button" id="another" type="button">Submit another request</button></div>
-    </div></section>
-  </main>
-  
-
-  <footer><div class="shell footer-grid"><div><a class="brand footer-brand" href="#top"><svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="7" height="28" rx="3.5"/><circle cx="22" cy="13" r="9" fill="none" stroke-width="7"/><circle cx="20" cy="27" r="7" fill="none" stroke-width="6"/></svg><span>Bazi</span></a><p>Adaptive intelligence for software-based medicine.</p></div><div class="footer-links"><a href="#product">Product</a><a href="#technology">Technology</a><a href="#applications">Applications</a><a href="#company">Company</a><a href="mailto:hello@bazi.health">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div></div><div class="shell footer-bottom">Bazi is currently under development and is not intended for direct clinical use.</div></footer>
-  <script src="script.js"></script>
-</body>
-</html>
+therapy.apply(decision.recommendedAction);</code></pre></div></section>
+<section class="section muted" id="applications"><div class="container"><p class="kicker">APPLICATIONS</p><h2>One adaptive layer across multiple therapeutic categories.</h2><div class="cards four appcards"><article><span>MH</span><h3>Mental health</h3><p>Adapt session length, content sequence, reminders, and support.</p></article><article><span>RX</span><h3>Physical rehabilitation</h3><p>Adjust exercise difficulty, pacing, recovery, and escalation.</p></article><article><span>NC</span><h3>Neurological care</h3><p>Personalize cognitive or motor therapy progression.</p></article><article><span>CD</span><h3>Chronic disease</h3><p>Coordinate education, tracking, and behavioral interventions.</p></article></div></div></section>
+<section class="section dark"><div class="container split"><div><p class="kicker">CLINICAL BOUNDARIES</p><h2>Bazi recommends within constraints. It does not diagnose or independently prescribe.</h2></div><div class="checks"><p><b>✓ Provider-defined actions</b><br>Every intervention comes from a pre-approved set.</p><p><b>✓ Visible reasoning</b><br>Teams can review the signals behind each recommendation.</p><p><b>✓ Human escalation</b><br>Higher-risk patterns can trigger clinician review.</p></div></div></section>
+<section class="section contact" id="early-access"><div class="container split"><div><p class="kicker">EARLY ACCESS</p><h2>Build the next generation of adaptive digital therapeutics.</h2><p>We are speaking with digital health teams, clinicians, and researchers who want to test adaptive engagement workflows.</p></div><form id="early-form" novalidate><div class="form-grid"><label>Name<input name="name" required></label><label>Work email<input type="email" name="email" required></label></div><label>Organization<input name="organization" required></label><label>What are you building?<textarea name="message" rows="4" required></textarea></label><button class="btn btn-primary" type="submit">Request Early Access</button><p id="form-status" role="status"></p></form></div></section>
+</main><footer><div class="container footer"><a class="brand" href="index.html"><span class="mark">β</span><span>Bazi</span></a><p>The adaptive intelligence layer for software-based medicine.</p><p>© <span id="year"></span> Bazi.</p></div></footer></body></html>
