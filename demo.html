@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive Bazi product demonstration using fictional patient data.">
+  <title>Bazi Product Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="demo.js" defer></script>
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#demo-main">Skip to dashboard</a>
+
+  <div class="demo-shell">
+    <aside class="demo-sidebar">
+      <a class="brand demo-brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <nav class="demo-nav" aria-label="Demo navigation">
+        <a class="active" href="#dashboard"><span aria-hidden="true">◫</span> Dashboard</a>
+        <a href="#patient"><span aria-hidden="true">○</span> Patient</a>
+        <a href="#treatment-plan"><span aria-hidden="true">≡</span> Treatment Plan</a>
+        <a href="#activity-log"><span aria-hidden="true">↻</span> Model Activity</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="environment-badge"><span></span> Demo environment</span>
+        <a href="index.html">← Back to website</a>
+      </div>
+    </aside>
+
+    <div class="demo-content">
+      <header class="demo-topbar">
+        <button class="demo-menu-toggle" type="button" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>☰
+        </button>
+        <div>
+          <p class="topbar-label">BAZI ADAPTIVE THERAPY CONSOLE</p>
+          <h1>Patient engagement dashboard</h1>
+        </div>
+        <span class="fictional-badge">Fictional demonstration data</span>
+      </header>
+
+      <main id="demo-main">
+        <section class="patient-summary" id="patient">
+          <div class="patient-identity">
+            <div class="patient-avatar" aria-hidden="true">MC</div>
+            <div>
+              <p class="small-label">PATIENT</p>
+              <h2>Maya Chen</h2>
+              <p>Post-stroke upper-limb rehabilitation</p>
+              <div class="patient-meta">
+                <span>Physical rehabilitation</span>
+                <span>Week 3 of 8</span>
+                <span>4 sessions per week</span>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-actions">
+            <button class="button button-secondary demo-button" id="simulate-button" type="button">Simulate Next Session</button>
+            <button class="button button-primary demo-button" id="run-bazi-button" type="button">Run Bazi</button>
+            <button class="button button-ghost demo-button" id="reset-button" type="button">Reset Demo</button>
+          </div>
+        </section>
+
+        <section class="metric-grid" aria-label="Patient metrics">
+          <article class="metric-card">
+            <div class="metric-topline"><span>Engagement score</span><span class="metric-trend" id="engagement-trend">Baseline</span></div>
+            <strong id="engagement-value">82</strong><span class="metric-unit">out of 100</span>
+            <div class="metric-progress"><span id="engagement-progress"></span></div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-topline"><span>Disengagement risk</span><span class="risk-badge risk-low" id="risk-level-badge">Low</span></div>
+            <strong id="risk-value">18%</strong><span class="metric-unit">current estimate</span>
+            <div class="metric-progress risk-progress"><span id="risk-progress"></span></div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-topline"><span>Completion rate</span><span class="metric-icon">✓</span></div>
+            <strong id="completion-value">75%</strong><span class="metric-unit">recent sessions</span>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-topline"><span>Average session</span><span class="metric-icon">◷</span></div>
+            <strong id="duration-value">17 min</strong><span class="metric-unit">recent sessions</span>
+          </article>
+        </section>
+
+        <section class="dashboard-grid" id="dashboard">
+          <article class="dashboard-panel chart-panel">
+            <div class="panel-heading">
+              <div><p class="small-label">ENGAGEMENT TRAJECTORY</p><h2>Patient engagement over time</h2></div>
+              <div class="chart-legend"><span><i class="legend-history"></i> Observed</span><span><i class="legend-projection"></i> Projected</span></div>
+            </div>
+            <div class="chart-container">
+              <svg id="engagement-chart" viewBox="0 0 820 340" role="img" aria-label="Patient engagement score over time"></svg>
+            </div>
+          </article>
+
+          <article class="dashboard-panel recommendation-panel">
+            <div class="panel-heading">
+              <div><p class="small-label">BAZI RECOMMENDATION</p><h2>Adaptive decision</h2></div>
+              <span class="recommendation-state" id="recommendation-state">Not run</span>
+            </div>
+
+            <div class="recommendation-empty" id="recommendation-empty">
+              <div class="recommendation-symbol">β</div>
+              <h3>Run Bazi to analyze engagement</h3>
+              <p>Bazi will evaluate recent behavior and recommend an action from the approved intervention set.</p>
+            </div>
+
+            <div class="analysis-state hidden" id="analysis-state" aria-live="polite">
+              <div class="analysis-spinner"></div>
+              <h3>Analyzing patient signals</h3>
+              <p id="analysis-step">Processing session history</p>
+              <div class="analysis-progress"><span id="analysis-progress-bar"></span></div>
+            </div>
+
+            <div class="recommendation-result hidden" id="recommendation-result">
+              <div class="recommendation-metrics">
+                <div><span>Risk score</span><strong id="result-risk">0%</strong></div>
+                <div><span>Risk level</span><strong id="result-level">Low</strong></div>
+                <div><span>Confidence</span><strong>86%</strong></div>
+              </div>
+
+              <div class="recommendation-summary">
+                <p class="small-label">PRIMARY REASON</p>
+                <h3 id="primary-reason">Behavioral change detected</h3>
+                <p id="recommendation-explanation"></p>
+              </div>
+
+              <div class="signal-list">
+                <p class="small-label">CONTRIBUTING SIGNALS</p>
+                <ul id="signal-list"></ul>
+              </div>
+
+              <div class="recommended-actions">
+                <p class="small-label">RECOMMENDED CHANGES</p>
+                <ul id="recommended-actions-list"></ul>
+              </div>
+
+              <div class="recommendation-buttons">
+                <button class="button button-primary" id="apply-button" type="button">Apply Adaptation</button>
+                <button class="button button-ghost" id="dismiss-button" type="button">Dismiss</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="dashboard-panel sessions-panel">
+            <div class="panel-heading"><div><p class="small-label">RECENT SESSIONS</p><h2>Behavior signals</h2></div></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Session</th><th>Status</th><th>Duration</th><th>Fatigue</th><th>Engagement</th></tr></thead>
+                <tbody id="sessions-table-body"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="dashboard-panel plan-panel" id="treatment-plan">
+            <div class="panel-heading">
+              <div><p class="small-label">CURRENT TREATMENT PLAN</p><h2 id="plan-title">Standard rehabilitation plan</h2></div>
+              <span class="plan-status" id="plan-status">Active</span>
+            </div>
+
+            <dl class="plan-list">
+              <div><dt>Session duration</dt><dd id="plan-duration">25 minutes</dd></div>
+              <div><dt>Difficulty</dt><dd id="plan-difficulty">Moderate</dd></div>
+              <div><dt>Frequency</dt><dd id="plan-frequency">4 sessions per week</dd></div>
+              <div><dt>Reminder</dt><dd id="plan-reminder">8:00 AM</dd></div>
+              <div><dt>Progression</dt><dd id="plan-progression">Standard progression</dd></div>
+              <div><dt>Escalation</dt><dd id="plan-escalation">No escalation rule</dd></div>
+            </dl>
+
+            <div class="plan-comparison hidden" id="plan-comparison">
+              <p class="small-label">BEFORE AND AFTER</p>
+              <div class="comparison-grid">
+                <div>
+                  <h3>Previous plan</h3>
+                  <ul>
+                    <li>25-minute sessions</li>
+                    <li>Moderate difficulty</li>
+                    <li>8:00 AM reminder</li>
+                    <li>Standard progression</li>
+                    <li>No escalation rule</li>
+                  </ul>
+                </div>
+                <div class="adapted-plan">
+                  <h3>Adapted plan</h3>
+                  <ul>
+                    <li>15-minute sessions</li>
+                    <li>Low-Moderate difficulty</li>
+                    <li>6:30 PM reminder</li>
+                    <li>Slower progression for three sessions</li>
+                    <li>Clinician check-in after another missed session</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="dashboard-panel activity-panel" id="activity-log">
+            <div class="panel-heading"><div><p class="small-label">MODEL ACTIVITY</p><h2>Decision log</h2></div></div>
+            <ol class="activity-list" id="activity-list"></ol>
+          </article>
+        </section>
+
+        <section class="demo-disclaimer">
+          <strong>Demonstration only.</strong>
+          This prototype uses fictional data and demonstration logic. It is not a clinical decision-support system and is not intended for patient care.
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="session-modal" role="dialog" aria-modal="true" aria-labelledby="session-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div><p class="small-label">SESSION SIMULATOR</p><h2 id="session-modal-title">Simulate next therapy session</h2></div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close">×</button>
+      </div>
+
+      <form id="session-form">
+        <fieldset>
+          <legend>Session outcome</legend>
+          <div class="radio-grid">
+            <label class="choice-card"><input type="radio" name="status" value="completed" checked><span><strong>Completed normally</strong><small>Full session completed</small></span></label>
+            <label class="choice-card"><input type="radio" name="status" value="late"><span><strong>Completed late</strong><small>Started after reminder</small></span></label>
+            <label class="choice-card"><input type="radio" name="status" value="shortened"><span><strong>Shortened</strong><small>Ended early</small></span></label>
+            <label class="choice-card"><input type="radio" name="status" value="skipped"><span><strong>Skipped</strong><small>No session activity</small></span></label>
+          </div>
+        </fieldset>
+
+        <div class="modal-form-grid">
+          <label>Fatigue
+            <select name="fatigue">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+          <label>Difficulty response
+            <select name="difficulty">
+              <option value="easy">Easy</option>
+              <option value="appropriate" selected>Appropriate</option>
+              <option value="too-hard">Too hard</option>
+            </select>
+          </label>
+          <label>Session duration
+            <input type="number" name="duration" min="0" max="60" value="25" required>
+            <span class="input-suffix">minutes</span>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="button button-ghost" id="modal-cancel" type="button">Cancel</button>
+          <button class="button button-primary" type="submit">Save Session</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
