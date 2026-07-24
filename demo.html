@@ -3,265 +3,1796 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Interactive Bazi product demonstration using fictional patient data.">
-  <title>Bazi Product Demo</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="demo.js" defer></script>
+  <meta name="description" content="A cinematic three-minute Bazi adaptive therapeutics product demonstration using fictional data.">
+  <meta name="theme-color" content="#02070d">
+  <title>Bazi — Cinematic Product Demo</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap");
+
+    :root {
+      --ink: #02070d;
+      --navy: #06131f;
+      --navy-2: #0a2132;
+      --paper: #f5f4ee;
+      --white: #ffffff;
+      --green: #58ec8c;
+      --green-2: #27b861;
+      --red: #ff695f;
+      --amber: #ffca66;
+      --cyan: #6ee7ff;
+      --muted: rgba(255,255,255,.55);
+      --line: rgba(255,255,255,.12);
+      --sans: "Inter", system-ui, sans-serif;
+      --serif: "Newsreader", Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--sans);
+    }
+
+    button { font: inherit; }
+
+    .demo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 680px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 72% 25%, rgba(88,236,140,.11), transparent 25%),
+        linear-gradient(145deg, #02070d 0%, #06131f 55%, #0a2132 100%);
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .11;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    }
+
+    #field {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+    }
+
+    .topbar {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 50;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 34px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(rgba(2,7,13,.68), transparent);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--green);
+      border-radius: 12px;
+      color: var(--green);
+      font-family: Georgia, serif;
+      font-size: 1.5rem;
+      box-shadow: 0 0 28px rgba(88,236,140,.08);
+    }
+
+    .top-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,.5);
+      font-size: .71rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+    }
+
+    .timeline {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 24px;
+      z-index: 80;
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-meta {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255,255,255,.42);
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .timeline-track {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .timeline-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(88,236,140,.45);
+    }
+
+    .controls {
+      position: absolute;
+      right: 34px;
+      bottom: 51px;
+      z-index: 90;
+      display: flex;
+      gap: 8px;
+    }
+
+    .control {
+      min-width: 42px;
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(2,7,13,.58);
+      color: rgba(255,255,255,.76);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    .control:hover {
+      border-color: rgba(88,236,140,.45);
+      color: var(--white);
+    }
+
+    .scene {
+      position: absolute;
+      inset: 76px 0 68px;
+      display: grid;
+      place-items: center;
+      padding: 34px;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.025);
+      transition: opacity 1.1s ease, transform 1.1s ease, visibility 0s linear 1.1s;
+      pointer-events: none;
+    }
+
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      transition-delay: 0s;
+      pointer-events: auto;
+    }
+
+    .scene-inner {
+      width: min(1240px, 100%);
+      margin: auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--green);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .cinematic-title {
+      max-width: 1080px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(4.2rem, 8.5vw, 9.5rem);
+      font-weight: 400;
+      line-height: .87;
+      letter-spacing: -.065em;
+    }
+
+    .cinematic-title em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .subcopy {
+      max-width: 650px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .centered .cinematic-title,
+    .centered .subcopy {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .start-button {
+      margin-top: 34px;
+      min-height: 50px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--ink);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 16px 60px rgba(88,236,140,.15);
+      transition: transform .2s ease;
+    }
+
+    .start-button:hover { transform: translateY(-2px); }
+
+    .intro-mark {
+      width: 150px;
+      height: 150px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 40px;
+      border: 1px solid rgba(88,236,140,.45);
+      border-radius: 50%;
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: 5rem;
+      box-shadow:
+        0 0 0 48px rgba(88,236,140,.025),
+        0 0 0 96px rgba(88,236,140,.015),
+        0 0 70px rgba(88,236,140,.12);
+      animation: breathe 3.6s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      50% { transform: scale(1.035); box-shadow: 0 0 0 58px rgba(88,236,140,.03), 0 0 0 112px rgba(88,236,140,.012), 0 0 90px rgba(88,236,140,.18); }
+    }
+
+    .patient-stage {
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .patient-profile {
+      position: relative;
+      min-height: 580px;
+      display: grid;
+      place-items: center;
+    }
+
+    .patient-orbit {
+      position: relative;
+      width: 390px;
+      height: 390px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+    }
+
+    .patient-orbit::before,
+    .patient-orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255,255,255,.075);
+      border-radius: 50%;
+    }
+
+    .patient-orbit::before { inset: -70px; }
+    .patient-orbit::after { inset: -132px; }
+
+    .patient-avatar {
+      width: 130px;
+      height: 130px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 3.2rem;
+      box-shadow: 0 0 70px rgba(88,236,140,.2);
+    }
+
+    .patient-label {
+      position: absolute;
+      min-width: 160px;
+      padding: 13px 15px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      background: rgba(2,7,13,.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .patient-label span {
+      display: block;
+      color: var(--green);
+      font-size: .57rem;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .patient-label strong {
+      display: block;
+      margin-top: 4px;
+      font-size: .82rem;
+    }
+
+    .pl-1 { top: 10px; left: -30px; }
+    .pl-2 { right: -46px; top: 130px; }
+    .pl-3 { left: -5px; bottom: 10px; }
+    .pl-4 { right: 12px; bottom: -22px; }
+
+    .patient-story h2 {
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(4rem, 7vw, 7.5rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .patient-story p {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .story-meta span {
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 999px;
+      color: rgba(255,255,255,.64);
+      font-size: .66rem;
+    }
+
+    .trajectory-stage {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .trajectory-copy h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 6vw, 6.8rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .trajectory-copy p {
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    .chart-shell {
+      position: relative;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 30px;
+      background: rgba(255,255,255,.025);
+      backdrop-filter: blur(16px);
+    }
+
+    .chart-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .chart-head small {
+      color: var(--green);
+      font-size: .61rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .chart-head strong {
+      display: block;
+      margin-top: 7px;
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+
+    .risk-chip {
+      align-self: start;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(255,105,95,.12);
+      color: var(--red);
+      font-size: .69rem;
+      font-weight: 700;
+    }
+
+    #trajectory-svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .session-node {
+      transform-origin: center;
+    }
+
+    .alert-copy {
+      position: absolute;
+      right: 34px;
+      bottom: 30px;
+      max-width: 260px;
+      padding: 15px;
+      border-left: 2px solid var(--red);
+      background: rgba(2,7,13,.72);
+      color: rgba(255,255,255,.67);
+      font-size: .75rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: .5s ease;
+    }
+
+    .scene.active .alert-copy.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .signal-stage {
+      position: relative;
+      height: min(690px, calc(100vh - 190px));
+      min-height: 520px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(88,236,140,.075), transparent 29%),
+        rgba(255,255,255,.018);
+    }
+
+    #signal-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .engine-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 250px;
+      height: 250px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(88,236,140,.38);
+      border-radius: 50%;
+      background: rgba(2,7,13,.78);
+      box-shadow: 0 0 100px rgba(88,236,140,.09);
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(12px);
+    }
+
+    .engine-core::before,
+    .engine-core::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(88,236,140,.1);
+      animation: spin 12s linear infinite;
+    }
+
+    .engine-core::before { inset: -44px; border-style: dashed; }
+    .engine-core::after { inset: -92px; animation-direction: reverse; animation-duration: 18s; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .engine-core strong {
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .engine-core span {
+      display: block;
+      color: rgba(255,255,255,.45);
+      font-size: .58rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .signal-card {
+      position: absolute;
+      width: 210px;
+      padding: 17px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(2,7,13,.76);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: .7s ease;
+    }
+
+    .signal-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .signal-card small {
+      color: rgba(255,255,255,.38);
+      font-size: .6rem;
+      letter-spacing: .12em;
+    }
+
+    .signal-card strong {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7px;
+      font-size: .9rem;
+    }
+
+    .signal-card b { color: var(--red); }
+
+    .sig-1 { top: 12%; left: 6%; }
+    .sig-2 { top: 12%; right: 6%; }
+    .sig-3 { bottom: 12%; left: 6%; }
+    .sig-4 { bottom: 12%; right: 6%; }
+
+    .engine-caption {
+      position: absolute;
+      left: 50%;
+      bottom: 34px;
+      color: rgba(255,255,255,.45);
+      font-size: .67rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+    }
+
+    .candidates {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    .candidate {
+      position: relative;
+      min-height: 250px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      background: rgba(255,255,255,.025);
+      transition: opacity .8s ease, transform .8s ease, border-color .8s ease, background .8s ease;
+    }
+
+    .candidate small {
+      color: rgba(255,255,255,.34);
+      font-size: .61rem;
+      letter-spacing: .13em;
+    }
+
+    .candidate h3 {
+      margin: 60px 0 12px;
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .candidate p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .candidate-state {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.46);
+      font-size: .59rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .candidate.eliminated {
+      opacity: .24;
+      transform: scale(.96);
+      border-color: rgba(255,105,95,.24);
+    }
+
+    .candidate.eliminated::after {
+      content: "";
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      top: 50%;
+      height: 1px;
+      background: var(--red);
+      transform: rotate(-12deg);
+    }
+
+    .candidate.leading {
+      border-color: rgba(88,236,140,.48);
+      background: rgba(88,236,140,.07);
+      box-shadow: inset 0 0 55px rgba(88,236,140,.035);
+    }
+
+    .candidate.leading .candidate-state {
+      background: rgba(88,236,140,.16);
+      color: var(--green);
+    }
+
+    .guardrail-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 25px auto 0;
+      color: rgba(255,255,255,.6);
+      font-size: .78rem;
+    }
+
+    .guardrail-banner b { color: var(--green); }
+
+    .recommendation-stage {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 68px;
+      align-items: center;
+    }
+
+    .decision-score {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(88,236,140,.34);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88,236,140,.09), transparent 65%);
+    }
+
+    .decision-score::before,
+    .decision-score::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .decision-score::before { inset: -55px; }
+    .decision-score::after { inset: -110px; }
+
+    .score-inner {
+      text-align: center;
+    }
+
+    .score-inner span {
+      color: rgba(255,255,255,.42);
+      font-size: .63rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .score-inner strong {
+      display: block;
+      margin: 8px 0;
+      color: var(--green);
+      font-family: var(--serif);
+      font-size: 6rem;
+      font-weight: 400;
+      line-height: .9;
+    }
+
+    .score-inner small { color: rgba(255,255,255,.45); }
+
+    .recommendation-copy h2 {
+      margin: 0 0 20px;
+      font-family: var(--serif);
+      font-size: clamp(3.8rem, 6.3vw, 7rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .recommendation-copy p {
+      max-width: 620px;
+      color: var(--muted);
+    }
+
+    .reason-list {
+      display: grid;
+      gap: 9px;
+      margin-top: 25px;
+    }
+
+    .reason {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.72);
+      font-size: .78rem;
+    }
+
+    .reason span { color: var(--green); }
+
+    .approval-stage {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .pause-copy h2 {
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(4rem, 7vw, 7.7rem);
+      font-weight: 400;
+      line-height: .88;
+      letter-spacing: -.06em;
+    }
+
+    .pause-copy p {
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .approval-panel {
+      padding: 34px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 28px;
+      background: rgba(255,255,255,.026);
+    }
+
+    .approval-panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+    }
+
+    .approval-panel-head span {
+      color: var(--green);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .approval-panel h3 {
+      margin: 32px 0 13px;
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .approval-panel p {
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    .approval-actions {
+      display: flex;
+      gap: 11px;
+      margin-top: 26px;
+    }
+
+    .approve-button,
+    .secondary-button {
+      min-height: 48px;
+      padding: 0 19px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .approve-button {
+      border: 0;
+      background: var(--green);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .secondary-button {
+      border: 1px solid rgba(255,255,255,.15);
+      background: transparent;
+      color: rgba(255,255,255,.65);
+    }
+
+    .approval-state {
+      display: none;
+      margin-top: 24px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(88,236,140,.1);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .approval-state.show { display: block; }
+
+    .recovery-stage {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .recovery-copy h2 {
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(3.8rem, 6.5vw, 7rem);
+      font-weight: 400;
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .recovery-copy p {
+      color: var(--muted);
+      max-width: 540px;
+    }
+
+    .plan-shift {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 22px;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .plan-block {
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+    }
+
+    .plan-block.adapted {
+      border-color: rgba(88,236,140,.38);
+      background: rgba(88,236,140,.06);
+    }
+
+    .plan-block small {
+      color: rgba(255,255,255,.38);
+      font-size: .59rem;
+      letter-spacing: .12em;
+    }
+
+    .plan-block strong {
+      display: block;
+      margin-top: 10px;
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+
+    .plan-arrow {
+      color: var(--green);
+      font-size: 1.8rem;
+    }
+
+    .recovery-chart {
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 28px;
+      background: rgba(255,255,255,.02);
+    }
+
+    #recovery-svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .final-scene {
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    .final-scene .eyebrow { color: rgba(2,7,13,.56); }
+
+    .final-scene .cinematic-title {
+      max-width: 1100px;
+      color: var(--ink);
+    }
+
+    .final-scene .subcopy { color: rgba(2,7,13,.62); }
+
+    .final-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 38px;
+      color: var(--ink);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .final-brand .brand-mark {
+      border-color: rgba(2,7,13,.35);
+      color: var(--ink);
+      box-shadow: none;
+    }
+
+    .caption {
+      position: absolute;
+      left: 50%;
+      bottom: 52px;
+      z-index: 75;
+      max-width: min(850px, calc(100% - 260px));
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(2,7,13,.66);
+      color: rgba(255,255,255,.83);
+      font-size: .84rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity .45s ease;
+      pointer-events: none;
+    }
+
+    .caption.show { opacity: 1; }
+
+    .final-scene ~ .caption {
+      color: var(--white);
+    }
+
+    .chapter {
+      position: absolute;
+      left: 34px;
+      bottom: 51px;
+      z-index: 80;
+      color: rgba(255,255,255,.42);
+      font-size: .67rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .patient-stage,
+      .trajectory-stage,
+      .recommendation-stage,
+      .approval-stage,
+      .recovery-stage {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .patient-profile { min-height: 340px; transform: scale(.72); }
+      .patient-story { text-align: center; }
+      .patient-story p { margin-left: auto; margin-right: auto; }
+      .story-meta { justify-content: center; }
+      .candidates { grid-template-columns: 1fr 1fr; }
+      .candidate { min-height: 190px; }
+      .candidate h3 { margin-top: 35px; }
+      .decision-score { width: 250px; height: 250px; margin: auto; }
+      .decision-score::before { inset: -30px; }
+      .decision-score::after { inset: -60px; }
+      .score-inner strong { font-size: 4rem; }
+      .recommendation-copy,
+      .pause-copy,
+      .recovery-copy { text-align: center; }
+      .recommendation-copy p,
+      .pause-copy p,
+      .recovery-copy p { margin-left: auto; margin-right: auto; }
+      .caption { max-width: calc(100% - 40px); bottom: 74px; }
+      .chapter, .controls { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .demo { min-height: 620px; }
+      .topbar { height: 64px; padding: 0 18px; }
+      .scene { inset: 64px 0 58px; padding: 18px; }
+      .cinematic-title { font-size: 3.7rem; }
+      .intro-mark { width: 100px; height: 100px; font-size: 3.5rem; }
+      .patient-profile { min-height: 270px; transform: scale(.58); }
+      .patient-story h2,
+      .trajectory-copy h2,
+      .recommendation-copy h2,
+      .pause-copy h2,
+      .recovery-copy h2 { font-size: 3.2rem; }
+      .chart-shell,
+      .approval-panel,
+      .recovery-chart { padding: 18px; }
+      .signal-stage { min-height: 480px; }
+      .signal-card { width: 145px; padding: 12px; }
+      .signal-card strong { font-size: .72rem; }
+      .engine-core { width: 155px; height: 155px; }
+      .engine-core::before { inset: -25px; }
+      .engine-core::after { inset: -50px; }
+      .engine-core strong { font-size: 2.8rem; }
+      .candidates { gap: 10px; }
+      .candidate { min-height: 165px; padding: 16px; }
+      .candidate h3 { font-size: 1.35rem; }
+      .candidate p { display: none; }
+      .plan-shift { grid-template-columns: 1fr; }
+      .plan-arrow { transform: rotate(90deg); text-align: center; }
+      .timeline { left: 18px; right: 18px; bottom: 14px; }
+      .caption { bottom: 54px; font-size: .72rem; }
+    }
+  </style>
 </head>
-<body class="demo-page">
-  <a class="skip-link" href="#demo-main">Skip to dashboard</a>
 
-  <div class="demo-shell">
-    <aside class="demo-sidebar">
-      <a class="brand demo-brand" href="index.html" aria-label="Bazi home">
-        <span class="brand-mark" aria-hidden="true">β</span>
-        <span class="brand-name">Bazi</span>
-      </a>
+<body>
+  <main class="demo" id="demo">
+    <canvas id="field" aria-hidden="true"></canvas>
+    <div class="noise"></div>
 
-      <nav class="demo-nav" aria-label="Demo navigation">
-        <a class="active" href="#dashboard"><span aria-hidden="true">◫</span> Dashboard</a>
-        <a href="#patient"><span aria-hidden="true">○</span> Patient</a>
-        <a href="#treatment-plan"><span aria-hidden="true">≡</span> Treatment Plan</a>
-        <a href="#activity-log"><span aria-hidden="true">↻</span> Model Activity</a>
-      </nav>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">β</span><span>Bazi</span></div>
+      <div class="top-status"><span class="live-dot"></span><span id="top-status">Cinematic demo ready</span></div>
+    </header>
 
-      <div class="sidebar-footer">
-        <span class="environment-badge"><span></span> Demo environment</span>
-        <a href="index.html">← Back to website</a>
+    <section class="scene active" data-scene="0">
+      <div class="scene-inner centered">
+        <div class="intro-mark">β</div>
+        <p class="eyebrow">Adaptive intelligence for digital therapeutics</p>
+        <h1 class="cinematic-title">People are not <em>static inputs.</em></h1>
+        <p class="subcopy">Experience how Bazi detects treatment friction, evaluates provider-approved responses and helps therapeutic software adapt.</p>
+        <button class="start-button" id="start-demo" type="button">Begin 3-Minute Demo</button>
       </div>
-    </aside>
+    </section>
 
-    <div class="demo-content">
-      <header class="demo-topbar">
-        <button class="demo-menu-toggle" type="button" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>☰
-        </button>
-        <div>
-          <p class="topbar-label">BAZI ADAPTIVE THERAPY CONSOLE</p>
-          <h1>Patient engagement dashboard</h1>
+    <section class="scene" data-scene="1">
+      <div class="scene-inner patient-stage">
+        <div class="patient-profile">
+          <div class="patient-orbit">
+            <div class="patient-avatar">MC</div>
+            <div class="patient-label pl-1"><span>Patient</span><strong>Maya Chen</strong></div>
+            <div class="patient-label pl-2"><span>Program</span><strong>Digital rehabilitation</strong></div>
+            <div class="patient-label pl-3"><span>Duration</span><strong>Week 3 of 8</strong></div>
+            <div class="patient-label pl-4"><span>Baseline</span><strong>82 engagement</strong></div>
+          </div>
         </div>
-        <span class="fictional-badge">Fictional demonstration data</span>
-      </header>
 
-      <main id="demo-main">
-        <section class="patient-summary" id="patient">
-          <div class="patient-identity">
-            <div class="patient-avatar" aria-hidden="true">MC</div>
-            <div>
-              <p class="small-label">PATIENT</p>
-              <h2>Maya Chen</h2>
-              <p>Post-stroke upper-limb rehabilitation</p>
-              <div class="patient-meta">
-                <span>Physical rehabilitation</span>
-                <span>Week 3 of 8</span>
-                <span>4 sessions per week</span>
-              </div>
-            </div>
-          </div>
-          <div class="dashboard-actions">
-            <button class="button button-secondary demo-button" id="simulate-button" type="button">Simulate Next Session</button>
-            <button class="button button-primary demo-button" id="run-bazi-button" type="button">Run Bazi</button>
-            <button class="button button-ghost demo-button" id="reset-button" type="button">Reset Demo</button>
-          </div>
-        </section>
-
-        <section class="metric-grid" aria-label="Patient metrics">
-          <article class="metric-card">
-            <div class="metric-topline"><span>Engagement score</span><span class="metric-trend" id="engagement-trend">Baseline</span></div>
-            <strong id="engagement-value">82</strong><span class="metric-unit">out of 100</span>
-            <div class="metric-progress"><span id="engagement-progress"></span></div>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-topline"><span>Disengagement risk</span><span class="risk-badge risk-low" id="risk-level-badge">Low</span></div>
-            <strong id="risk-value">18%</strong><span class="metric-unit">current estimate</span>
-            <div class="metric-progress risk-progress"><span id="risk-progress"></span></div>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-topline"><span>Completion rate</span><span class="metric-icon">✓</span></div>
-            <strong id="completion-value">75%</strong><span class="metric-unit">recent sessions</span>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-topline"><span>Average session</span><span class="metric-icon">◷</span></div>
-            <strong id="duration-value">17 min</strong><span class="metric-unit">recent sessions</span>
-          </article>
-        </section>
-
-        <section class="dashboard-grid" id="dashboard">
-          <article class="dashboard-panel chart-panel">
-            <div class="panel-heading">
-              <div><p class="small-label">ENGAGEMENT TRAJECTORY</p><h2>Patient engagement over time</h2></div>
-              <div class="chart-legend"><span><i class="legend-history"></i> Observed</span><span><i class="legend-projection"></i> Projected</span></div>
-            </div>
-            <div class="chart-container">
-              <svg id="engagement-chart" viewBox="0 0 820 340" role="img" aria-label="Patient engagement score over time"></svg>
-            </div>
-          </article>
-
-          <article class="dashboard-panel recommendation-panel">
-            <div class="panel-heading">
-              <div><p class="small-label">BAZI RECOMMENDATION</p><h2>Adaptive decision</h2></div>
-              <span class="recommendation-state" id="recommendation-state">Not run</span>
-            </div>
-
-            <div class="recommendation-empty" id="recommendation-empty">
-              <div class="recommendation-symbol">β</div>
-              <h3>Run Bazi to analyze engagement</h3>
-              <p>Bazi will evaluate recent behavior and recommend an action from the approved intervention set.</p>
-            </div>
-
-            <div class="analysis-state hidden" id="analysis-state" aria-live="polite">
-              <div class="analysis-spinner"></div>
-              <h3>Analyzing patient signals</h3>
-              <p id="analysis-step">Processing session history</p>
-              <div class="analysis-progress"><span id="analysis-progress-bar"></span></div>
-            </div>
-
-            <div class="recommendation-result hidden" id="recommendation-result">
-              <div class="recommendation-metrics">
-                <div><span>Risk score</span><strong id="result-risk">0%</strong></div>
-                <div><span>Risk level</span><strong id="result-level">Low</strong></div>
-                <div><span>Confidence</span><strong>86%</strong></div>
-              </div>
-
-              <div class="recommendation-summary">
-                <p class="small-label">PRIMARY REASON</p>
-                <h3 id="primary-reason">Behavioral change detected</h3>
-                <p id="recommendation-explanation"></p>
-              </div>
-
-              <div class="signal-list">
-                <p class="small-label">CONTRIBUTING SIGNALS</p>
-                <ul id="signal-list"></ul>
-              </div>
-
-              <div class="recommended-actions">
-                <p class="small-label">RECOMMENDED CHANGES</p>
-                <ul id="recommended-actions-list"></ul>
-              </div>
-
-              <div class="recommendation-buttons">
-                <button class="button button-primary" id="apply-button" type="button">Apply Adaptation</button>
-                <button class="button button-ghost" id="dismiss-button" type="button">Dismiss</button>
-              </div>
-            </div>
-          </article>
-
-          <article class="dashboard-panel sessions-panel">
-            <div class="panel-heading"><div><p class="small-label">RECENT SESSIONS</p><h2>Behavior signals</h2></div></div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Session</th><th>Status</th><th>Duration</th><th>Fatigue</th><th>Engagement</th></tr></thead>
-                <tbody id="sessions-table-body"></tbody>
-              </table>
-            </div>
-          </article>
-
-          <article class="dashboard-panel plan-panel" id="treatment-plan">
-            <div class="panel-heading">
-              <div><p class="small-label">CURRENT TREATMENT PLAN</p><h2 id="plan-title">Standard rehabilitation plan</h2></div>
-              <span class="plan-status" id="plan-status">Active</span>
-            </div>
-
-            <dl class="plan-list">
-              <div><dt>Session duration</dt><dd id="plan-duration">25 minutes</dd></div>
-              <div><dt>Difficulty</dt><dd id="plan-difficulty">Moderate</dd></div>
-              <div><dt>Frequency</dt><dd id="plan-frequency">4 sessions per week</dd></div>
-              <div><dt>Reminder</dt><dd id="plan-reminder">8:00 AM</dd></div>
-              <div><dt>Progression</dt><dd id="plan-progression">Standard progression</dd></div>
-              <div><dt>Escalation</dt><dd id="plan-escalation">No escalation rule</dd></div>
-            </dl>
-
-            <div class="plan-comparison hidden" id="plan-comparison">
-              <p class="small-label">BEFORE AND AFTER</p>
-              <div class="comparison-grid">
-                <div>
-                  <h3>Previous plan</h3>
-                  <ul>
-                    <li>25-minute sessions</li>
-                    <li>Moderate difficulty</li>
-                    <li>8:00 AM reminder</li>
-                    <li>Standard progression</li>
-                    <li>No escalation rule</li>
-                  </ul>
-                </div>
-                <div class="adapted-plan">
-                  <h3>Adapted plan</h3>
-                  <ul>
-                    <li>15-minute sessions</li>
-                    <li>Low-Moderate difficulty</li>
-                    <li>6:30 PM reminder</li>
-                    <li>Slower progression for three sessions</li>
-                    <li>Clinician check-in after another missed session</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <article class="dashboard-panel activity-panel" id="activity-log">
-            <div class="panel-heading"><div><p class="small-label">MODEL ACTIVITY</p><h2>Decision log</h2></div></div>
-            <ol class="activity-list" id="activity-list"></ol>
-          </article>
-        </section>
-
-        <section class="demo-disclaimer">
-          <strong>Demonstration only.</strong>
-          This prototype uses fictional data and demonstration logic. It is not a clinical decision-support system and is not intended for patient care.
-        </section>
-      </main>
-    </div>
-  </div>
-
-  <div class="modal-backdrop hidden" id="session-modal" role="dialog" aria-modal="true" aria-labelledby="session-modal-title">
-    <div class="modal">
-      <div class="modal-header">
-        <div><p class="small-label">SESSION SIMULATOR</p><h2 id="session-modal-title">Simulate next therapy session</h2></div>
-        <button class="modal-close" id="modal-close" type="button" aria-label="Close">×</button>
+        <div class="patient-story">
+          <p class="eyebrow">A fictional patient journey</p>
+          <h2>Meet Maya.</h2>
+          <p>Maya is recovering from a stroke using an eight-week digital upper-limb rehabilitation program. Her first sessions are completed consistently and on time.</p>
+          <div class="story-meta"><span>4 sessions / week</span><span>25 minutes</span><span>Moderate difficulty</span></div>
+        </div>
       </div>
+    </section>
 
-      <form id="session-form">
-        <fieldset>
-          <legend>Session outcome</legend>
-          <div class="radio-grid">
-            <label class="choice-card"><input type="radio" name="status" value="completed" checked><span><strong>Completed normally</strong><small>Full session completed</small></span></label>
-            <label class="choice-card"><input type="radio" name="status" value="late"><span><strong>Completed late</strong><small>Started after reminder</small></span></label>
-            <label class="choice-card"><input type="radio" name="status" value="shortened"><span><strong>Shortened</strong><small>Ended early</small></span></label>
-            <label class="choice-card"><input type="radio" name="status" value="skipped"><span><strong>Skipped</strong><small>No session activity</small></span></label>
+    <section class="scene" data-scene="2">
+      <div class="scene-inner trajectory-stage">
+        <div class="trajectory-copy">
+          <p class="eyebrow">The pattern changes</p>
+          <h2>One event means little. A trajectory means more.</h2>
+          <p>A late session becomes a shortened session. Fatigue rises. Then Maya misses treatment entirely.</p>
+        </div>
+
+        <div class="chart-shell">
+          <div class="chart-head">
+            <div><small>ENGAGEMENT TRAJECTORY</small><strong>Maya’s recent sessions</strong></div>
+            <span class="risk-chip" id="trajectory-risk">Risk emerging</span>
           </div>
-        </fieldset>
+          <svg id="trajectory-svg" viewBox="0 0 760 380" role="img" aria-label="Maya's engagement falls from 84 to 45 across four sessions"></svg>
+          <div class="alert-copy" id="trajectory-alert">Completion, session duration and fatigue have shifted together across multiple sessions.</div>
+        </div>
+      </div>
+    </section>
 
-        <div class="modal-form-grid">
-          <label>Fatigue
-            <select name="fatigue">
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-          </label>
-          <label>Difficulty response
-            <select name="difficulty">
-              <option value="easy">Easy</option>
-              <option value="appropriate" selected>Appropriate</option>
-              <option value="too-hard">Too hard</option>
-            </select>
-          </label>
-          <label>Session duration
-            <input type="number" name="duration" min="0" max="60" value="25" required>
-            <span class="input-suffix">minutes</span>
-          </label>
+    <section class="scene" data-scene="3">
+      <div class="scene-inner">
+        <p class="eyebrow centered">Bazi observes and interprets</p>
+        <div class="signal-stage">
+          <canvas id="signal-canvas" aria-hidden="true"></canvas>
+          <div class="engine-core"><div><strong>β</strong><span>Adaptive<br>decision engine</span></div></div>
+          <div class="signal-card sig-1"><small>SIGNAL 01</small><strong>Completion <b>↓ 21%</b></strong></div>
+          <div class="signal-card sig-2"><small>SIGNAL 02</small><strong>Session delay <b>↑ 23h</b></strong></div>
+          <div class="signal-card sig-3"><small>SIGNAL 03</small><strong>Fatigue <b>High</b></strong></div>
+          <div class="signal-card sig-4"><small>SIGNAL 04</small><strong>Difficulty <b>Too hard</b></strong></div>
+          <span class="engine-caption" id="engine-caption">Waiting for patient signals</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="4">
+      <div class="scene-inner">
+        <div class="centered">
+          <p class="eyebrow">Evaluate approved interventions</p>
+          <h2 class="cinematic-title" style="font-size:clamp(3.5rem,6vw,6.7rem)">Not every possible action is an appropriate action.</h2>
         </div>
 
-        <div class="modal-actions">
-          <button class="button button-ghost" id="modal-cancel" type="button">Cancel</button>
-          <button class="button button-primary" type="submit">Save Session</button>
+        <div class="candidates">
+          <article class="candidate" data-candidate="0">
+            <span class="candidate-state">Evaluating</span><small>OPTION 01</small>
+            <h3>Send another reminder</h3><p>Low burden, but unlikely to address rising fatigue and treatment difficulty.</p>
+          </article>
+          <article class="candidate" data-candidate="1">
+            <span class="candidate-state">Evaluating</span><small>OPTION 02</small>
+            <h3>Reduce session duration</h3><p>Provider-approved, reversible and directly responsive to current treatment friction.</p>
+          </article>
+          <article class="candidate" data-candidate="2">
+            <span class="candidate-state">Evaluating</span><small>OPTION 03</small>
+            <h3>Lower difficulty</h3><p>Available only after a configured clinical threshold is reached.</p>
+          </article>
+          <article class="candidate" data-candidate="3">
+            <span class="candidate-state">Evaluating</span><small>OPTION 04</small>
+            <h3>Escalate immediately</h3><p>Not supported by the available fictional evidence.</p>
+          </article>
         </div>
-      </form>
+
+        <div class="guardrail-banner"><b>GUARDRAILS ACTIVE</b><span>Only configured, proportionate responses may advance.</span></div>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="5">
+      <div class="scene-inner recommendation-stage">
+        <div class="decision-score">
+          <div class="score-inner">
+            <span>Disengagement risk</span>
+            <strong id="risk-count">0%</strong>
+            <small>Moderate and rising</small>
+          </div>
+        </div>
+
+        <div class="recommendation-copy">
+          <p class="eyebrow">Bounded recommendation</p>
+          <h2>Reduce session duration for the next two sessions.</h2>
+          <p>Bazi selects a provider-approved, reversible action that addresses treatment burden without independently changing diagnosis or prescription.</p>
+
+          <div class="reason-list">
+            <div class="reason"><strong>Sustained engagement decline</strong><span>Detected</span></div>
+            <div class="reason"><strong>Increased fatigue</strong><span>Detected</span></div>
+            <div class="reason"><strong>Action inside configured boundaries</strong><span>Confirmed</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="6">
+      <div class="scene-inner approval-stage">
+        <div class="pause-copy">
+          <p class="eyebrow">The system pauses</p>
+          <h2>Intelligence does not remove responsibility.</h2>
+          <p>The recommendation remains visible to the authorized care team. Bazi does not independently prescribe or apply the treatment change.</p>
+        </div>
+
+        <div class="approval-panel">
+          <div class="approval-panel-head"><span>PROVIDER REVIEW REQUIRED</span><small>Fictional demonstration</small></div>
+          <h3>Shorten the next two sessions from 25 to 15 minutes.</h3>
+          <p>Rationale: sustained decline in completion and duration combined with increased fatigue and reported difficulty.</p>
+
+          <div class="approval-actions">
+            <button class="approve-button" id="approve-button" type="button">Approve Adaptation</button>
+            <button class="secondary-button" type="button">Request Review</button>
+          </div>
+
+          <div class="approval-state" id="approval-state">✓ Approved by fictional provider · Change logged</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" data-scene="7">
+      <div class="scene-inner recovery-stage">
+        <div class="recovery-copy">
+          <p class="eyebrow">Treatment responds</p>
+          <h2>The intervention changes. The therapeutic goal does not.</h2>
+          <p>The updated plan reduces near-term treatment burden while monitoring whether meaningful engagement begins to recover.</p>
+
+          <div class="plan-shift">
+            <div class="plan-block"><small>PREVIOUS PLAN</small><strong>25 minutes</strong></div>
+            <div class="plan-arrow">→</div>
+            <div class="plan-block adapted"><small>ADAPTED PLAN</small><strong>15 minutes</strong></div>
+          </div>
+        </div>
+
+        <div class="recovery-chart">
+          <div class="chart-head">
+            <div><small>PROJECTED TRAJECTORY</small><strong>The future bends upward</strong></div>
+            <span class="risk-chip" style="background:rgba(88,236,140,.11);color:var(--green)">Monitoring</span>
+          </div>
+          <svg id="recovery-svg" viewBox="0 0 760 400" role="img" aria-label="Observed engagement decline followed by projected recovery after adaptation"></svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene final-scene" data-scene="8">
+      <div class="scene-inner centered">
+        <p class="eyebrow">The adaptive layer for software-based medicine</p>
+        <h2 class="cinematic-title">Software learned to treat.<br>Now it can learn when treatment needs to <em style="color:inherit">respond.</em></h2>
+        <p class="subcopy">Bazi helps digital therapeutics recognize developing disengagement and recommend a provider-approved next action.</p>
+        <div class="final-brand"><span class="brand-mark">β</span><span>Bazi</span></div>
+      </div>
+    </section>
+
+    <div class="caption" id="caption" aria-live="polite"></div>
+    <div class="chapter" id="chapter">00 · Opening</div>
+
+    <div class="controls">
+      <button class="control" id="restart" type="button" title="Restart">↺</button>
+      <button class="control" id="play-pause" type="button" title="Play or pause">▶</button>
+      <button class="control" id="skip" type="button" title="Next scene">→</button>
     </div>
-  </div>
 
-  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+    <div class="timeline">
+      <div class="timeline-meta"><span id="time-current">00:00</span><span>03:00</span></div>
+      <div class="timeline-track" id="timeline-track"><div class="timeline-fill" id="timeline-fill"></div></div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const TOTAL = 180;
+      const scenes = [
+        { start: 0,   end: 12,  chapter: "00 · Opening",     status: "Cinematic demo ready", caption: "" },
+        { start: 12,  end: 31,  chapter: "01 · Patient",     status: "Loading fictional patient journey", caption: "Maya begins an eight-week digital rehabilitation program with strong engagement." },
+        { start: 31,  end: 55,  chapter: "02 · Change",      status: "Observing treatment trajectory", caption: "A late session becomes a shortened session. Fatigue rises. Then treatment stops." },
+        { start: 55,  end: 82,  chapter: "03 · Interpret",   status: "Behavioral signals entering Bazi", caption: "Bazi interprets multiple behavioral signals together rather than treating one missed session as proof." },
+        { start: 82,  end: 108, chapter: "04 · Guardrail",   status: "Evaluating approved interventions", caption: "Candidate actions are tested against provider-defined boundaries and proportionality constraints." },
+        { start: 108, end: 130, chapter: "05 · Recommend",   status: "Bounded recommendation formed", caption: "The selected response is provider-approved, reversible and proportionate to the available evidence." },
+        { start: 130, end: 151, chapter: "06 · Oversight",   status: "Waiting for authorized approval", caption: "Bazi pauses. The care team remains responsible for approving the treatment adaptation." },
+        { start: 151, end: 170, chapter: "07 · Monitor",     status: "Adapted trajectory monitoring", caption: "The therapeutic experience changes while the underlying clinical goal remains intact." },
+        { start: 170, end: 180, chapter: "08 · Bazi",        status: "Demo complete", caption: "" }
+      ];
+
+      const captions = {
+        1: "Maya begins an eight-week digital rehabilitation program with strong engagement.",
+        2: "A late session becomes a shortened session. Fatigue rises. Then treatment stops.",
+        3: "Bazi interprets multiple behavioral signals together rather than treating one missed session as proof.",
+        4: "Candidate actions are tested against provider-defined boundaries and proportionality constraints.",
+        5: "The selected response is provider-approved, reversible and proportionate to the available evidence.",
+        6: "Bazi pauses. The care team remains responsible for approving the treatment adaptation.",
+        7: "The therapeutic experience changes while the underlying clinical goal remains intact."
+      };
+
+      const sceneEls = [...document.querySelectorAll(".scene")];
+      const startButton = document.getElementById("start-demo");
+      const playPause = document.getElementById("play-pause");
+      const restart = document.getElementById("restart");
+      const skip = document.getElementById("skip");
+      const timelineFill = document.getElementById("timeline-fill");
+      const timelineTrack = document.getElementById("timeline-track");
+      const timeCurrent = document.getElementById("time-current");
+      const chapter = document.getElementById("chapter");
+      const topStatus = document.getElementById("top-status");
+      const caption = document.getElementById("caption");
+      const approveButton = document.getElementById("approve-button");
+      const approvalState = document.getElementById("approval-state");
+
+      let currentTime = 0;
+      let playing = false;
+      let lastFrame = 0;
+      let currentScene = 0;
+      let sceneToken = 0;
+
+      const format = value => {
+        const minutes = Math.floor(value / 60);
+        const seconds = Math.floor(value % 60);
+        return `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+      };
+
+      function clearSceneEffects() {
+        document.getElementById("trajectory-alert").classList.remove("show");
+        document.querySelectorAll(".signal-card").forEach(el => el.classList.remove("show"));
+        document.querySelectorAll(".candidate").forEach(el => {
+          el.classList.remove("eliminated", "leading");
+          el.querySelector(".candidate-state").textContent = "Evaluating";
+        });
+        approvalState.classList.remove("show");
+        approveButton.disabled = false;
+        approveButton.textContent = "Approve Adaptation";
+      }
+
+      function delayed(fn, ms, token = sceneToken) {
+        setTimeout(() => {
+          if (token === sceneToken) fn();
+        }, ms);
+      }
+
+      function enterScene(index) {
+        sceneToken += 1;
+        clearSceneEffects();
+        currentScene = index;
+
+        sceneEls.forEach((scene, i) => scene.classList.toggle("active", i === index));
+        chapter.textContent = scenes[index].chapter;
+        topStatus.textContent = scenes[index].status;
+
+        const text = captions[index] || "";
+        caption.textContent = text;
+        caption.classList.toggle("show", Boolean(text));
+
+        if (index === 2) animateTrajectory();
+        if (index === 3) animateSignals();
+        if (index === 4) animateCandidates();
+        if (index === 5) animateRisk();
+        if (index === 6) {
+          delayed(() => {
+            if (playing) approveAdaptation();
+          }, 12500);
+        }
+        if (index === 7) animateRecovery();
+      }
+
+      function sceneForTime(time) {
+        return scenes.findIndex(scene => time >= scene.start && time < scene.end);
+      }
+
+      function updateByTime() {
+        const nextScene = currentTime >= TOTAL ? scenes.length - 1 : Math.max(0, sceneForTime(currentTime));
+        if (nextScene !== currentScene) enterScene(nextScene);
+
+        timelineFill.style.width = `${(currentTime / TOTAL) * 100}%`;
+        timeCurrent.textContent = format(currentTime);
+
+        if (currentTime >= TOTAL) {
+          currentTime = TOTAL;
+          playing = false;
+          playPause.textContent = "↺";
+          topStatus.textContent = "Demo complete";
+        }
+      }
+
+      function tick(timestamp) {
+        if (!lastFrame) lastFrame = timestamp;
+        const delta = (timestamp - lastFrame) / 1000;
+        lastFrame = timestamp;
+
+        if (playing) {
+          currentTime = Math.min(TOTAL, currentTime + delta);
+          updateByTime();
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      function play() {
+        if (currentTime >= TOTAL) {
+          currentTime = 0;
+          enterScene(0);
+        }
+        playing = true;
+        playPause.textContent = "Ⅱ";
+      }
+
+      function pause() {
+        playing = false;
+        playPause.textContent = "▶";
+      }
+
+      function restartDemo() {
+        pause();
+        currentTime = 0;
+        enterScene(0);
+        updateByTime();
+      }
+
+      function nextScene() {
+        const next = Math.min(scenes.length - 1, currentScene + 1);
+        currentTime = scenes[next].start + .02;
+        enterScene(next);
+        updateByTime();
+      }
+
+      startButton.addEventListener("click", () => {
+        currentTime = scenes[1].start;
+        enterScene(1);
+        play();
+      });
+
+      playPause.addEventListener("click", () => {
+        if (currentTime >= TOTAL) restartDemo();
+        else if (playing) pause();
+        else play();
+      });
+
+      restart.addEventListener("click", restartDemo);
+      skip.addEventListener("click", nextScene);
+
+      timelineTrack.addEventListener("click", event => {
+        const rect = timelineTrack.getBoundingClientRect();
+        currentTime = Math.max(0, Math.min(TOTAL, ((event.clientX - rect.left) / rect.width) * TOTAL));
+        const index = currentTime >= TOTAL ? scenes.length - 1 : Math.max(0, sceneForTime(currentTime));
+        enterScene(index);
+        updateByTime();
+      });
+
+      function approveAdaptation() {
+        if (approvalState.classList.contains("show")) return;
+        approvalState.classList.add("show");
+        approveButton.disabled = true;
+        approveButton.textContent = "Approved";
+      }
+
+      approveButton.addEventListener("click", approveAdaptation);
+
+      function svg(tag, attrs = {}) {
+        const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+        Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+        return node;
+      }
+
+      function animateTrajectory() {
+        const chart = document.getElementById("trajectory-svg");
+        chart.innerHTML = "";
+
+        const values = [84, 78, 63, 45];
+        const statuses = ["Completed", "Late", "Shortened", "Skipped"];
+        const x = i => 70 + i * 205;
+        const y = v => 310 - v * 2.55;
+
+        [25, 50, 75, 100].forEach(tick => {
+          chart.appendChild(svg("line", {
+            x1: 55, y1: y(tick), x2: 710, y2: y(tick),
+            stroke: "rgba(255,255,255,.08)"
+          }));
+          const label = svg("text", {
+            x: 42, y: y(tick) + 4,
+            fill: "rgba(255,255,255,.3)",
+            "font-size": "12", "text-anchor": "end"
+          });
+          label.textContent = tick;
+          chart.appendChild(label);
+        });
+
+        const path = svg("path", {
+          d: values.map((v, i) => `${i ? "L" : "M"} ${x(i)} ${y(v)}`).join(" "),
+          fill: "none", stroke: "#ffffff", "stroke-width": "4",
+          "stroke-linecap": "round", "stroke-linejoin": "round",
+          "stroke-dasharray": "900", "stroke-dashoffset": "900"
+        });
+        path.style.transition = "stroke-dashoffset 5s cubic-bezier(.2,.7,.2,1)";
+        chart.appendChild(path);
+
+        const token = sceneToken;
+        delayed(() => path.setAttribute("stroke-dashoffset", "0"), 350, token);
+
+        values.forEach((value, i) => {
+          const node = svg("circle", {
+            cx: x(i), cy: y(value), r: "0",
+            fill: i === 3 ? "#ff695f" : "#58ec8c",
+            class: "session-node"
+          });
+          node.style.transition = "r .5s ease";
+          chart.appendChild(node);
+
+          const valueText = svg("text", {
+            x: x(i), y: y(value) - 18,
+            fill: "#ffffff", "font-size": "14", "text-anchor": "middle",
+            opacity: "0"
+          });
+          valueText.textContent = value;
+          valueText.style.transition = "opacity .45s ease";
+          chart.appendChild(valueText);
+
+          const status = svg("text", {
+            x: x(i), y: 350,
+            fill: i === 3 ? "#ff695f" : "rgba(255,255,255,.48)",
+            "font-size": "12", "text-anchor": "middle",
+            opacity: "0"
+          });
+          status.textContent = statuses[i];
+          status.style.transition = "opacity .45s ease";
+          chart.appendChild(status);
+
+          delayed(() => {
+            node.setAttribute("r", i === 3 ? "9" : "7");
+            valueText.setAttribute("opacity", "1");
+            status.setAttribute("opacity", "1");
+          }, 1100 + i * 1150, token);
+        });
+
+        delayed(() => document.getElementById("trajectory-alert").classList.add("show"), 6000, token);
+      }
+
+      let signalParticles = [];
+      let signalAnimationStarted = false;
+
+      function sizeSignalCanvas() {
+        const canvas = document.getElementById("signal-canvas");
+        const stage = canvas.parentElement;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = stage.clientWidth * ratio;
+        canvas.height = stage.clientHeight * ratio;
+        canvas.style.width = `${stage.clientWidth}px`;
+        canvas.style.height = `${stage.clientHeight}px`;
+        const ctx = canvas.getContext("2d");
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      }
+
+      function createSignalParticles() {
+        const canvas = document.getElementById("signal-canvas");
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        const center = { x: w / 2, y: h / 2 };
+        const starts = [
+          { x: w * .19, y: h * .23 },
+          { x: w * .81, y: h * .23 },
+          { x: w * .19, y: h * .77 },
+          { x: w * .81, y: h * .77 }
+        ];
+
+        signalParticles = Array.from({ length: 92 }, (_, i) => {
+          const start = starts[i % starts.length];
+          return {
+            x: start.x + (Math.random() - .5) * 100,
+            y: start.y + (Math.random() - .5) * 70,
+            sx: start.x,
+            sy: start.y,
+            targetX: center.x + (Math.random() - .5) * 48,
+            targetY: center.y + (Math.random() - .5) * 48,
+            progress: Math.random() * -.8,
+            speed: .0026 + Math.random() * .0022,
+            size: .7 + Math.random() * 1.8,
+            alpha: .1 + Math.random() * .5
+          };
+        });
+      }
+
+      function drawSignalParticles() {
+        const canvas = document.getElementById("signal-canvas");
+        const ctx = canvas.getContext("2d");
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        signalParticles.forEach(p => {
+          if (currentScene === 3 && playing) p.progress += p.speed * 16;
+          if (p.progress > 1.25) p.progress = -.25;
+
+          const t = Math.max(0, Math.min(1, p.progress));
+          const eased = t * t * (3 - 2 * t);
+          p.x = p.sx + (p.targetX - p.sx) * eased;
+          p.y = p.sy + (p.targetY - p.sy) * eased + Math.sin(t * Math.PI * 4) * 12;
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(88,236,140,${p.alpha * Math.max(.1, 1 - t * .45)})`;
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        requestAnimationFrame(drawSignalParticles);
+      }
+
+      function animateSignals() {
+        sizeSignalCanvas();
+        createSignalParticles();
+        const token = sceneToken;
+        document.querySelectorAll(".signal-card").forEach((card, i) => {
+          delayed(() => card.classList.add("show"), 500 + i * 900, token);
+        });
+        delayed(() => document.getElementById("engine-caption").textContent = "Interpreting sustained behavioral change", 4300, token);
+
+        if (!signalAnimationStarted) {
+          signalAnimationStarted = true;
+          drawSignalParticles();
+        }
+      }
+
+      function animateCandidates() {
+        const cards = [...document.querySelectorAll(".candidate")];
+        const token = sceneToken;
+
+        cards.forEach((card, i) => {
+          delayed(() => {
+            card.querySelector(".candidate-state").textContent = "Scoring";
+          }, 600 + i * 450, token);
+        });
+
+        delayed(() => {
+          cards[0].classList.add("eliminated");
+          cards[0].querySelector(".candidate-state").textContent = "Insufficient";
+        }, 4700, token);
+
+        delayed(() => {
+          cards[3].classList.add("eliminated");
+          cards[3].querySelector(".candidate-state").textContent = "Unsupported";
+        }, 6500, token);
+
+        delayed(() => {
+          cards[2].classList.add("eliminated");
+          cards[2].querySelector(".candidate-state").textContent = "Threshold unmet";
+        }, 8500, token);
+
+        delayed(() => {
+          cards[1].classList.add("leading");
+          cards[1].querySelector(".candidate-state").textContent = "Selected";
+        }, 10400, token);
+      }
+
+      function animateRisk() {
+        const el = document.getElementById("risk-count");
+        const token = sceneToken;
+        let value = 0;
+        const timer = setInterval(() => {
+          if (token !== sceneToken) {
+            clearInterval(timer);
+            return;
+          }
+          value += 2;
+          if (value >= 72) {
+            value = 72;
+            clearInterval(timer);
+          }
+          el.textContent = `${value}%`;
+        }, 45);
+      }
+
+      function renderRecoveryChart() {
+        const chart = document.getElementById("recovery-svg");
+        chart.innerHTML = "";
+
+        const observed = [84, 78, 63, 45];
+        const projected = [45, 57, 69, 78];
+        const x = i => 65 + i * 95;
+        const y = v => 330 - v * 2.65;
+
+        [25, 50, 75, 100].forEach(tick => {
+          chart.appendChild(svg("line", {
+            x1: 50, y1: y(tick), x2: 710, y2: y(tick),
+            stroke: "rgba(255,255,255,.08)"
+          }));
+        });
+
+        const observedPath = svg("path", {
+          d: observed.map((v, i) => `${i ? "L" : "M"} ${x(i)} ${y(v)}`).join(" "),
+          fill: "none", stroke: "#ffffff", "stroke-width": "4",
+          "stroke-linecap": "round", "stroke-linejoin": "round"
+        });
+        chart.appendChild(observedPath);
+
+        const projectedPath = svg("path", {
+          d: projected.map((v, i) => `${i ? "L" : "M"} ${x(i + 3)} ${y(v)}`).join(" "),
+          fill: "none", stroke: "#58ec8c", "stroke-width": "4",
+          "stroke-linecap": "round", "stroke-linejoin": "round",
+          "stroke-dasharray": "10 10"
+        });
+        projectedPath.style.strokeDasharray = "900";
+        projectedPath.style.strokeDashoffset = "900";
+        projectedPath.style.transition = "stroke-dashoffset 5s cubic-bezier(.2,.7,.2,1)";
+        chart.appendChild(projectedPath);
+
+        const markerX = x(3);
+        chart.appendChild(svg("line", {
+          x1: markerX, y1: 40, x2: markerX, y2: 340,
+          stroke: "#58ec8c", "stroke-width": "2", "stroke-dasharray": "5 8"
+        }));
+
+        const markerLabel = svg("text", {
+          x: markerX + 9, y: 58,
+          fill: "#58ec8c", "font-size": "12"
+        });
+        markerLabel.textContent = "Provider-approved adaptation";
+        chart.appendChild(markerLabel);
+
+        const token = sceneToken;
+        delayed(() => projectedPath.style.strokeDashoffset = "0", 600, token);
+
+        projected.slice(1).forEach((v, i) => {
+          const circle = svg("circle", {
+            cx: x(i + 4), cy: y(v), r: "0",
+            fill: "#06131f", stroke: "#58ec8c", "stroke-width": "3"
+          });
+          circle.style.transition = "r .5s ease";
+          chart.appendChild(circle);
+          delayed(() => circle.setAttribute("r", "7"), 1500 + i * 1000, token);
+        });
+      }
+
+      function animateRecovery() {
+        renderRecoveryChart();
+      }
+
+      const field = document.getElementById("field");
+      const fctx = field.getContext("2d");
+      let particles = [];
+
+      function sizeField() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        field.width = innerWidth * ratio;
+        field.height = innerHeight * ratio;
+        field.style.width = `${innerWidth}px`;
+        field.style.height = `${innerHeight}px`;
+        fctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        particles = Array.from({ length: Math.min(130, Math.floor(innerWidth / 9)) }, () => ({
+          x: Math.random() * innerWidth,
+          y: Math.random() * innerHeight,
+          speed: .1 + Math.random() * .4,
+          phase: Math.random() * Math.PI * 2,
+          radius: .5 + Math.random() * 1.5,
+          alpha: .04 + Math.random() * .18
+        }));
+      }
+
+      function drawField(time = 0) {
+        fctx.clearRect(0, 0, innerWidth, innerHeight);
+        if (currentScene !== 8) {
+          particles.forEach(p => {
+            p.x += p.speed;
+            p.y += Math.sin(p.x * .007 + p.phase + time * .0003) * .08;
+            if (p.x > innerWidth + 8) p.x = -8;
+            fctx.beginPath();
+            fctx.fillStyle = `rgba(88,236,140,${p.alpha})`;
+            fctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            fctx.fill();
+          });
+        }
+        requestAnimationFrame(drawField);
+      }
+
+      window.addEventListener("resize", () => {
+        sizeField();
+        if (currentScene === 3) {
+          sizeSignalCanvas();
+          createSignalParticles();
+        }
+      });
+
+      sizeField();
+      drawField();
+      enterScene(0);
+      updateByTime();
+      requestAnimationFrame(tick);
+    })();
+  </script>
 </body>
 </html>
