@@ -58,7 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectedAction = document.getElementById(
     "adaptive-selected-action"
   );
-
+const cohortInsight = document.getElementById(
+  "adaptive-cohort-insight"
+);
   const progressSteps = Array.from(
     document.querySelectorAll("[data-cycle-step]")
   );
