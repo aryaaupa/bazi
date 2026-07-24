@@ -1,1 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Learn how Bazi could help digital therapeutics respond to changing patient needs while remaining within provider-defined boundaries."
+  >
+
+  <title>Bazi for Individuals | Adaptive Digital Therapeutics</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="site-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- =====================================================
+       Navigation
+       ===================================================== -->
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <button
+        class="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="primary-nav"
+        class="primary-nav"
+        aria-label="Primary navigation"
+      >
+        <a href="index.html#for-companies">For Companies</a>
+        <a href="individuals.html" aria-current="page">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="index.html#research">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Demo</a>
+
+        <a
+          class="button button-small button-outline"
+          href="#early-access"
+        >
+          Join Early Access
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            BAZI FOR INDIVIDUALS
+          </p>
+
+          <h1>
+            Treatment software should respond when your needs change.
+          </h1>
+
+          <p class="hero-description">
+            Bazi is developing technology that helps digital therapeutic
+            products recognize when someone may be struggling to continue
+            and select an appropriate response from actions approved by
+            the treatment provider.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#how-it-works">
+              See How It Works
+            </a>
+
+            <a class="button button-secondary" href="#early-access">
+              Join Early Access
+            </a>
+          </div>
+
+          <p class="hero-note">
+            Bazi is not a healthcare provider. It does not diagnose,
+            prescribe or independently modify medical treatment.
+          </p>
+        </div>
+
+        <div
+          class="hero-visual"
+          aria-label="Adaptive treatment experience"
+        >
+          <div class="signal-panel">
+            <div class="panel-topline">
+              <span>Treatment experience</span>
+              <span class="status-pill">Provider-bounded</span>
+            </div>
+
+            <svg
+              class="hero-chart"
+              viewBox="0 0 560 260"
+              role="img"
+              aria-label="A treatment experience adapts after signs of difficulty"
+            >
+              <line
+                x1="42"
+                y1="220"
+                x2="530"
+                y2="220"
+                class="chart-axis"
+              />
+
+              <line
+                x1="42"
+                y1="35"
+                x2="42"
+                y2="220"
+                class="chart-axis"
+              />
+
+              <polyline
+                points="48,72 122,88 198,120 270,155 335,188"
+                class="chart-line chart-line-history"
+              />
+
+              <line
+                x1="335"
+                y1="38"
+                x2="335"
+                y2="220"
+                class="chart-intervention"
+              />
+
+              <polyline
+                points="335,188 410,158 472,128 525,107"
+                class="chart-line chart-line-projection"
+              />
+
+              <circle
+                cx="335"
+                cy="188"
+                r="7"
+                class="chart-point"
+              />
+
+              <text x="350" y="60" class="chart-label">
+                Approved response
+              </text>
+
+              <text x="46" y="246" class="chart-caption">
+                Changing needs
+              </text>
+
+              <text x="414" y="246" class="chart-caption">
+                Adapted experience
+              </text>
+            </svg>
+
+            <div class="visual-flow">
+              <div class="flow-step">
+                <span class="flow-number">1</span>
+
+                <div>
+                  <strong>Notice</strong>
+                  <small>Meaningful change</small>
+                </div>
+              </div>
+
+              <span class="flow-arrow" aria-hidden="true">→</span>
+
+              <div class="flow-step">
+                <span class="flow-number">2</span>
+
+                <div>
+                  <strong>Review</strong>
+                  <small>Approved options</small>
+                </div>
+              </div>
+
+              <span class="flow-arrow" aria-hidden="true">→</span>
+
+              <div class="flow-step">
+                <span class="flow-number">3</span>
+
+                <div>
+                  <strong>Respond</strong>
+                  <small>Within boundaries</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Introduction
+         ===================================================== -->
+
+    <section class="section section-light">
+      <div class="container split-section">
+        <div>
+          <p class="section-kicker">
+            WHY ADAPTIVE CARE MATTERS
+          </p>
+
+          <h2>
+            A difficult week should not automatically become the end
+            of treatment.
+          </h2>
+        </div>
+
+        <div class="section-copy">
+          <p>
+            Digital therapeutic programs often follow a fixed sequence
+            of sessions, reminders and exercises. But a person’s energy,
+            schedule, symptoms and ability to participate can change
+            during treatment.
+          </p>
+
+          <p>
+            Bazi is designed to help therapeutic software recognize
+            patterns that may signal developing difficulty and respond
+            using options defined in advance by the treatment provider
+            or clinical team.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         How It Works
+         ===================================================== -->
+
+    <section
+      class="section section-dark"
+      id="how-it-works"
+    >
+      <div class="container">
+        <p class="section-kicker">
+          HOW ADAPTIVE TREATMENT COULD WORK
+        </p>
+
+        <h2 class="section-heading">
+          The experience changes when the pattern changes.
+        </h2>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <span class="card-index">01</span>
+
+            <h3>Your participation changes</h3>
+
+            <p>
+              You may begin completing fewer sessions, starting later,
+              taking longer or reporting greater fatigue or difficulty.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <span class="card-index">02</span>
+
+            <h3>The product recognizes a pattern</h3>
+
+            <p>
+              Instead of treating each missed or delayed session as an
+              isolated event, the therapeutic product can consider how
+              several signals are changing together.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <span class="card-index">03</span>
+
+            <h3>An approved response is selected</h3>
+
+            <p>
+              The product may adjust pacing, change reminder timing,
+              provide additional support or request appropriate human
+              review.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <span class="card-index">04</span>
+
+            <h3>The effect is evaluated</h3>
+
+            <p>
+              The system observes whether the approved response helps
+              restore meaningful participation without exceeding the
+              boundaries set by the provider.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Examples
+         ===================================================== -->
+
+    <section class="section section-light">
+      <div class="container">
+        <div class="section-title-row">
+          <div>
+            <p class="section-kicker">
+              WHAT COULD CHANGE
+            </p>
+
+            <h2>
+              Adaptation does not have to mean a major treatment change.
+            </h2>
+          </div>
+        </div>
+
+        <div class="application-grid">
+          <article class="application-card">
+            <span class="application-icon" aria-hidden="true">01</span>
+
+            <h3>Session pacing</h3>
+
+            <p>
+              A therapeutic product could offer a shorter or more
+              manageable session when fatigue or difficulty increases.
+            </p>
+          </article>
+
+          <article class="application-card">
+            <span class="application-icon" aria-hidden="true">02</span>
+
+            <h3>Reminder timing</h3>
+
+            <p>
+              Reminder timing could be adjusted when repeated delays
+              suggest that the current schedule is no longer effective.
+            </p>
+          </article>
+
+          <article class="application-card">
+            <span class="application-icon" aria-hidden="true">03</span>
+
+            <h3>Additional support</h3>
+
+            <p>
+              The experience could provide approved educational material,
+              encouragement or recovery guidance when appropriate.
+            </p>
+          </article>
+
+          <article class="application-card">
+            <span class="application-icon" aria-hidden="true">04</span>
+
+            <h3>Human review</h3>
+
+            <p>
+              Certain patterns could trigger a request for review by a
+              clinician, coach or care team rather than an automated
+              treatment change.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Experience Preview
+         ===================================================== -->
+
+    <section class="section section-muted">
+      <div class="container">
+        <div class="section-title-row">
+          <div>
+            <p class="section-kicker">
+              A MORE RESPONSIVE EXPERIENCE
+            </p>
+
+            <h2>
+              Support should reflect what is happening now.
+            </h2>
+          </div>
+
+          <a class="text-link" href="demo.html">
+            Explore the product demo
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="audience-grid">
+          <article class="audience-card audience-card-light">
+            <span class="audience-label">
+              WITHOUT ADAPTATION
+            </span>
+
+            <div>
+              <h3>
+                The same treatment path continues.
+              </h3>
+
+              <p>
+                Missed sessions may produce another reminder, but the
+                product may not recognize the broader pattern behind
+                declining participation.
+              </p>
+            </div>
+
+            <span class="audience-link">
+              Fixed pacing
+            </span>
+          </article>
+
+          <article class="audience-card audience-card-dark">
+            <span class="audience-label">
+              WITH BOUNDED ADAPTATION
+            </span>
+
+            <div>
+              <h3>
+                The product responds within approved options.
+              </h3>
+
+              <p>
+                The experience can adjust timing, pacing or support and
+                request human review when the provider-defined rules
+                require it.
+              </p>
+            </div>
+
+            <span class="audience-link">
+              Responsive support
+            </span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Patient Principles
+         ===================================================== -->
+
+    <section class="section section-dark">
+      <div class="container">
+        <p class="section-kicker">
+          PATIENT PRINCIPLES
+        </p>
+
+        <h2 class="section-heading">
+          Adaptive care should remain understandable, bounded and
+          human-accountable.
+        </h2>
+
+        <div class="principles-grid">
+          <article class="principle-card">
+            <span>01</span>
+
+            <h3>Visible adaptation</h3>
+
+            <p>
+              People should be able to understand when and why their
+              treatment experience has changed.
+            </p>
+          </article>
+
+          <article class="principle-card">
+            <span>02</span>
+
+            <h3>Defined boundaries</h3>
+
+            <p>
+              Available adaptations should come from options approved
+              by the therapeutic provider or clinical team.
+            </p>
+          </article>
+
+          <article class="principle-card">
+            <span>03</span>
+
+            <h3>Human oversight</h3>
+
+            <p>
+              Significant treatment decisions should preserve
+              appropriate human review and clear responsibility.
+            </p>
+          </article>
+
+          <article class="principle-card">
+            <span>04</span>
+
+            <h3>Responsible data use</h3>
+
+            <p>
+              Sensitive behavioral and health information should be
+              handled with care, transparency and appropriate controls.
+            </p>
+          </article>
+        </div>
+
+        <div class="principles-statement">
+          <p>
+            A person should never be reduced to an engagement score.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Data and Privacy
+         ===================================================== -->
+
+    <section class="section section-light">
+      <div class="container boundary-grid">
+        <div>
+          <p class="section-kicker">
+            DATA AND PRIVACY
+          </p>
+
+          <h2>
+            Adaptive technology should not require unnecessary
+            surveillance.
+          </h2>
+
+          <p>
+            Bazi is being designed to work with information already
+            produced through a digital therapeutic experience, such as
+            session completion, response timing, duration and
+            user-reported difficulty.
+          </p>
+        </div>
+
+        <div class="boundary-list">
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>Purpose-limited signals</strong>
+
+              <p>
+                Data should be used for clearly defined therapeutic and
+                product purposes rather than unrelated profiling.
+              </p>
+            </div>
+          </div>
+
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>Appropriate controls</strong>
+
+              <p>
+                Therapeutic organizations should maintain access,
+                retention and security practices appropriate to the
+                information they process.
+              </p>
+            </div>
+          </div>
+
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>Clear accountability</strong>
+
+              <p>
+                People should know which organization is responsible
+                for the therapeutic product and how their information
+                is being used.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Clinical Boundaries
+         ===================================================== -->
+
+    <section class="section section-dark">
+      <div class="container boundary-grid">
+        <div>
+          <p class="section-kicker">
+            CLINICAL BOUNDARIES
+          </p>
+
+          <h2>
+            Bazi recommends within constraints. It does not replace a
+            healthcare professional.
+          </h2>
+        </div>
+
+        <div class="boundary-list">
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>It does not diagnose.</strong>
+
+              <p>
+                Bazi is not designed to determine whether a person has
+                a medical condition.
+              </p>
+            </div>
+          </div>
+
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>It does not independently prescribe.</strong>
+
+              <p>
+                Bazi does not create medication, therapy or treatment
+                plans on its own.
+              </p>
+            </div>
+          </div>
+
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>It does not invent interventions.</strong>
+
+              <p>
+                The system evaluates only the actions made available by
+                the therapeutic organization or clinical team.
+              </p>
+            </div>
+          </div>
+
+          <div class="boundary-item">
+            <span class="check-icon" aria-hidden="true">✓</span>
+
+            <div>
+              <strong>It can support human escalation.</strong>
+
+              <p>
+                When configured to do so, concerning patterns can be
+                routed for appropriate human review.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FAQ
+         ===================================================== -->
+
+    <section class="section section-light">
+      <div class="container">
+        <div class="section-title-row">
+          <div>
+            <p class="section-kicker">
+              FREQUENTLY ASKED QUESTIONS
+            </p>
+
+            <h2>
+              What individuals should know about Bazi.
+            </h2>
+          </div>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">01</span>
+              <span class="evidence-type">ABOUT BAZI</span>
+            </div>
+
+            <h3>
+              Can I sign up for Bazi directly?
+            </h3>
+
+            <p>
+              Bazi is being designed as infrastructure for digital
+              therapeutic and healthcare organizations. It is not
+              currently a direct-to-consumer treatment product.
+            </p>
+          </article>
+
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">02</span>
+              <span class="evidence-type">TREATMENT CONTROL</span>
+            </div>
+
+            <h3>
+              Can Bazi change my treatment by itself?
+            </h3>
+
+            <p>
+              No. The system is intended to evaluate actions defined by
+              the therapeutic organization or clinical team and preserve
+              appropriate human oversight.
+            </p>
+          </article>
+
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">03</span>
+              <span class="evidence-type">CURRENT STAGE</span>
+            </div>
+
+            <h3>
+              Has Bazi established clinical efficacy?
+            </h3>
+
+            <p>
+              Not yet. Bazi is at an early product-development stage and
+              has not established clinical efficacy for its platform.
+            </p>
+          </article>
+
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">04</span>
+              <span class="evidence-type">HEALTHCARE RELATIONSHIP</span>
+            </div>
+
+            <h3>
+              Is Bazi a healthcare provider?
+            </h3>
+
+            <p>
+              No. Bazi does not provide medical care, diagnosis,
+              prescribing or emergency services.
+            </p>
+          </article>
+
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">05</span>
+              <span class="evidence-type">EMERGENCIES</span>
+            </div>
+
+            <h3>
+              What should I do in a medical emergency?
+            </h3>
+
+            <p>
+              Bazi is not an emergency service. Contact local emergency
+              services or an appropriate healthcare professional when
+              urgent help is needed.
+            </p>
+          </article>
+
+          <article class="evidence-card">
+            <div class="evidence-card-top">
+              <span class="evidence-number">06</span>
+              <span class="evidence-type">PARTICIPATION</span>
+            </div>
+
+            <h3>
+              How can individuals contribute?
+            </h3>
+
+            <p>
+              People with experience using digital treatment tools can
+              share feedback about what made treatment easier, harder or
+              more meaningful through the early-access form below.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Early Access
+         ===================================================== -->
+
+    <section
+      class="section early-access-section"
+      id="early-access"
+    >
+      <div class="container early-access-grid">
+        <div>
+          <p class="section-kicker">
+            SHARE YOUR PERSPECTIVE
+          </p>
+
+          <h2>
+            Help shape a more responsive treatment experience.
+          </h2>
+
+          <p>
+            We are interested in hearing from people who have used
+            digital treatment, rehabilitation, mental-health or
+            behavior-change products.
+          </p>
+
+          <p>
+            Feedback may help us understand where fixed treatment
+            experiences fail and what responsible adaptation should
+            look like.
+          </p>
+
+          <div class="research-positioning">
+            <span>PATIENT-INFORMED</span>
+            <span>PROVIDER-CONSTRAINED</span>
+            <span>HUMAN-ACCOUNTABLE</span>
+          </div>
+        </div>
+
+        <form
+          class="early-access-form"
+          id="early-access-form"
+          novalidate
+        >
+          <div class="form-grid">
+            <label>
+              Name
+
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                required
+              >
+            </label>
+
+            <label>
+              Email
+
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                required
+              >
+            </label>
+          </div>
+
+          <label>
+            Your perspective
+
+            <select name="perspective" required>
+              <option value="">Select one</option>
+              <option value="patient">
+                I have used a digital treatment product
+              </option>
+              <option value="caregiver">
+                I support someone using digital treatment
+              </option>
+              <option value="clinician">
+                I work in healthcare or clinical care
+              </option>
+              <option value="researcher">
+                I work in research
+              </option>
+              <option value="other">
+                Other
+              </option>
+            </select>
+          </label>
+
+          <label>
+            What should adaptive treatment technology understand?
+
+            <textarea
+              name="message"
+              rows="5"
+              required
+            ></textarea>
+          </label>
+
+          <button
+            class="button button-primary"
+            type="submit"
+          >
+            Share Your Perspective
+          </button>
+
+          <p
+            class="form-status"
+            id="form-status"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       Footer
+       ===================================================== -->
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">β</span>
+          <span class="brand-name">Bazi</span>
+        </a>
+
+        <p>
+          The adaptive intelligence layer for software-based medicine.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html#for-companies">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="index.html#research">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Product Demo</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="year"></span> Bazi. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
