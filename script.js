@@ -261,17 +261,35 @@ const cohortInsight = document.getElementById(
 
       selectedAction.classList.add("is-ready");
       selectedAction.innerHTML = `
-        <span>SELECTED RESPONSE</span>
+  <span>SELECTED RESPONSE</span>
 
-        <h3>
-          Reduce session duration
-        </h3>
+  <h3>
+    Reduce session duration
+  </h3>
 
-        <p>
-          Shorten upcoming sessions from 25 to 15 minutes. Human
-          approval remains required before deployment.
-        </p>
-      `;
+  <p>
+    Shorten upcoming sessions from 25 to 15 minutes. Human
+    approval remains required before deployment.
+  </p>
+
+  <div class="adaptive-cohort-insight">
+    <div class="adaptive-cohort-number">
+      80%
+    </div>
+
+    <div>
+      <strong>
+        Simulated cohort alignment
+      </strong>
+
+      <p>
+        For Maya C., shorter sessions ranked as the most appropriate
+        approved response. The same intervention ranked first for
+        8 of 10 comparable fictional profiles in this demonstration.
+      </p>
+    </div>
+  </div>
+`;
     }
 
     if (step.final) {
@@ -327,17 +345,33 @@ const cohortInsight = document.getElementById(
 
     selectedAction.classList.remove("is-ready");
     selectedAction.innerHTML = `
-      <span>SELECTED RESPONSE</span>
+  <span>SELECTED RESPONSE</span>
 
-      <h3>
-        No action selected
-      </h3>
+  <h3>
+    No action selected
+  </h3>
+
+  <p>
+    Bazi will select only from actions configured by the
+    therapeutic organization or clinical team.
+  </p>
+
+  <div class="adaptive-cohort-insight" hidden>
+    <div class="adaptive-cohort-number">
+      80%
+    </div>
+
+    <div>
+      <strong>
+        Simulated cohort alignment
+      </strong>
 
       <p>
-        Bazi will select only from actions configured by the
-        therapeutic organization or clinical team.
+        Cohort comparison will appear after the adaptive cycle.
       </p>
-    `;
+    </div>
+  </div>
+`;
 
     content.innerHTML = `
       <p class="adaptive-reasoning-kicker">
