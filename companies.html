@@ -18,6 +18,44 @@
   </title>
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .company-evidence-section{background:#0d0f0e;color:#f5f7f2;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
+    .company-evidence-header{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.65fr);gap:72px;align-items:end;margin-bottom:72px}
+    .company-evidence-header h2{max-width:820px;margin:14px 0 0}
+    .company-evidence-header>p{margin:0;color:rgba(245,247,242,.62);font-size:1.02rem;line-height:1.75}
+    .company-evidence-list{border-top:1px solid rgba(255,255,255,.12)}
+    .company-evidence-item{display:grid;grid-template-columns:92px minmax(0,1fr) 260px 58px;gap:28px;align-items:center;padding:38px 0;color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12);transition:background-color .22s ease,padding-left .22s ease,padding-right .22s ease}
+    .company-evidence-item:hover,.company-evidence-item:focus-visible{padding-left:20px;padding-right:20px;background:rgba(255,255,255,.035);outline:none}
+    .company-evidence-index{color:rgba(245,247,242,.38);font-size:.78rem;font-weight:700;letter-spacing:.14em}
+    .company-evidence-type{display:block;margin-bottom:10px;color:#58e88d;font-size:.7rem;font-weight:800;letter-spacing:.16em}
+    .company-evidence-main h3{max-width:720px;margin:0;font-size:clamp(1.45rem,2.4vw,2.45rem);line-height:1.08;letter-spacing:-.035em}
+    .company-evidence-meta{color:rgba(245,247,242,.62);font-size:.93rem;line-height:1.55}
+    .company-evidence-meta strong{display:block;margin-bottom:6px;color:#f5f7f2;font-size:.84rem}
+    .company-evidence-arrow{display:grid;width:46px;height:46px;place-items:center;justify-self:end;border:1px solid rgba(255,255,255,.16);border-radius:50%;color:#58e88d;font-size:1.15rem;transition:color .22s ease,background-color .22s ease,border-color .22s ease,transform .22s ease}
+    .company-evidence-item:hover .company-evidence-arrow,.company-evidence-item:focus-visible .company-evidence-arrow{color:#0d0f0e;background:#58e88d;border-color:#58e88d;transform:translate(3px,-3px)}
+    .company-evidence-thesis{display:grid;grid-template-columns:92px minmax(0,1fr) 260px 58px;gap:28px;align-items:center;padding:44px 0 0}
+    .company-evidence-thesis-label{grid-column:2;color:rgba(245,247,242,.4);font-size:.72rem;font-weight:800;letter-spacing:.16em}
+    .company-evidence-thesis p{grid-column:2/4;max-width:900px;margin:0;color:#f5f7f2;font-size:clamp(1.35rem,2.4vw,2.25rem);line-height:1.28;letter-spacing:-.025em}
+    .company-evidence-note{max-width:900px;margin:52px 0 0 120px;color:rgba(245,247,242,.42);font-size:.8rem;line-height:1.65}
+    @media(max-width:900px){
+      .company-evidence-header{grid-template-columns:1fr;gap:24px;margin-bottom:46px}
+      .company-evidence-item{grid-template-columns:54px minmax(0,1fr) 48px;gap:18px}
+      .company-evidence-meta{grid-column:2;padding-top:14px}
+      .company-evidence-arrow{grid-column:3;grid-row:1/span 2}
+      .company-evidence-thesis{grid-template-columns:54px minmax(0,1fr);gap:18px}
+      .company-evidence-thesis-label,.company-evidence-thesis p{grid-column:2}
+      .company-evidence-note{margin-left:72px}
+    }
+    @media(max-width:620px){
+      .company-evidence-item{grid-template-columns:1fr 44px;padding:30px 0}
+      .company-evidence-index,.company-evidence-main,.company-evidence-meta{grid-column:1}
+      .company-evidence-arrow{grid-column:2;grid-row:1/span 3}
+      .company-evidence-thesis{grid-template-columns:1fr}
+      .company-evidence-thesis-label,.company-evidence-thesis p{grid-column:1}
+      .company-evidence-note{margin-left:0}
+    }
+  </style>
   <script src="script.js" defer></script>
 </head>
 
@@ -1205,95 +1243,133 @@ console.log(recommendation);
     </section>
 
     <!-- =====================================================
-         Partners
+         Evidence and Research Foundations
          ===================================================== -->
 
-    <section class="section section-dark">
+    <section class="section company-evidence-section" id="company-evidence">
       <div class="container">
 
-        <div class="company-partner-intro">
-
+        <div class="company-evidence-header">
           <div>
-            <p class="section-kicker">
-              DESIGN PARTNERS
-            </p>
-
-            <h2>
-              Built for teams already delivering software-based care.
-            </h2>
+            <p class="section-kicker">RESEARCH FOUNDATIONS</p>
+            <h2>The evidence base behind adaptive therapeutic software.</h2>
           </div>
 
           <p>
-            We are especially interested in products where engagement,
-            treatment progression and measurable completion are central
-            to therapeutic value.
+            Bazi is informed by research on meaningful engagement,
+            digital interventions and responsible medical software.
+            These sources define the problem space. They do not validate
+            Bazi itself.
           </p>
+        </div>
+
+        <div class="company-evidence-list">
+
+          <a class="company-evidence-item"
+             href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="company-evidence-index">01</span>
+
+            <div class="company-evidence-main">
+              <span class="company-evidence-type">DIGITAL THERAPEUTICS</span>
+              <h3>
+                Meaningful engagement must be defined and measured,
+                not inferred from app activity alone.
+              </h3>
+            </div>
+
+            <div class="company-evidence-meta">
+              <strong>Frontiers in Digital Health</strong>
+              Engagement framework for digital therapeutics
+            </div>
+
+            <span class="company-evidence-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="company-evidence-item"
+             href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10457707/"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="company-evidence-index">02</span>
+
+            <div class="company-evidence-main">
+              <span class="company-evidence-type">CLINICAL EVIDENCE</span>
+              <h3>
+                Engagement should be evaluated in relation to
+                therapeutic outcomes, not treated as an end in itself.
+              </h3>
+            </div>
+
+            <div class="company-evidence-meta">
+              <strong>Journal of Medical Internet Research</strong>
+              Systematic review of engagement and outcomes
+            </div>
+
+            <span class="company-evidence-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="company-evidence-item"
+             href="https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="company-evidence-index">03</span>
+
+            <div class="company-evidence-main">
+              <span class="company-evidence-type">REGULATORY CONTEXT</span>
+              <h3>
+                Medical software must be understood through its
+                intended use, function and level of clinical risk.
+              </h3>
+            </div>
+
+            <div class="company-evidence-meta">
+              <strong>U.S. Food and Drug Administration</strong>
+              Software as a Medical Device
+            </div>
+
+            <span class="company-evidence-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="company-evidence-item" href="research.html">
+            <span class="company-evidence-index">04</span>
+
+            <div class="company-evidence-main">
+              <span class="company-evidence-type">BAZI RESEARCH</span>
+              <h3>
+                See how Bazi connects behavioral change, bounded
+                decisioning and human oversight.
+              </h3>
+            </div>
+
+            <div class="company-evidence-meta">
+              <strong>Bazi Research</strong>
+              Product thesis and research direction
+            </div>
+
+            <span class="company-evidence-arrow" aria-hidden="true">→</span>
+          </a>
 
         </div>
 
-        <div class="company-partner-grid">
+        <div class="company-evidence-thesis">
+          <span class="company-evidence-thesis-label">THE PRODUCT THESIS</span>
 
-          <article class="company-partner-card">
-
-            <span>DTx</span>
-
-            <h3>
-              Digital therapeutics
-            </h3>
-
-            <p>
-              Structured, evidence-based software interventions with
-              defined treatment programs.
-            </p>
-
-          </article>
-
-          <article class="company-partner-card">
-
-            <span>REHAB</span>
-
-            <h3>
-              Virtual rehabilitation
-            </h3>
-
-            <p>
-              Physical, cognitive or neurological rehabilitation
-              platforms with progressive session plans.
-            </p>
-
-          </article>
-
-          <article class="company-partner-card">
-
-            <span>CARE</span>
-
-            <h3>
-              Virtual care platforms
-            </h3>
-
-            <p>
-              Longitudinal care products combining education,
-              monitoring, behavior change and clinician support.
-            </p>
-
-          </article>
-
-          <article class="company-partner-card">
-
-            <span>R&amp;D</span>
-
-            <h3>
-              Clinical research teams
-            </h3>
-
-            <p>
-              Teams exploring adaptive interventions, meaningful
-              engagement and software-based treatment personalization.
-            </p>
-
-          </article>
-
+          <p>
+            Digital therapeutics established that software can deliver
+            treatment. Bazi is building the infrastructure that helps
+            therapeutic software respond when the patient experience
+            changes.
+          </p>
         </div>
+
+        <p class="company-evidence-note">
+          The external publications and regulatory resources above are
+          independent sources. Their inclusion does not imply endorsement,
+          clinical validation or evidence that Bazi improves treatment
+          outcomes.
+        </p>
+
       </div>
     </section>
 
