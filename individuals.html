@@ -2,29 +2,949 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="See how adaptive digital therapeutics could respond to changing patient needs while remaining within provider-defined boundaries.">
+  <meta name="theme-color" content="#04111d">
+  <title>Bazi for Individuals | Therapy That Can Respond</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap");
 
-  <meta
-    name="description"
-    content="Learn how Bazi could help digital therapeutics respond to changing patient needs while remaining within provider-defined boundaries."
-  >
+    :root {
+      --ink: #04111d;
+      --paper: #f6f5ef;
+      --paper-soft: #eceee8;
+      --white: #ffffff;
+      --green: #55e889;
+      --green-deep: #1f9b55;
+      --muted-light: rgba(255,255,255,.58);
+      --muted-dark: #68747b;
+      --line-light: rgba(255,255,255,.13);
+      --line-dark: rgba(4,17,29,.14);
+      --sans: "Inter", system-ui, sans-serif;
+      --serif: "Newsreader", Georgia, serif;
+      --container: 1220px;
+    }
 
-  <title>Bazi for Individuals | Adaptive Digital Therapeutics</title>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::selection {
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .container {
+      width: min(calc(100% - 40px), var(--container));
+      margin: 0 auto;
+    }
+
+    .theme-dark {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .theme-light {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .theme-soft {
+      background: var(--paper-soft);
+      color: var(--ink);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      font-family: var(--serif);
+      font-weight: 400;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 16px;
+      z-index: 1001;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--green);
+      color: var(--ink);
+      font-weight: 700;
+      transform: translateY(-160%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 3px;
+      z-index: 1000;
+    }
+
+    .reading-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--green);
+    }
+
+    .site-header {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 80;
+      color: var(--white);
+    }
+
+    .nav-wrap {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--green);
+      border-radius: 12px;
+      color: var(--green);
+      font-family: Georgia, serif;
+      font-size: 1.5rem;
+    }
+
+    .primary-nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: .84rem;
+    }
+
+    .primary-nav a {
+      color: rgba(255,255,255,.68);
+      transition: color .2s ease;
+    }
+
+    .primary-nav a:hover,
+    .primary-nav a[aria-current="page"] {
+      color: var(--white);
+    }
+
+    .nav-demo {
+      padding: 9px 15px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 12px;
+      background: transparent;
+      color: var(--white);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      align-items: end;
+      padding: 165px 0 90px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at var(--mx, 72%) var(--my, 28%), rgba(85,232,137,.15), transparent 23%),
+        linear-gradient(145deg, #020a11 0%, #04111d 52%, #0a2133 100%);
+      color: var(--white);
+    }
+
+    .hero canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: .11;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 72px;
+      align-items: end;
+    }
+
+    .kicker,
+    .section-label {
+      margin: 0 0 22px;
+      color: var(--green);
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .theme-light .section-label,
+    .theme-soft .section-label {
+      color: var(--green-deep);
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin-bottom: 0;
+      font-size: clamp(4.4rem, 9vw, 9rem);
+      line-height: .86;
+      letter-spacing: -.065em;
+    }
+
+    .hero h1 em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .hero-copy {
+      max-width: 560px;
+      padding-bottom: 8px;
+    }
+
+    .hero-copy p {
+      margin: 0 0 28px;
+      color: var(--muted-light);
+      font-size: 1.05rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform .2s ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+
+    .button-primary {
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    .button-outline-dark {
+      border: 1px solid rgba(255,255,255,.22);
+      color: var(--white);
+    }
+
+    .hero-phone-wrap {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-phone-glow {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(85,232,137,.18), transparent 68%);
+      filter: blur(8px);
+    }
+
+    .phone {
+      position: relative;
+      width: 300px;
+      height: 610px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 46px;
+      background: #020a11;
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+      transform: rotate(4deg);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      width: 94px;
+      height: 24px;
+      border-radius: 999px;
+      background: #020a11;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .phone-screen {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 36px;
+      background:
+        linear-gradient(180deg, rgba(85,232,137,.12), transparent 32%),
+        #f8f8f4;
+      color: var(--ink);
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      padding: 28px 20px 12px;
+      color: var(--muted-dark);
+      font-size: .65rem;
+    }
+
+    .phone-content {
+      padding: 18px;
+    }
+
+    .phone-content h3 {
+      margin: 6px 0 8px;
+      color: var(--ink);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .phone-content > p {
+      margin: 0 0 20px;
+      color: var(--muted-dark);
+      font-size: .78rem;
+    }
+
+    .phone-progress {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .phone-progress i {
+      flex: 1;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(4,17,29,.1);
+    }
+
+    .phone-progress i.active {
+      background: var(--green-deep);
+    }
+
+    .phone-card {
+      padding: 16px;
+      border: 1px solid var(--line-dark);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 12px 30px rgba(4,17,29,.06);
+    }
+
+    .phone-card span {
+      color: var(--green-deep);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .phone-card h4 {
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+
+    .phone-card p {
+      margin: 0;
+      color: var(--muted-dark);
+      font-size: .73rem;
+    }
+
+    .phone-action {
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 14px;
+      background: var(--ink);
+      color: var(--white);
+      text-align: center;
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .floating-note {
+      position: absolute;
+      right: -30px;
+      bottom: 48px;
+      width: 205px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 16px;
+      background: rgba(4,17,29,.78);
+      color: var(--white);
+      backdrop-filter: blur(12px);
+    }
+
+    .floating-note span {
+      color: var(--green);
+      font-size: .61rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    .floating-note p {
+      margin: 7px 0 0;
+      color: rgba(255,255,255,.64);
+      font-size: .77rem;
+    }
+
+    .section {
+      padding: 150px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 72px;
+      align-items: end;
+      margin-bottom: 72px;
+    }
+
+    .section-head h2 {
+      max-width: 860px;
+      margin-bottom: 0;
+      font-size: clamp(3.5rem, 7vw, 7.6rem);
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .theme-dark .section-head > p {
+      color: var(--muted-light);
+    }
+
+    .theme-light .section-head > p,
+    .theme-soft .section-head > p {
+      color: var(--muted-dark);
+    }
+
+    .journey {
+      position: relative;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 80px;
+      min-height: 1020px;
+    }
+
+    .journey-line {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .journey-line-track {
+      position: relative;
+      width: 2px;
+      height: 610px;
+      margin-left: 19px;
+      background: rgba(4,17,29,.12);
+    }
+
+    .journey-line-fill {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 0;
+      background: var(--green-deep);
+    }
+
+    .journey-dot {
+      position: absolute;
+      left: -8px;
+      width: 18px;
+      height: 18px;
+      border: 4px solid var(--paper);
+      border-radius: 50%;
+      background: rgba(4,17,29,.18);
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .journey-dot.active {
+      background: var(--green-deep);
+      transform: scale(1.2);
+    }
+
+    .journey-dot:nth-child(2) { top: 0; }
+    .journey-dot:nth-child(3) { top: 32%; }
+    .journey-dot:nth-child(4) { top: 66%; }
+    .journey-dot:nth-child(5) { top: calc(100% - 18px); }
+
+    .journey-caption {
+      margin-top: 18px;
+      color: var(--muted-dark);
+      font-size: .73rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .journey-scenes {
+      display: grid;
+      gap: 150px;
+    }
+
+    .journey-scene {
+      min-height: 520px;
+      display: grid;
+      align-content: center;
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .journey-scene:last-child {
+      border-bottom: 0;
+    }
+
+    .journey-scene .week {
+      margin-bottom: 18px;
+      color: var(--green-deep);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .journey-scene h3 {
+      max-width: 780px;
+      margin-bottom: 18px;
+      color: var(--ink);
+      font-size: clamp(3.2rem, 6vw, 6.4rem);
+      line-height: .92;
+      letter-spacing: -.055em;
+    }
+
+    .journey-scene p {
+      max-width: 600px;
+      margin: 0;
+      color: var(--muted-dark);
+      font-size: 1rem;
+    }
+
+    .scene-visual {
+      position: relative;
+      margin-top: 36px;
+      min-height: 130px;
+    }
+
+    .session-dots {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .session-dots i {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--green-deep);
+      border-radius: 50%;
+      background: transparent;
+    }
+
+    .session-dots i.filled {
+      background: var(--green-deep);
+    }
+
+    .session-dots i.faded {
+      opacity: .25;
+    }
+
+    .fatigue-wave {
+      width: min(650px, 100%);
+      height: 120px;
+    }
+
+    .fatigue-wave path {
+      fill: none;
+      stroke: var(--green-deep);
+      stroke-width: 4;
+      stroke-linecap: round;
+    }
+
+    .decision-ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .decision-ribbon span {
+      color: var(--green);
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .conversation-section {
+      padding: 150px 0;
+    }
+
+    .conversation-list {
+      display: grid;
+      gap: 20px;
+      margin-top: 70px;
+    }
+
+    .conversation-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 26px;
+      align-items: center;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .conversation-row:last-child {
+      border-bottom: 0;
+    }
+
+    .conversation-user,
+    .conversation-response {
+      padding: 24px;
+      border-radius: 20px;
+    }
+
+    .conversation-user {
+      border: 1px solid var(--line-light);
+      background: rgba(255,255,255,.03);
+      color: var(--white);
+    }
+
+    .conversation-response {
+      background: var(--green);
+      color: var(--ink);
+    }
+
+    .conversation-user span,
+    .conversation-response span {
+      display: block;
+      margin-bottom: 10px;
+      font-size: .61rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .conversation-user span { color: var(--green); }
+    .conversation-response span { color: var(--green-deep); }
+
+    .conversation-user p,
+    .conversation-response p {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3vw, 3rem);
+      line-height: 1;
+    }
+
+    .conversation-arrow {
+      color: var(--green);
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+      margin-top: 70px;
+    }
+
+    .principle {
+      min-height: 360px;
+      padding: 34px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .principle span {
+      color: var(--green-deep);
+      font-family: var(--serif);
+      font-size: 2.4rem;
+    }
+
+    .principle h3 {
+      margin: 55px 0 14px;
+      color: var(--ink);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .principle p {
+      margin: 0;
+      color: var(--muted-dark);
+    }
+
+    .river-section {
+      position: relative;
+      min-height: 840px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(85,232,137,.1), transparent 35%),
+        var(--ink);
+      color: var(--white);
+    }
+
+    .river-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .river-content {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    .river-content h2 {
+      margin-bottom: 24px;
+      color: var(--white);
+      font-size: clamp(4rem, 8vw, 8.4rem);
+      line-height: .88;
+      letter-spacing: -.065em;
+    }
+
+    .river-content p {
+      max-width: 660px;
+      margin: 0 auto 28px;
+      color: var(--muted-light);
+    }
+
+    .responsibility-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 90px;
+      align-items: start;
+    }
+
+    .responsibility-copy h2 {
+      margin-bottom: 24px;
+      color: var(--ink);
+      font-size: clamp(3.8rem, 7vw, 7.2rem);
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .responsibility-copy p {
+      color: var(--muted-dark);
+    }
+
+    .responsibility-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .responsibility-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .responsibility-item:first-child {
+      border-top: 1px solid var(--line-dark);
+    }
+
+    .responsibility-item span {
+      color: var(--green-deep);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .responsibility-item h3 {
+      margin: 10px 0 8px;
+      color: var(--ink);
+      font-size: 2rem;
+    }
+
+    .responsibility-item p {
+      margin: 0;
+      color: var(--muted-dark);
+    }
+
+    .final-cta {
+      padding: 160px 0;
+      background: var(--green);
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      max-width: 1000px;
+      margin: 0 auto 32px;
+      color: var(--ink);
+      font-size: clamp(4rem, 8vw, 8.5rem);
+      line-height: .88;
+      letter-spacing: -.065em;
+    }
+
+    .final-cta p {
+      max-width: 620px;
+      margin: 0 auto 30px;
+      color: rgba(4,17,29,.68);
+    }
+
+    .site-footer {
+      padding: 65px 0;
+      background: #020a11;
+      color: var(--white);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .footer-copy {
+      max-width: 360px;
+      margin-top: 18px;
+      color: rgba(255,255,255,.42);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 20px;
+      color: rgba(255,255,255,.58);
+      font-size: .83rem;
+    }
+
+    .copyright {
+      grid-column: 1 / -1;
+      margin: 28px 0 0;
+      padding-top: 28px;
+      border-top: 1px solid var(--line-light);
+      color: rgba(255,255,255,.3);
+      font-size: .75rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1040px) {
+      .primary-nav {
+        position: absolute;
+        top: 76px;
+        left: 20px;
+        right: 20px;
+        display: none;
+        padding: 18px;
+        border: 1px solid var(--line-light);
+        border-radius: 18px;
+        background: rgba(4,17,29,.97);
+      }
+
+      .primary-nav.open { display: grid; }
+      .mobile-toggle { display: inline-grid; place-items: center; }
+
+      .hero-grid,
+      .section-head,
+      .responsibility-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .hero-phone-wrap { min-height: 470px; }
+      .journey { grid-template-columns: 1fr; }
+      .journey-line { display: none; }
+      .principles { grid-template-columns: 1fr; }
+      .conversation-row {
+        grid-template-columns: 1fr;
+      }
+      .conversation-arrow { transform: rotate(90deg); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-links { justify-content: flex-start; }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(calc(100% - 28px), var(--container)); }
+      .hero { padding-top: 145px; }
+      .hero h1 { font-size: 4.25rem; }
+      .hero-phone-wrap { transform: scale(.82); min-height: 430px; }
+      .floating-note { right: -55px; }
+      .section,
+      .conversation-section,
+      .final-cta { padding: 95px 0; }
+      .journey-scenes { gap: 90px; }
+      .journey-scene { min-height: 430px; }
+      .river-section { min-height: 660px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 
-<body class="site-page">
+<body>
   <a class="skip-link" href="#main-content">Skip to content</a>
-
-  <!-- =====================================================
-       Navigation
-       ===================================================== -->
+  <div class="reading-progress" aria-hidden="true"><span id="progress-bar"></span></div>
 
   <header class="site-header">
     <div class="container nav-wrap">
@@ -33,913 +953,466 @@
         <span class="brand-name">Bazi</span>
       </a>
 
-      <button
-        class="mobile-nav-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="primary-nav"
-      >
-        <span class="sr-only">Toggle navigation</span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <button class="mobile-toggle" id="mobile-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation">☰</button>
 
-      <nav
-        id="primary-nav"
-        class="primary-nav"
-        aria-label="Primary navigation"
-      >
-       <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
-  <a href="companies.html">For Companies</a>
-  <a href="individuals.html" aria-current="page">For Individuals</a>
-  <a href="index.html#technology">Technology</a>
-  <a href="index.html#product-preview">Product</a>
-  <a href="research.html">Research</a>
-  <a href="marginalia.html">Marginalia</a>
-  <a href="careers.html">Careers</a>
-  <a href="demo.html">Demo</a>
-
-
-
-        <a
-          class="button button-small button-outline"
-          href="#early-access"
-        >
-          Join Early Access
-        </a>
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html" aria-current="page">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="index.html#product">Product</a>
+        <a href="research.html">Research</a>
+        <a href="resources.html">Marginalia</a>
+        <a href="careers.html">Careers</a>
+        <a class="nav-demo" href="demo.html">Demo</a>
       </nav>
     </div>
   </header>
 
   <main id="main-content">
+    <section class="hero theme-dark">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-noise"></div>
 
-    <!-- =====================================================
-         Hero
-         ===================================================== -->
-
-    <section class="hero">
       <div class="container hero-grid">
+        <div>
+          <p class="kicker">Bazi for individuals</p>
+          <h1>Every recovery is different. Your therapy should <em>know that.</em></h1>
+        </div>
+
         <div class="hero-copy">
-          <p class="eyebrow">
-            BAZI FOR INDIVIDUALS
-          </p>
-
-          <h1>
-            Treatment software should respond when your needs change.
-          </h1>
-
-          <p class="hero-description">
-            Bazi is developing technology that helps digital therapeutic
-            products recognize when someone may be struggling to continue
-            and select an appropriate response from actions approved by
-            the treatment provider.
-          </p>
+          <p>Adaptive therapeutic software could respond when treatment becomes difficult, exhausting or easy to abandon—while remaining inside provider-defined boundaries and appropriate human oversight.</p>
 
           <div class="hero-actions">
-            <a class="button button-primary" href="#how-it-works">
-              See How It Works
-            </a>
-
-            <a class="button button-secondary" href="#early-access">
-              Join Early Access
-            </a>
-          </div>
-
-          <p class="hero-note">
-            Bazi is not a healthcare provider. It does not diagnose,
-            prescribe or independently modify medical treatment.
-          </p>
-        </div>
-
-        <div
-          class="hero-visual"
-          aria-label="Adaptive treatment experience"
-        >
-          <div class="signal-panel">
-            <div class="panel-topline">
-              <span>Treatment experience</span>
-              <span class="status-pill">Provider-bounded</span>
-            </div>
-
-            <svg
-              class="hero-chart"
-              viewBox="0 0 560 260"
-              role="img"
-              aria-label="A treatment experience adapts after signs of difficulty"
-            >
-              <line
-                x1="42"
-                y1="220"
-                x2="530"
-                y2="220"
-                class="chart-axis"
-              />
-
-              <line
-                x1="42"
-                y1="35"
-                x2="42"
-                y2="220"
-                class="chart-axis"
-              />
-
-              <polyline
-                points="48,72 122,88 198,120 270,155 335,188"
-                class="chart-line chart-line-history"
-              />
-
-              <line
-                x1="335"
-                y1="38"
-                x2="335"
-                y2="220"
-                class="chart-intervention"
-              />
-
-              <polyline
-                points="335,188 410,158 472,128 525,107"
-                class="chart-line chart-line-projection"
-              />
-
-              <circle
-                cx="335"
-                cy="188"
-                r="7"
-                class="chart-point"
-              />
-
-              <text x="350" y="60" class="chart-label">
-                Approved response
-              </text>
-
-              <text x="46" y="246" class="chart-caption">
-                Changing needs
-              </text>
-
-              <text x="414" y="246" class="chart-caption">
-                Adapted experience
-              </text>
-            </svg>
-
-            <div class="visual-flow">
-              <div class="flow-step">
-                <span class="flow-number">1</span>
-
-                <div>
-                  <strong>Notice</strong>
-                  <small>Meaningful change</small>
-                </div>
-              </div>
-
-              <span class="flow-arrow" aria-hidden="true">→</span>
-
-              <div class="flow-step">
-                <span class="flow-number">2</span>
-
-                <div>
-                  <strong>Review</strong>
-                  <small>Approved options</small>
-                </div>
-              </div>
-
-              <span class="flow-arrow" aria-hidden="true">→</span>
-
-              <div class="flow-step">
-                <span class="flow-number">3</span>
-
-                <div>
-                  <strong>Respond</strong>
-                  <small>Within boundaries</small>
-                </div>
-              </div>
-            </div>
+            <a class="button button-primary" href="demo.html">See the Experience</a>
+            <a class="button button-outline-dark" href="#journey">Follow Maya’s Journey</a>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- =====================================================
-         Introduction
-         ===================================================== -->
+      <div class="hero-phone-wrap">
+        <div class="hero-phone-glow"></div>
 
-    <section class="section section-light">
-      <div class="container split-section">
-        <div>
-          <p class="section-kicker">
-            WHY ADAPTIVE CARE MATTERS
-          </p>
+        <div class="phone" aria-label="Fictional adaptive therapy application">
+          <div class="phone-screen">
+            <div class="phone-top"><span>9:41</span><span>Week 5</span></div>
 
-          <h2>
-            A difficult week should not automatically become the end
-            of treatment.
-          </h2>
+            <div class="phone-content">
+              <span class="section-label">Today’s treatment</span>
+              <h3>Let’s make this manageable.</h3>
+              <p>Your recent sessions suggest that the current pace may be difficult to sustain.</p>
+
+              <div class="phone-progress">
+                <i class="active"></i><i class="active"></i><i class="active"></i><i></i><i></i>
+              </div>
+
+              <div class="phone-card">
+                <span>PROVIDER-APPROVED ADAPTATION</span>
+                <h4>Today’s session is 12 minutes shorter.</h4>
+                <p>Your care team can review this recommendation before it changes the treatment experience.</p>
+              </div>
+
+              <div class="phone-action">Review today’s session</div>
+            </div>
+          </div>
         </div>
 
-        <div class="section-copy">
-          <p>
-            Digital therapeutic programs often follow a fixed sequence
-            of sessions, reminders and exercises. But a person’s energy,
-            schedule, symptoms and ability to participate can change
-            during treatment.
-          </p>
-
-          <p>
-            Bazi is designed to help therapeutic software recognize
-            patterns that may signal developing difficulty and respond
-            using options defined in advance by the treatment provider
-            or clinical team.
-          </p>
+        <div class="floating-note">
+          <span>BAZI NOTICED</span>
+          <p>Completion declined across three sessions while reported fatigue increased.</p>
         </div>
       </div>
     </section>
 
-    <!-- =====================================================
-         How It Works
-         ===================================================== -->
-
-    <section
-      class="section section-dark"
-      id="how-it-works"
-    >
+    <section class="section theme-light" id="journey">
       <div class="container">
-        <p class="section-kicker">
-          HOW ADAPTIVE TREATMENT COULD WORK
-        </p>
-
-        <h2 class="section-heading">
-          The experience changes when the pattern changes.
-        </h2>
-
-        <div class="process-grid">
-          <article class="process-card">
-            <span class="card-index">01</span>
-
-            <h3>Your participation changes</h3>
-
-            <p>
-              You may begin completing fewer sessions, starting later,
-              taking longer or reporting greater fatigue or difficulty.
-            </p>
-          </article>
-
-          <article class="process-card">
-            <span class="card-index">02</span>
-
-            <h3>The product recognizes a pattern</h3>
-
-            <p>
-              Instead of treating each missed or delayed session as an
-              isolated event, the therapeutic product can consider how
-              several signals are changing together.
-            </p>
-          </article>
-
-          <article class="process-card">
-            <span class="card-index">03</span>
-
-            <h3>An approved response is selected</h3>
-
-            <p>
-              The product may adjust pacing, change reminder timing,
-              provide additional support or request appropriate human
-              review.
-            </p>
-          </article>
-
-          <article class="process-card">
-            <span class="card-index">04</span>
-
-            <h3>The effect is evaluated</h3>
-
-            <p>
-              The system observes whether the approved response helps
-              restore meaningful participation without exceeding the
-              boundaries set by the provider.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         Examples
-         ===================================================== -->
-
-    <section class="section section-light">
-      <div class="container">
-        <div class="section-title-row">
+        <div class="section-head reveal">
           <div>
-            <p class="section-kicker">
-              WHAT COULD CHANGE
-            </p>
-
-            <h2>
-              Adaptation does not have to mean a major treatment change.
-            </h2>
+            <p class="section-label">A changing treatment journey</p>
+            <h2>Recovery rarely follows a straight line.</h2>
           </div>
+          <p>This fictional scenario shows how adaptive software could respond to change without diagnosing, prescribing or acting outside configured treatment boundaries.</p>
         </div>
 
-        <div class="application-grid">
-          <article class="application-card">
-            <span class="application-icon" aria-hidden="true">01</span>
+        <div class="journey">
+          <aside class="journey-line" aria-hidden="true">
+            <div class="journey-line-track">
+              <div class="journey-line-fill" id="journey-fill"></div>
+              <i class="journey-dot active"></i>
+              <i class="journey-dot"></i>
+              <i class="journey-dot"></i>
+              <i class="journey-dot"></i>
+            </div>
+            <p class="journey-caption">Maya’s fictional eight-week program</p>
+          </aside>
 
-            <h3>Session pacing</h3>
+          <div class="journey-scenes">
+            <article class="journey-scene reveal" data-journey-step="0">
+              <span class="week">Week 1</span>
+              <h3>Everything begins with momentum.</h3>
+              <p>Maya starts treatment consistently. Sessions are completed on time, difficulty feels appropriate and fatigue remains manageable.</p>
 
-            <p>
-              A therapeutic product could offer a shorter or more
-              manageable session when fatigue or difficulty increases.
-            </p>
-          </article>
+              <div class="scene-visual">
+                <div class="session-dots" aria-label="Five completed sessions">
+                  <i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="filled"></i>
+                </div>
+              </div>
+            </article>
 
-          <article class="application-card">
-            <span class="application-icon" aria-hidden="true">02</span>
+            <article class="journey-scene reveal" data-journey-step="1">
+              <span class="week">Week 3</span>
+              <h3>The pattern begins to change.</h3>
+              <p>Sessions start later. Completion falls. No single event proves disengagement, but the pattern no longer looks like Maya’s baseline.</p>
 
-            <h3>Reminder timing</h3>
+              <div class="scene-visual">
+                <div class="session-dots" aria-label="Declining completion">
+                  <i class="filled"></i><i class="filled"></i><i class="filled"></i><i class="faded"></i><i class="faded"></i>
+                </div>
+              </div>
+            </article>
 
-            <p>
-              Reminder timing could be adjusted when repeated delays
-              suggest that the current schedule is no longer effective.
-            </p>
-          </article>
+            <article class="journey-scene reveal" data-journey-step="2">
+              <span class="week">Week 5</span>
+              <h3>Fatigue rises. Difficulty feels heavier.</h3>
+              <p>Bazi interprets the combination of delay, lower completion and reported fatigue as possible treatment friction—not as a diagnosis or judgment about effort.</p>
 
-          <article class="application-card">
-            <span class="application-icon" aria-hidden="true">03</span>
+              <div class="scene-visual">
+                <svg class="fatigue-wave" viewBox="0 0 650 120" role="img" aria-label="Fatigue trend rising over time">
+                  <path d="M10 90 C110 82 160 88 235 68 C310 48 360 65 430 42 C505 18 565 34 640 14"></path>
+                </svg>
+              </div>
+            </article>
 
-            <h3>Additional support</h3>
+            <article class="journey-scene reveal" data-journey-step="3">
+              <span class="week">Week 6</span>
+              <h3>Treatment responds without losing its boundaries.</h3>
+              <p>A shorter session is recommended from a provider-approved set of actions. The care team remains responsible for review and oversight.</p>
 
-            <p>
-              The experience could provide approved educational material,
-              encouragement or recovery guidance when appropriate.
-            </p>
-          </article>
-
-          <article class="application-card">
-            <span class="application-icon" aria-hidden="true">04</span>
-
-            <h3>Human review</h3>
-
-            <p>
-              Certain patterns could trigger a request for review by a
-              clinician, coach or care team rather than an automated
-              treatment change.
-            </p>
-          </article>
+              <div class="scene-visual">
+                <div class="decision-ribbon"><span>SELECTED RESPONSE</span><strong>Reduce session duration for two sessions</strong></div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- =====================================================
-         Experience Preview
-         ===================================================== -->
-
-    <section class="section section-muted">
+    <section class="conversation-section theme-dark">
       <div class="container">
-        <div class="section-title-row">
+        <div class="section-head reveal">
           <div>
-            <p class="section-kicker">
-              A MORE RESPONSIVE EXPERIENCE
-            </p>
-
-            <h2>
-              Support should reflect what is happening now.
-            </h2>
+            <p class="kicker">How adaptation could feel</p>
+            <h2>Responsive without feeling mechanical.</h2>
           </div>
-
-          <a class="text-link" href="demo.html">
-            Explore the product demo
-            <span aria-hidden="true">→</span>
-          </a>
+          <p>The point is not to make treatment more automated. It is to help treatment become more attentive to the person experiencing it.</p>
         </div>
 
-        <div class="audience-grid">
-          <article class="audience-card audience-card-light">
-            <span class="audience-label">
-              WITHOUT ADAPTATION
-            </span>
-
-            <div>
-              <h3>
-                The same treatment path continues.
-              </h3>
-
-              <p>
-                Missed sessions may produce another reminder, but the
-                product may not recognize the broader pattern behind
-                declining participation.
-              </p>
+        <div class="conversation-list">
+          <div class="conversation-row reveal">
+            <div class="conversation-user">
+              <span>Patient moment</span>
+              <p>“I forgot today’s session.”</p>
             </div>
 
-            <span class="audience-link">
-              Fixed pacing
-            </span>
-          </article>
+            <div class="conversation-arrow">→</div>
 
-          <article class="audience-card audience-card-dark">
-            <span class="audience-label">
-              WITH BOUNDED ADAPTATION
-            </span>
+            <div class="conversation-response">
+              <span>Possible response</span>
+              <p>“That’s okay. Let’s try a better time tomorrow.”</p>
+            </div>
+          </div>
 
-            <div>
-              <h3>
-                The product responds within approved options.
-              </h3>
-
-              <p>
-                The experience can adjust timing, pacing or support and
-                request human review when the provider-defined rules
-                require it.
-              </p>
+          <div class="conversation-row reveal">
+            <div class="conversation-user">
+              <span>Patient moment</span>
+              <p>“This feels too difficult.”</p>
             </div>
 
-            <span class="audience-link">
-              Responsive support
-            </span>
-          </article>
+            <div class="conversation-arrow">→</div>
+
+            <div class="conversation-response">
+              <span>Possible response</span>
+              <p>“Your care team can review a lower-burden session.”</p>
+            </div>
+          </div>
+
+          <div class="conversation-row reveal">
+            <div class="conversation-user">
+              <span>Patient moment</span>
+              <p>“I’m exhausted.”</p>
+            </div>
+
+            <div class="conversation-arrow">→</div>
+
+            <div class="conversation-response">
+              <span>Possible response</span>
+              <p>“Today’s treatment can pause for appropriate human review.”</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- =====================================================
-         Patient Principles
-         ===================================================== -->
-
-    <section class="section section-dark">
+    <section class="section theme-light">
       <div class="container">
-        <p class="section-kicker">
-          PATIENT PRINCIPLES
-        </p>
+        <div class="section-head reveal">
+          <div>
+            <p class="section-label">What Bazi is designed to preserve</p>
+            <h2>Adaptation should not mean surrendering control.</h2>
+          </div>
+          <p>Bazi is being designed around constrained action, transparent reasoning and appropriate human authority.</p>
+        </div>
 
-        <h2 class="section-heading">
-          Adaptive care should remain understandable, bounded and
-          human-accountable.
-        </h2>
-
-        <div class="principles-grid">
-          <article class="principle-card">
+        <div class="principles">
+          <article class="principle reveal">
             <span>01</span>
-
-            <h3>Visible adaptation</h3>
-
-            <p>
-              People should be able to understand when and why their
-              treatment experience has changed.
-            </p>
+            <h3>Provider-defined boundaries</h3>
+            <p>The system evaluates only actions configured by the therapeutic organization, provider or clinical team.</p>
           </article>
 
-          <article class="principle-card">
+          <article class="principle reveal">
             <span>02</span>
-
-            <h3>Defined boundaries</h3>
-
-            <p>
-              Available adaptations should come from options approved
-              by the therapeutic provider or clinical team.
-            </p>
+            <h3>Human review where required</h3>
+            <p>Recommendations can remain subject to review rather than being delivered as unrestricted autonomous treatment changes.</p>
           </article>
 
-          <article class="principle-card">
+          <article class="principle reveal">
             <span>03</span>
-
-            <h3>Human oversight</h3>
-
-            <p>
-              Significant treatment decisions should preserve
-              appropriate human review and clear responsibility.
-            </p>
-          </article>
-
-          <article class="principle-card">
-            <span>04</span>
-
-            <h3>Responsible data use</h3>
-
-            <p>
-              Sensitive behavioral and health information should be
-              handled with care, transparency and appropriate controls.
-            </p>
-          </article>
-        </div>
-
-        <div class="principles-statement">
-          <p>
-            A person should never be reduced to an engagement score.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         Data and Privacy
-         ===================================================== -->
-
-    <section class="section section-light">
-      <div class="container boundary-grid">
-        <div>
-          <p class="section-kicker">
-            DATA AND PRIVACY
-          </p>
-
-          <h2>
-            Adaptive technology should not require unnecessary
-            surveillance.
-          </h2>
-
-          <p>
-            Bazi is being designed to work with information already
-            produced through a digital therapeutic experience, such as
-            session completion, response timing, duration and
-            user-reported difficulty.
-          </p>
-        </div>
-
-        <div class="boundary-list">
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>Purpose-limited signals</strong>
-
-              <p>
-                Data should be used for clearly defined therapeutic and
-                product purposes rather than unrelated profiling.
-              </p>
-            </div>
-          </div>
-
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>Appropriate controls</strong>
-
-              <p>
-                Therapeutic organizations should maintain access,
-                retention and security practices appropriate to the
-                information they process.
-              </p>
-            </div>
-          </div>
-
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>Clear accountability</strong>
-
-              <p>
-                People should know which organization is responsible
-                for the therapeutic product and how their information
-                is being used.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         Clinical Boundaries
-         ===================================================== -->
-
-    <section class="section section-dark">
-      <div class="container boundary-grid">
-        <div>
-          <p class="section-kicker">
-            CLINICAL BOUNDARIES
-          </p>
-
-          <h2>
-            Bazi recommends within constraints. It does not replace a
-            healthcare professional.
-          </h2>
-        </div>
-
-        <div class="boundary-list">
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>It does not diagnose.</strong>
-
-              <p>
-                Bazi is not designed to determine whether a person has
-                a medical condition.
-              </p>
-            </div>
-          </div>
-
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>It does not independently prescribe.</strong>
-
-              <p>
-                Bazi does not create medication, therapy or treatment
-                plans on its own.
-              </p>
-            </div>
-          </div>
-
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>It does not invent interventions.</strong>
-
-              <p>
-                The system evaluates only the actions made available by
-                the therapeutic organization or clinical team.
-              </p>
-            </div>
-          </div>
-
-          <div class="boundary-item">
-            <span class="check-icon" aria-hidden="true">✓</span>
-
-            <div>
-              <strong>It can support human escalation.</strong>
-
-              <p>
-                When configured to do so, concerning patterns can be
-                routed for appropriate human review.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================
-         FAQ
-         ===================================================== -->
-
-    <section class="section section-light">
-      <div class="container">
-        <div class="section-title-row">
-          <div>
-            <p class="section-kicker">
-              FREQUENTLY ASKED QUESTIONS
-            </p>
-
-            <h2>
-              What individuals should know about Bazi.
-            </h2>
-          </div>
-        </div>
-
-        <div class="evidence-grid">
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">01</span>
-              <span class="evidence-type">ABOUT BAZI</span>
-            </div>
-
-            <h3>
-              Can I sign up for Bazi directly?
-            </h3>
-
-            <p>
-              Bazi is being designed as infrastructure for digital
-              therapeutic and healthcare organizations. It is not
-              currently a direct-to-consumer treatment product.
-            </p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">02</span>
-              <span class="evidence-type">TREATMENT CONTROL</span>
-            </div>
-
-            <h3>
-              Can Bazi change my treatment by itself?
-            </h3>
-
-            <p>
-              No. The system is intended to evaluate actions defined by
-              the therapeutic organization or clinical team and preserve
-              appropriate human oversight.
-            </p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">03</span>
-              <span class="evidence-type">CURRENT STAGE</span>
-            </div>
-
-            <h3>
-              Has Bazi established clinical efficacy?
-            </h3>
-
-            <p>
-              Not yet. Bazi is at an early product-development stage and
-              has not established clinical efficacy for its platform.
-            </p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">04</span>
-              <span class="evidence-type">HEALTHCARE RELATIONSHIP</span>
-            </div>
-
-            <h3>
-              Is Bazi a healthcare provider?
-            </h3>
-
-            <p>
-              No. Bazi does not provide medical care, diagnosis,
-              prescribing or emergency services.
-            </p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">05</span>
-              <span class="evidence-type">EMERGENCIES</span>
-            </div>
-
-            <h3>
-              What should I do in a medical emergency?
-            </h3>
-
-            <p>
-              Bazi is not an emergency service. Contact local emergency
-              services or an appropriate healthcare professional when
-              urgent help is needed.
-            </p>
-          </article>
-
-          <article class="evidence-card">
-            <div class="evidence-card-top">
-              <span class="evidence-number">06</span>
-              <span class="evidence-type">PARTICIPATION</span>
-            </div>
-
-            <h3>
-              How can individuals contribute?
-            </h3>
-
-            <p>
-              People with experience using digital treatment tools can
-              share feedback about what made treatment easier, harder or
-              more meaningful through the early-access form below.
-            </p>
+            <h3>No diagnosis by implication</h3>
+            <p>Behavioral change is evidence for interpretation, not automatic proof of a condition, motive or lack of effort.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- =====================================================
-         Early Access
-         ===================================================== -->
+    <section class="river-section">
+      <svg class="river-svg" viewBox="0 0 1440 840" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="5" result="blur"></feGaussianBlur>
+            <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+          </filter>
+        </defs>
 
-    <section
-      class="section early-access-section"
-      id="early-access"
-    >
-      <div class="container early-access-grid">
-        <div>
-          <p class="section-kicker">
-            SHARE YOUR PERSPECTIVE
-          </p>
+        <path id="river-path-1" d="M-40 480 C210 210 420 690 690 390 C920 130 1160 510 1480 260" fill="none" stroke="rgba(85,232,137,.19)" stroke-width="2"></path>
+        <path id="river-path-2" d="M-60 590 C230 310 420 730 720 470 C950 270 1210 600 1500 380" fill="none" stroke="rgba(85,232,137,.10)" stroke-width="1"></path>
+        <path id="river-path-3" d="M-40 340 C260 160 450 540 740 290 C980 80 1200 420 1490 170" fill="none" stroke="rgba(85,232,137,.08)" stroke-width="1"></path>
 
-          <h2>
-            Help shape a more responsive treatment experience.
-          </h2>
+        <circle r="7" fill="#55e889" filter="url(#glow)">
+          <animateMotion dur="7s" repeatCount="indefinite"><mpath href="#river-path-1"></mpath></animateMotion>
+        </circle>
 
-          <p>
-            We are interested in hearing from people who have used
-            digital treatment, rehabilitation, mental-health or
-            behavior-change products.
-          </p>
+        <circle r="5" fill="#55e889" filter="url(#glow)">
+          <animateMotion dur="9s" begin="2s" repeatCount="indefinite"><mpath href="#river-path-2"></mpath></animateMotion>
+        </circle>
 
-          <p>
-            Feedback may help us understand where fixed treatment
-            experiences fail and what responsible adaptation should
-            look like.
-          </p>
+        <circle r="4" fill="#55e889" filter="url(#glow)">
+          <animateMotion dur="8s" begin="1s" repeatCount="indefinite"><mpath href="#river-path-3"></mpath></animateMotion>
+        </circle>
+      </svg>
 
-          <div class="research-positioning">
-            <span>PATIENT-INFORMED</span>
-            <span>PROVIDER-CONSTRAINED</span>
-            <span>HUMAN-ACCOUNTABLE</span>
-          </div>
+      <div class="river-content reveal">
+        <p class="kicker">A different philosophy of software</p>
+        <h2>Software should adapt to people. Not the other way around.</h2>
+        <p>The goal is not unlimited personalization. It is responsible responsiveness: noticing change, respecting boundaries and helping care remain connected to the person.</p>
+        <a class="button button-outline-dark" href="research.html">Explore the Research</a>
+      </div>
+    </section>
+
+    <section class="section theme-soft">
+      <div class="container responsibility-grid">
+        <div class="responsibility-copy reveal">
+          <p class="section-label">What Bazi does not claim</p>
+          <h2>Responsibility matters as much as intelligence.</h2>
+          <p>Bazi is presented as an emerging product concept. It has not established clinical efficacy and is not intended to replace clinicians, diagnose conditions or independently prescribe treatment.</p>
         </div>
 
-        <form
-          class="early-access-form"
-          id="early-access-form"
-          novalidate
-        >
-          <div class="form-grid">
-            <label>
-              Name
+        <div class="responsibility-list">
+          <article class="responsibility-item reveal">
+            <span>01 / NOT A DIAGNOSTIC TOOL</span>
+            <h3>Behavioral signals are not a diagnosis.</h3>
+            <p>Changes in completion or timing can have many explanations and should not be interpreted as proof of a medical condition.</p>
+          </article>
 
-              <input
-                type="text"
-                name="name"
-                autocomplete="name"
-                required
-              >
-            </label>
+          <article class="responsibility-item reveal">
+            <span>02 / NOT AN INDEPENDENT PRESCRIBER</span>
+            <h3>Actions remain constrained.</h3>
+            <p>Bazi is designed to evaluate only interventions configured by authorized therapeutic teams.</p>
+          </article>
 
-            <label>
-              Email
+          <article class="responsibility-item reveal">
+            <span>03 / FICTIONAL DEMONSTRATIONS</span>
+            <h3>Maya is not a real patient.</h3>
+            <p>The patient journey and product screens on this page use fictional information to demonstrate a possible future workflow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-              <input
-                type="email"
-                name="email"
-                autocomplete="email"
-                required
-              >
-            </label>
-          </div>
-
-          <label>
-            Your perspective
-
-            <select name="perspective" required>
-              <option value="">Select one</option>
-              <option value="patient">
-                I have used a digital treatment product
-              </option>
-              <option value="caregiver">
-                I support someone using digital treatment
-              </option>
-              <option value="clinician">
-                I work in healthcare or clinical care
-              </option>
-              <option value="researcher">
-                I work in research
-              </option>
-              <option value="other">
-                Other
-              </option>
-            </select>
-          </label>
-
-          <label>
-            What should adaptive treatment technology understand?
-
-            <textarea
-              name="message"
-              rows="5"
-              required
-            ></textarea>
-          </label>
-
-          <button
-            class="button button-primary"
-            type="submit"
-          >
-            Share Your Perspective
-          </button>
-
-          <p
-            class="form-status"
-            id="form-status"
-            role="status"
-            aria-live="polite"
-          ></p>
-        </form>
+    <section class="final-cta">
+      <div class="container reveal">
+        <h2>The future of therapy should feel more human.</h2>
+        <p>See how Bazi imagines adaptive treatment experiences that respond to change without abandoning responsibility.</p>
+        <a class="button button-outline-light" href="demo.html">See the Product Demo →</a>
       </div>
     </section>
   </main>
 
-  <!-- =====================================================
-       Footer
-       ===================================================== -->
-
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <a class="brand footer-brand" href="index.html">
-          <span class="brand-mark" aria-hidden="true">β</span>
-          <span class="brand-name">Bazi</span>
-        </a>
-
-        <p>
-          The adaptive intelligence layer for software-based medicine.
-        </p>
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">β</span><span class="brand-name">Bazi</span></a>
+        <p class="footer-copy">The adaptive intelligence layer for software-based medicine.</p>
       </div>
 
-      <div class="footer-links">
-        <a href="index.html#for-companies">For Companies</a>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="companies.html">For Companies</a>
         <a href="individuals.html">For Individuals</a>
         <a href="index.html#technology">Technology</a>
-        <a href="index.html#research">Research</a>
+        <a href="index.html#product">Product</a>
+        <a href="research.html">Research</a>
+        <a href="resources.html">Marginalia</a>
         <a href="careers.html">Careers</a>
-        <a href="demo.html">Product Demo</a>
-      </div>
+        <a href="demo.html">Demo</a>
+      </nav>
 
-      <p class="copyright">
-        © <span id="year"></span> Bazi. All rights reserved.
-      </p>
+      <p class="copyright">© <span id="year"></span> Bazi. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    const root = document.documentElement;
+    const hero = document.querySelector(".hero");
+    const progressBar = document.getElementById("progress-bar");
+    const mobileToggle = document.getElementById("mobile-toggle");
+    const primaryNav = document.getElementById("primary-nav");
+
+    hero.addEventListener("pointermove", event => {
+      const rect = hero.getBoundingClientRect();
+      root.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+      root.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+    });
+
+    mobileToggle.addEventListener("click", () => {
+      const open = primaryNav.classList.toggle("open");
+      mobileToggle.setAttribute("aria-expanded", String(open));
+      mobileToggle.textContent = open ? "×" : "☰";
+    });
+
+    document.querySelectorAll("#primary-nav a").forEach(link => {
+      link.addEventListener("click", () => {
+        primaryNav.classList.remove("open");
+        mobileToggle.setAttribute("aria-expanded", "false");
+        mobileToggle.textContent = "☰";
+      });
+    });
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = `${scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0}%`;
+    }
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    const journeyScenes = [...document.querySelectorAll(".journey-scene")];
+    const journeyDots = [...document.querySelectorAll(".journey-dot")];
+    const journeyFill = document.getElementById("journey-fill");
+
+    const journeyObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const index = Number(entry.target.dataset.journeyStep);
+
+        journeyDots.forEach((dot, i) => {
+          dot.classList.toggle("active", i <= index);
+        });
+
+        journeyFill.style.height = `${(index / (journeyScenes.length - 1)) * 100}%`;
+      });
+    }, { threshold: .55 });
+
+    journeyScenes.forEach(scene => journeyObserver.observe(scene));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const canvas = document.getElementById("hero-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = hero.clientWidth * ratio;
+      canvas.height = hero.clientHeight * ratio;
+      canvas.style.width = `${hero.clientWidth}px`;
+      canvas.style.height = `${hero.clientHeight}px`;
+
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      particles = Array.from(
+        { length: Math.min(100, Math.floor(hero.clientWidth / 12)) },
+        () => ({
+          x: Math.random() * hero.clientWidth,
+          y: Math.random() * hero.clientHeight,
+          speed: .18 + Math.random() * .55,
+          phase: Math.random() * Math.PI * 2,
+          size: .5 + Math.random() * 1.7,
+          alpha: .08 + Math.random() * .26
+        })
+      );
+    }
+
+    function drawParticles(time = 0) {
+      ctx.clearRect(0, 0, hero.clientWidth, hero.clientHeight);
+
+      particles.forEach(p => {
+        p.x += p.speed;
+        p.y += Math.sin((p.x * .008) + p.phase + time * .00035) * .14;
+
+        if (p.x > hero.clientWidth + 10) p.x = -10;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(85,232,137,${p.alpha})`;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      for (let lane = 0; lane < 4; lane++) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(85,232,137,${0.05 + lane * 0.018})`;
+        ctx.lineWidth = 1;
+
+        for (let x = -20; x <= hero.clientWidth + 20; x += 12) {
+          const y = hero.clientHeight * (.22 + lane * .18) +
+            Math.sin(x * .008 + time * .0004 + lane) * (35 + lane * 10);
+
+          if (x === -20) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      resizeCanvas();
+      drawParticles();
+      window.addEventListener("resize", resizeCanvas);
+    }
+  </script>
 </body>
 </html>
