@@ -1,1 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Bazi gives digital therapeutic companies adaptive intelligence for recognizing disengagement and recommending provider-approved responses."
+  >
+
+  <title>Bazi for Companies | Adaptive Intelligence for Digital Therapeutics</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    /* =====================================================
+       Companies Page
+       ===================================================== */
+
+    .companies-page {
+      background: #f7f8f3;
+      color: #071a2b;
+    }
+
+    .companies-container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .companies-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 900px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 82% 20%, rgba(85, 232, 137, 0.16), transparent 28%),
+        linear-gradient(135deg, #04111d 0%, #071a2b 72%, #0a2235 100%);
+      color: #f7f8f3;
+    }
+
+    .companies-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+      pointer-events: none;
+    }
+
+    .companies-hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 90px;
+      align-items: center;
+      padding: 170px 0 110px;
+    }
+
+    .companies-eyebrow {
+      margin: 0 0 28px;
+      color: #55e889;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .companies-hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4.4rem, 8vw, 8rem);
+      font-weight: 400;
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+    }
+
+    .companies-hero h1 em {
+      color: #55e889;
+      font-weight: 400;
+    }
+
+    .companies-hero-copy {
+      max-width: 700px;
+      margin-top: 34px;
+      color: rgba(247, 248, 243, 0.72);
+      font-size: 1.12rem;
+      line-height: 1.8;
+    }
+
+    .companies-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .companies-hero-note {
+      max-width: 680px;
+      margin-top: 26px;
+      color: rgba(247, 248, 243, 0.48);
+      font-size: 0.8rem;
+      line-height: 1.65;
+    }
+
+    .companies-console {
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      background: rgba(4,17,29,0.66);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.32);
+      backdrop-filter: blur(22px);
+      overflow: hidden;
+    }
+
+    .companies-console-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      color: rgba(247,248,243,0.7);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .companies-console-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #55e889;
+    }
+
+    .companies-console-status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #55e889;
+      box-shadow: 0 0 18px rgba(85,232,137,0.7);
+    }
+
+    .companies-console-body {
+      padding: 26px;
+    }
+
+    .companies-console-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .companies-console-card {
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .companies-console-card span {
+      display: block;
+      margin-bottom: 10px;
+      color: rgba(247,248,243,0.48);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .companies-console-card strong {
+      display: block;
+      color: #f7f8f3;
+      font-size: 1.55rem;
+      font-weight: 600;
+    }
+
+    .companies-console-card small {
+      color: rgba(247,248,243,0.56);
+    }
+
+    .companies-console-recommendation {
+      margin-top: 14px;
+      padding: 22px;
+      border: 1px solid rgba(85,232,137,0.35);
+      border-radius: 18px;
+      background: rgba(85,232,137,0.08);
+    }
+
+    .companies-console-recommendation p {
+      margin: 0 0 10px;
+      color: #55e889;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .companies-console-recommendation h3 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      line-height: 1.25;
+    }
+
+    .companies-console-recommendation small {
+      color: rgba(247,248,243,0.58);
+      line-height: 1.6;
+    }
+
+    .companies-section {
+      padding: 160px 0;
+    }
+
+    .companies-section-light {
+      background: #f7f8f3;
+    }
+
+    .companies-section-soft {
+      background: #eef1ec;
+    }
+
+    .companies-section-dark {
+      background: #04111d;
+      color: #f7f8f3;
+    }
+
+    .companies-kicker {
+      margin: 0 0 22px;
+      color: #55e889;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .companies-section-light .companies-kicker,
+    .companies-section-soft .companies-kicker {
+      color: #357f54;
+    }
+
+    .companies-title {
+      max-width: 960px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.4rem, 6vw, 6.4rem);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+    }
+
+    .companies-intro-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .companies-intro-copy {
+      padding-top: 8px;
+    }
+
+    .companies-intro-copy p {
+      margin: 0 0 26px;
+      color: #5d6872;
+      font-size: 1.08rem;
+      line-height: 1.82;
+    }
+
+    .companies-section-dark .companies-intro-copy p {
+      color: rgba(247,248,243,0.68);
+    }
+
+    .companies-problem-flow {
+      margin-top: 100px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .companies-flow-card {
+      position: relative;
+      min-height: 220px;
+      padding: 26px;
+      border: 1px solid rgba(7,26,43,0.12);
+      border-radius: 22px;
+      background: #fff;
+    }
+
+    .companies-flow-card::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -23px;
+      transform: translateY(-50%);
+      color: #8a949c;
+      font-size: 1.25rem;
+      z-index: 2;
+    }
+
+    .companies-flow-card:last-child::after {
+      display: none;
+    }
+
+    .companies-flow-card span {
+      display: block;
+      margin-bottom: 48px;
+      color: #66727c;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .companies-flow-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+    }
+
+    .companies-flow-card p {
+      margin: 0;
+      color: #66727c;
+      line-height: 1.68;
+    }
+
+    .companies-flow-card-active {
+      background: #071a2b;
+      color: #f7f8f3;
+      border-color: #071a2b;
+    }
+
+    .companies-flow-card-active span,
+    .companies-flow-card-active p {
+      color: rgba(247,248,243,0.65);
+    }
+
+    .companies-value-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 84px;
+    }
+
+    .companies-value-card {
+      min-height: 310px;
+      padding: 30px;
+      border: 1px solid rgba(247,248,243,0.11);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .companies-value-card span {
+      display: block;
+      margin-bottom: 62px;
+      color: #55e889;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+    }
+
+    .companies-value-card h3 {
+      margin: 0 0 15px;
+      font-size: 1.4rem;
+    }
+
+    .companies-value-card p {
+      margin: 0;
+      color: rgba(247,248,243,0.63);
+      line-height: 1.7;
+    }
+
+    .companies-architecture {
+      margin-top: 90px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .companies-architecture-node {
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid rgba(7,26,43,0.13);
+      border-radius: 22px;
+      background: #fff;
+    }
+
+    .companies-architecture-node span {
+      display: block;
+      margin-bottom: 38px;
+      color: #66727c;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .companies-architecture-node strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .companies-architecture-node small {
+      color: #66727c;
+      line-height: 1.6;
+    }
+
+    .companies-architecture-node-active {
+      background: #071a2b;
+      color: #f7f8f3;
+      border-color: #071a2b;
+      box-shadow: 0 24px 70px rgba(7,26,43,0.18);
+    }
+
+    .companies-architecture-node-active span,
+    .companies-architecture-node-active small {
+      color: rgba(247,248,243,0.62);
+    }
+
+    .companies-architecture-arrow {
+      text-align: center;
+      color: #7b858e;
+      font-size: 1.3rem;
+    }
+
+    .companies-engine-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 90px;
+      margin-top: 88px;
+      align-items: start;
+    }
+
+    .companies-code-window {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: #071a2b;
+      box-shadow: 0 35px 80px rgba(7,26,43,0.16);
+    }
+
+    .companies-code-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .companies-code-header span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .companies-code-header strong {
+      margin-left: 8px;
+      color: rgba(247,248,243,0.62);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+    }
+
+    .companies-code-window pre {
+      margin: 0;
+      padding: 26px;
+      overflow-x: auto;
+      color: #dce7df;
+      font-size: 0.9rem;
+      line-height: 1.72;
+    }
+
+    .companies-result {
+      padding: 34px;
+      border-radius: 24px;
+      background: #fff;
+      border: 1px solid rgba(7,26,43,0.12);
+    }
+
+    .companies-result-label {
+      margin: 0 0 20px;
+      color: #357f54;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .companies-result-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .companies-result-metric {
+      padding: 18px;
+      border-radius: 16px;
+      background: #eef1ec;
+    }
+
+    .companies-result-metric span {
+      display: block;
+      margin-bottom: 7px;
+      color: #66727c;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .companies-result-metric strong {
+      font-size: 1.35rem;
+    }
+
+    .companies-result h3 {
+      margin: 0 0 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.3rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .companies-result p {
+      margin: 0 0 22px;
+      color: #66727c;
+      line-height: 1.72;
+    }
+
+    .companies-reasons {
+      padding-top: 22px;
+      border-top: 1px solid rgba(7,26,43,0.1);
+    }
+
+    .companies-reasons ul {
+      margin: 14px 0 0;
+      padding-left: 20px;
+      color: #52606b;
+      line-height: 1.8;
+    }
+
+    .companies-guardrail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 90px;
+    }
+
+    .companies-guardrail-card {
+      min-height: 430px;
+      padding: 34px;
+      border-radius: 26px;
+    }
+
+    .companies-guardrail-card h3 {
+      margin: 0 0 24px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      letter-spacing: -0.035em;
+    }
+
+    .companies-guardrail-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .companies-guardrail-card li {
+      display: flex;
+      gap: 14px;
+      padding: 17px 0;
+      border-top: 1px solid currentColor;
+      border-color: rgba(7,26,43,0.11);
+      line-height: 1.65;
+    }
+
+    .companies-guardrail-card li span {
+      font-weight: 800;
+    }
+
+    .companies-guardrail-yes {
+      background: #55e889;
+      color: #04111d;
+    }
+
+    .companies-guardrail-no {
+      background: #071a2b;
+      color: #f7f8f3;
+    }
+
+    .companies-guardrail-no li {
+      border-color: rgba(247,248,243,0.12);
+      color: rgba(247,248,243,0.78);
+    }
+
+    .companies-integration-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 90px;
+      align-items: start;
+      margin-top: 88px;
+    }
+
+    .companies-integration-copy p {
+      margin: 0 0 24px;
+      color: #5c6872;
+      line-height: 1.78;
+    }
+
+    .companies-integration-points {
+      margin-top: 36px;
+    }
+
+    .companies-integration-point {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 18px 0;
+      border-top: 1px solid rgba(7,26,43,0.11);
+    }
+
+    .companies-integration-point span {
+      color: #357f54;
+      font-weight: 800;
+    }
+
+    .companies-integration-point strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .companies-integration-point p {
+      margin: 0;
+      font-size: 0.94rem;
+    }
+
+    .companies-use-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 84px;
+    }
+
+    .companies-use-card {
+      min-height: 260px;
+      padding: 28px;
+      border: 1px solid rgba(7,26,43,0.12);
+      border-radius: 22px;
+      background: #fff;
+    }
+
+    .companies-use-card span {
+      display: block;
+      margin-bottom: 48px;
+      color: #357f54;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .companies-use-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.4rem;
+    }
+
+    .companies-use-card p {
+      margin: 0;
+      color: #66727c;
+      line-height: 1.68;
+    }
+
+    .companies-security-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 84px;
+    }
+
+    .companies-security-card {
+      min-height: 260px;
+      padding: 28px;
+      border: 1px solid rgba(247,248,243,0.12);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .companies-security-card span {
+      display: block;
+      margin-bottom: 48px;
+      color: #55e889;
+      font-size: 1.2rem;
+    }
+
+    .companies-security-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.3rem;
+    }
+
+    .companies-security-card p {
+      margin: 0;
+      color: rgba(247,248,243,0.62);
+      line-height: 1.68;
+    }
+
+    .companies-faq {
+      margin-top: 84px;
+      border-top: 1px solid rgba(7,26,43,0.12);
+    }
+
+    .companies-faq-item {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 70px;
+      padding: 34px 0;
+      border-bottom: 1px solid rgba(7,26,43,0.12);
+    }
+
+    .companies-faq-item h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+    }
+
+    .companies-faq-item p {
+      margin: 0;
+      color: #66727c;
+      line-height: 1.75;
+    }
+
+    .companies-cta {
+      padding: 130px 0;
+      background: #55e889;
+      color: #04111d;
+    }
+
+    .companies-cta-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 90px;
+      align-items: end;
+    }
+
+    .companies-cta h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.8rem, 7vw, 7.2rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .companies-cta-copy p {
+      margin: 0 0 28px;
+      font-size: 1.06rem;
+      line-height: 1.75;
+    }
+
+    .companies-cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .companies-cta .button-primary {
+      background: #04111d;
+      border-color: #04111d;
+      color: #f7f8f3;
+    }
+
+    .companies-cta .button-secondary {
+      color: #04111d;
+      border-color: rgba(4,17,29,0.35);
+    }
+
+    @media (max-width: 980px) {
+      .companies-hero-grid,
+      .companies-intro-grid,
+      .companies-engine-grid,
+      .companies-integration-grid,
+      .companies-cta-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .companies-problem-flow,
+      .companies-value-grid,
+      .companies-security-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .companies-architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .companies-architecture-arrow {
+        transform: rotate(90deg);
+      }
+
+      .companies-use-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .companies-container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .companies-hero {
+        min-height: auto;
+      }
+
+      .companies-hero-grid {
+        padding: 145px 0 90px;
+      }
+
+      .companies-hero h1 {
+        font-size: clamp(3.5rem, 15vw, 5.4rem);
+      }
+
+      .companies-section {
+        padding: 110px 0;
+      }
+
+      .companies-problem-flow,
+      .companies-value-grid,
+      .companies-use-grid,
+      .companies-security-grid,
+      .companies-guardrail-grid,
+      .companies-result-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .companies-flow-card::after {
+        top: auto;
+        right: 50%;
+        bottom: -28px;
+        transform: translateX(50%) rotate(90deg);
+      }
+
+      .companies-faq-item {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .companies-console-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="site-page companies-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- =====================================================
+       Navigation
+       ===================================================== -->
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <button
+        class="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="primary-nav"
+        class="primary-nav"
+        aria-label="Primary navigation"
+      >
+        <a href="companies.html" aria-current="page">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Demo</a>
+
+        <a
+          class="button button-small button-outline"
+          href="#partner"
+        >
+          Partner with Bazi
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+
+    <section class="companies-hero">
+      <div class="companies-container companies-hero-grid">
+        <div>
+          <p class="companies-eyebrow">
+            BAZI FOR DIGITAL THERAPEUTIC COMPANIES
+          </p>
+
+          <h1>
+            Adaptive intelligence for <em>software-based medicine.</em>
+          </h1>
+
+          <p class="companies-hero-copy">
+            Bazi helps therapeutic products recognize developing
+            disengagement, evaluate provider-approved responses and
+            recommend the next appropriate action before a patient
+            abandons treatment.
+          </p>
+
+          <div class="companies-hero-actions">
+            <a class="button button-primary" href="#partner">
+              Partner with Bazi
+            </a>
+
+            <a class="button button-secondary" href="#architecture">
+              View Technical Architecture
+            </a>
+          </div>
+
+          <p class="companies-hero-note">
+            Bazi is being developed as infrastructure for therapeutic
+            organizations. It does not diagnose, prescribe or independently
+            create medical treatment.
+          </p>
+        </div>
+
+        <div class="companies-console" aria-label="Bazi recommendation preview">
+          <div class="companies-console-top">
+            <span>Adaptive decision engine</span>
+            <span class="companies-console-status">Live evaluation</span>
+          </div>
+
+          <div class="companies-console-body">
+            <div class="companies-console-grid">
+              <div class="companies-console-card">
+                <span>Disengagement risk</span>
+                <strong>42%</strong>
+                <small>Moderate</small>
+              </div>
+
+              <div class="companies-console-card">
+                <span>Confidence</span>
+                <strong>86%</strong>
+                <small>Model estimate</small>
+              </div>
+
+              <div class="companies-console-card">
+                <span>Completion rate</span>
+                <strong>61%</strong>
+                <small>Declining</small>
+              </div>
+
+              <div class="companies-console-card">
+                <span>Session delay</span>
+                <strong>31h</strong>
+                <small>+9 hours</small>
+              </div>
+            </div>
+
+            <div class="companies-console-recommendation">
+              <p>Recommended approved response</p>
+
+              <h3>
+                Reduce session length for the next two sessions.
+              </h3>
+
+              <small>
+                Provider review required before delivery.
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Problem
+         ===================================================== -->
+
+    <section class="companies-section companies-section-light">
+      <div class="companies-container">
+        <div class="companies-intro-grid">
+          <div>
+            <p class="companies-kicker">
+              THE PRODUCT PROBLEM
+            </p>
+
+            <h2 class="companies-title">
+              Most therapeutic software follows a fixed path.
+              Patients do not.
+            </h2>
+          </div>
+
+          <div class="companies-intro-copy">
+            <p>
+              Digital therapeutics can deliver structured interventions
+              at scale, but many products still respond to disengagement
+              only after participation has already declined.
+            </p>
+
+            <p>
+              A missed session may trigger another reminder. A second
+              missed session may trigger the same reminder again.
+              The product records the behavior, but does not necessarily
+              interpret the pattern.
+            </p>
+
+            <p>
+              Bazi is designed to convert developing behavioral change
+              into a constrained, reviewable recommendation.
+            </p>
+          </div>
+        </div>
+
+        <div class="companies-problem-flow" aria-label="Typical disengagement sequence">
+          <article class="companies-flow-card">
+            <span>01 / TREATMENT</span>
+            <h3>Fixed pathway</h3>
+            <p>
+              The same pacing, timing and support are delivered to
+              every patient state.
+            </p>
+          </article>
+
+          <article class="companies-flow-card">
+            <span>02 / CHANGE</span>
+            <h3>Behavior shifts</h3>
+            <p>
+              Completion, timing, duration or reported difficulty begins
+              to change.
+            </p>
+          </article>
+
+          <article class="companies-flow-card">
+            <span>03 / REACTION</span>
+            <h3>Generic reminder</h3>
+            <p>
+              The system reacts to an isolated event rather than the
+              emerging pattern.
+            </p>
+          </article>
+
+          <article class="companies-flow-card">
+            <span>04 / LOSS</span>
+            <h3>Disengagement grows</h3>
+            <p>
+              Participation continues to decline without a more relevant
+              response.
+            </p>
+          </article>
+
+          <article class="companies-flow-card companies-flow-card-active">
+            <span>05 / OUTCOME</span>
+            <h3>Patient leaves</h3>
+            <p>
+              Completion, outcome measurement and product value become
+              harder to demonstrate.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         What Bazi Does
+         ===================================================== -->
+
+    <section class="companies-section companies-section-dark">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          WHAT BAZI DOES
+        </p>
+
+        <h2 class="companies-title">
+          A closed-loop intelligence layer behind the existing product.
+        </h2>
+
+        <div class="companies-value-grid">
+          <article class="companies-value-card">
+            <span>01</span>
+            <h3>Observe</h3>
+            <p>
+              Receive treatment events and behavioral signals already
+              generated by the digital therapeutic.
+            </p>
+          </article>
+
+          <article class="companies-value-card">
+            <span>02</span>
+            <h3>Interpret</h3>
+            <p>
+              Identify sustained behavioral change and estimate
+              near-term disengagement risk.
+            </p>
+          </article>
+
+          <article class="companies-value-card">
+            <span>03</span>
+            <h3>Recommend</h3>
+            <p>
+              Evaluate only the actions approved by the therapeutic
+              organization or clinical team.
+            </p>
+          </article>
+
+          <article class="companies-value-card">
+            <span>04</span>
+            <h3>Learn</h3>
+            <p>
+              Measure whether the delivered adaptation improves
+              meaningful engagement over time.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Architecture
+         ===================================================== -->
+
+    <section
+      class="companies-section companies-section-soft"
+      id="architecture"
+    >
+      <div class="companies-container">
+        <div class="companies-intro-grid">
+          <div>
+            <p class="companies-kicker">
+              PRODUCT ARCHITECTURE
+            </p>
+
+            <h2 class="companies-title">
+              Integrate adaptive decisioning without rebuilding the
+              patient experience.
+            </h2>
+          </div>
+
+          <div class="companies-intro-copy">
+            <p>
+              Bazi is designed to sit behind the existing therapeutic
+              interface. Your product continues to own treatment content,
+              clinical workflow, patient communication and the final
+              delivery of approved interventions.
+            </p>
+
+            <p>
+              Bazi evaluates behavioral context and returns a constrained
+              recommendation that can be reviewed, logged and delivered
+              according to your organization’s rules.
+            </p>
+          </div>
+        </div>
+
+        <div class="companies-architecture">
+          <article class="companies-architecture-node">
+            <span>INPUT</span>
+            <strong>Patient behavior</strong>
+            <small>
+              Completion, timing, fatigue, difficulty and performance
+            </small>
+          </article>
+
+          <div class="companies-architecture-arrow" aria-hidden="true">→</div>
+
+          <article class="companies-architecture-node">
+            <span>EXISTING SYSTEM</span>
+            <strong>Digital therapeutic</strong>
+            <small>
+              Sessions, exercises, assessments and provider workflows
+            </small>
+          </article>
+
+          <div class="companies-architecture-arrow" aria-hidden="true">→</div>
+
+          <article class="companies-architecture-node companies-architecture-node-active">
+            <span>BAZI LAYER</span>
+            <strong>Adaptive decision engine</strong>
+            <small>
+              Risk estimation, provider rules and explainable recommendation
+            </small>
+          </article>
+        </div>
+
+        <div class="companies-architecture" style="margin-top:14px;">
+          <article class="companies-architecture-node">
+            <span>APPROVED OUTPUT</span>
+            <strong>Selected response</strong>
+            <small>
+              Pacing, timing, support, content path or escalation
+            </small>
+          </article>
+
+          <div class="companies-architecture-arrow" aria-hidden="true">→</div>
+
+          <article class="companies-architecture-node">
+            <span>DELIVERY</span>
+            <strong>Updated experience</strong>
+            <small>
+              The existing therapeutic product presents the approved change
+            </small>
+          </article>
+
+          <div class="companies-architecture-arrow" aria-hidden="true">→</div>
+
+          <article class="companies-architecture-node">
+            <span>FEEDBACK</span>
+            <strong>Measured response</strong>
+            <small>
+              The system evaluates whether meaningful engagement improves
+            </small>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Decision Engine
+         ===================================================== -->
+
+    <section class="companies-section companies-section-light">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          ADAPTIVE DECISION ENGINE
+        </p>
+
+        <h2 class="companies-title">
+          Behavioral context in. Constrained recommendation out.
+        </h2>
+
+        <div class="companies-engine-grid">
+          <div class="companies-code-window">
+            <div class="companies-code-header">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>POST /v1/evaluate</strong>
+            </div>
+
+            <pre><code>{
+  "patient_id": "pt_1042",
+  "completion_rate": 0.61,
+  "session_delay_hours": 31,
+  "reported_fatigue": "high",
+  "difficulty_change": 0.24,
+  "approved_actions": [
+    "reduce_session_length",
+    "adjust_reminder_time",
+    "request_clinician_review"
+  ]
+}</code></pre>
+          </div>
+
+          <div class="companies-result">
+            <p class="companies-result-label">
+              Example response
+            </p>
+
+            <div class="companies-result-metrics">
+              <div class="companies-result-metric">
+                <span>Risk</span>
+                <strong>0.42</strong>
+              </div>
+
+              <div class="companies-result-metric">
+                <span>Confidence</span>
+                <strong>0.86</strong>
+              </div>
+
+              <div class="companies-result-metric">
+                <span>Review</span>
+                <strong>Required</strong>
+              </div>
+            </div>
+
+            <h3>
+              reduce_session_length
+            </h3>
+
+            <p>
+              The selected action comes from the provider-approved
+              action library supplied with the request.
+            </p>
+
+            <div class="companies-reasons">
+              <strong>Contributing signals</strong>
+
+              <ul>
+                <li>Completion declined across three sessions.</li>
+                <li>Average delay increased by nine hours.</li>
+                <li>Reported fatigue changed from moderate to high.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Guardrails
+         ===================================================== -->
+
+    <section class="companies-section companies-section-soft">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          PROVIDER CONSTRAINTS
+        </p>
+
+        <h2 class="companies-title">
+          AI should not invent medicine.
+        </h2>
+
+        <div class="companies-guardrail-grid">
+          <article class="companies-guardrail-card companies-guardrail-yes">
+            <h3>
+              Bazi can evaluate approved actions.
+            </h3>
+
+            <ul>
+              <li><span>✓</span> Adjust session pacing</li>
+              <li><span>✓</span> Change reminder timing</li>
+              <li><span>✓</span> Offer approved educational support</li>
+              <li><span>✓</span> Route a case for clinician review</li>
+              <li><span>✓</span> Explain contributing behavioral signals</li>
+            </ul>
+          </article>
+
+          <article class="companies-guardrail-card companies-guardrail-no">
+            <h3>
+              Bazi does not independently create treatment.
+            </h3>
+
+            <ul>
+              <li><span>×</span> Diagnose a medical condition</li>
+              <li><span>×</span> Prescribe medication or therapy</li>
+              <li><span>×</span> Invent a clinical intervention</li>
+              <li><span>×</span> Override provider rules</li>
+              <li><span>×</span> Replace appropriate human judgment</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Integration
+         ===================================================== -->
+
+    <section class="companies-section companies-section-light">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          INTEGRATION
+        </p>
+
+        <h2 class="companies-title">
+          Designed for the product you already operate.
+        </h2>
+
+        <div class="companies-integration-grid">
+          <div class="companies-integration-copy">
+            <p>
+              Bazi is intended to integrate through a secure application
+              interface rather than replace the digital therapeutic,
+              patient application or clinician dashboard.
+            </p>
+
+            <p>
+              Your team defines the available actions, thresholds,
+              review requirements and implementation logic appropriate
+              to the product.
+            </p>
+
+            <div class="companies-integration-points">
+              <div class="companies-integration-point">
+                <span>01</span>
+                <div>
+                  <strong>Send behavioral events</strong>
+                  <p>
+                    Submit structured events and approved context from
+                    the existing product.
+                  </p>
+                </div>
+              </div>
+
+              <div class="companies-integration-point">
+                <span>02</span>
+                <div>
+                  <strong>Receive a bounded recommendation</strong>
+                  <p>
+                    Retrieve the selected action, confidence, risk and
+                    contributing signals.
+                  </p>
+                </div>
+              </div>
+
+              <div class="companies-integration-point">
+                <span>03</span>
+                <div>
+                  <strong>Preserve your workflow</strong>
+                  <p>
+                    Deliver the adaptation through your existing
+                    product and review structure.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="companies-code-window">
+            <div class="companies-code-header">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>200 OK</strong>
+            </div>
+
+            <pre><code>{
+  "risk": {
+    "level": "moderate",
+    "score": 0.42,
+    "confidence": 0.86
+  },
+  "recommendation": {
+    "action": "reduce_session_length",
+    "review_required": true,
+    "duration_sessions": 2
+  },
+  "reason_codes": [
+    "completion_decline",
+    "delay_increase",
+    "fatigue_increase"
+  ]
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Use Cases
+         ===================================================== -->
+
+    <section class="companies-section companies-section-soft">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          POTENTIAL APPLICATIONS
+        </p>
+
+        <h2 class="companies-title">
+          One adaptive layer across multiple therapeutic categories.
+        </h2>
+
+        <div class="companies-use-grid">
+          <article class="companies-use-card">
+            <span>MENTAL HEALTH</span>
+            <h3>Therapeutic pacing</h3>
+            <p>
+              Adapt session length, content order, reminder timing and
+              appropriate human support.
+            </p>
+          </article>
+
+          <article class="companies-use-card">
+            <span>PHYSICAL REHABILITATION</span>
+            <h3>Exercise progression</h3>
+            <p>
+              Respond to changes in completion, fatigue, difficulty and
+              recovery patterns within an approved plan.
+            </p>
+          </article>
+
+          <article class="companies-use-card">
+            <span>CHRONIC DISEASE</span>
+            <h3>Behavioral support</h3>
+            <p>
+              Coordinate education, tracking and approved interventions
+              around changing participation.
+            </p>
+          </article>
+
+          <article class="companies-use-card">
+            <span>NEUROLOGICAL CARE</span>
+            <h3>Cognitive and motor therapy</h3>
+            <p>
+              Adjust progression using behavioral and performance
+              signals while preserving clinical oversight.
+            </p>
+          </article>
+
+          <article class="companies-use-card">
+            <span>PAIN MANAGEMENT</span>
+            <h3>Difficulty-sensitive support</h3>
+            <p>
+              Recognize sustained changes in participation and escalate
+              when configured rules require review.
+            </p>
+          </article>
+
+          <article class="companies-use-card">
+            <span>VIRTUAL CARE</span>
+            <h3>Human escalation</h3>
+            <p>
+              Route developing risk to a coach, therapist or clinician
+              before participation stops completely.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Research Position
+         ===================================================== -->
+
+    <section class="companies-section companies-section-light">
+      <div class="companies-container">
+        <div class="companies-intro-grid">
+          <div>
+            <p class="companies-kicker">
+              RESEARCH POSITION
+            </p>
+
+            <h2 class="companies-title">
+              Evidence before claims.
+            </h2>
+          </div>
+
+          <div class="companies-intro-copy">
+            <p>
+              Bazi is being developed from published work on meaningful
+              engagement, digital therapeutics, behavioral intervention,
+              medical AI and Software as a Medical Device.
+            </p>
+
+            <p>
+              The platform has not yet established clinical efficacy.
+              Research informing the problem space should not be confused
+              with evidence validating Bazi itself.
+            </p>
+
+            <a class="button button-primary" href="research.html">
+              Explore Bazi Research
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Security and Governance
+         ===================================================== -->
+
+    <section class="companies-section companies-section-dark">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          GOVERNANCE BY DESIGN
+        </p>
+
+        <h2 class="companies-title">
+          Adaptive systems need more than model performance.
+        </h2>
+
+        <div class="companies-security-grid">
+          <article class="companies-security-card">
+            <span>01</span>
+            <h3>Provider-defined constraints</h3>
+            <p>
+              Each deployment limits recommendations to actions approved
+              for the product and clinical context.
+            </p>
+          </article>
+
+          <article class="companies-security-card">
+            <span>02</span>
+            <h3>Visible reasoning</h3>
+            <p>
+              Product and clinical teams can review the signals and rules
+              contributing to a recommendation.
+            </p>
+          </article>
+
+          <article class="companies-security-card">
+            <span>03</span>
+            <h3>Human escalation</h3>
+            <p>
+              Configured risk states can require human review rather
+              than automatic delivery.
+            </p>
+          </article>
+
+          <article class="companies-security-card">
+            <span>04</span>
+            <h3>Auditable decisions</h3>
+            <p>
+              Recommendations should support logging, review and
+              traceability across the decision lifecycle.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         FAQ
+         ===================================================== -->
+
+    <section class="companies-section companies-section-light">
+      <div class="companies-container">
+        <p class="companies-kicker">
+          FREQUENTLY ASKED QUESTIONS
+        </p>
+
+        <h2 class="companies-title">
+          What product and clinical teams should know.
+        </h2>
+
+        <div class="companies-faq">
+          <article class="companies-faq-item">
+            <h3>Does Bazi diagnose patients?</h3>
+            <p>
+              No. Bazi is not designed to determine whether a patient
+              has a medical condition.
+            </p>
+          </article>
+
+          <article class="companies-faq-item">
+            <h3>Does Bazi prescribe treatment?</h3>
+            <p>
+              No. The system evaluates only the actions supplied and
+              approved by the therapeutic organization or clinical team.
+            </p>
+          </article>
+
+          <article class="companies-faq-item">
+            <h3>Do we need to rebuild our product?</h3>
+            <p>
+              Bazi is designed to operate behind the existing therapeutic
+              experience through structured data exchange and a
+              recommendation interface.
+            </p>
+          </article>
+
+          <article class="companies-faq-item">
+            <h3>Who controls the available interventions?</h3>
+            <p>
+              The therapeutic company, provider or clinical team defines
+              the approved action library and any required review rules.
+            </p>
+          </article>
+
+          <article class="companies-faq-item">
+            <h3>Has Bazi established clinical efficacy?</h3>
+            <p>
+              Not yet. Bazi is in an early product-development stage and
+              has not established clinical efficacy for its platform.
+            </p>
+          </article>
+
+          <article class="companies-faq-item">
+            <h3>What type of partners is Bazi seeking?</h3>
+            <p>
+              Bazi is seeking conversations with digital therapeutic
+              companies, virtual care platforms, researchers and clinical
+              teams interested in adaptive engagement workflows.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+
+    <section class="companies-cta" id="partner">
+      <div class="companies-container companies-cta-grid">
+        <h2>
+          Build a therapeutic product that responds.
+        </h2>
+
+        <div class="companies-cta-copy">
+          <p>
+            We are speaking with potential design partners interested in
+            testing disengagement prediction, constrained intervention
+            selection and adaptive treatment workflows.
+          </p>
+
+          <div class="companies-cta-actions">
+            <a class="button button-primary" href="index.html#early-access">
+              Partner with Bazi
+            </a>
+
+            <a class="button button-secondary" href="demo.html">
+              Explore the Product Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       Footer
+       ===================================================== -->
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">β</span>
+          <span class="brand-name">Bazi</span>
+        </a>
+
+        <p>
+          The adaptive intelligence layer for software-based medicine.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Product Demo</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="year"></span> Bazi. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
