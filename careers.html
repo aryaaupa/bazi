@@ -1,1 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Join Bazi and help build adaptive AI infrastructure for software-based medicine."
+  >
+
+  <title>Careers | Bazi</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    /* =====================================================
+       Bazi Careers
+       ===================================================== */
+
+    :root {
+      --bazi-deep: #04111d;
+      --bazi-navy: #071a2b;
+      --bazi-green: #55e889;
+      --bazi-paper: #f7f8f3;
+      --bazi-soft: #eef1ec;
+      --bazi-muted: #66727c;
+      --bazi-line: rgba(7, 26, 43, 0.13);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body.careers-page {
+      margin: 0;
+      background: var(--bazi-paper);
+      color: var(--bazi-navy);
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .careers-container {
+      width: min(1180px, calc(100% - 42px));
+      margin: 0 auto;
+    }
+
+    .careers-hero {
+      position: relative;
+      min-height: 94vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 82% 22%, rgba(85, 232, 137, 0.16), transparent 30%),
+        linear-gradient(135deg, #04111d 0%, #071a2b 68%, #0b2538 100%);
+      color: var(--bazi-paper);
+    }
+
+    .careers-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 76px 76px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+      pointer-events: none;
+    }
+
+    .careers-hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 180px 0 90px;
+    }
+
+    .careers-kicker {
+      margin: 0 0 28px;
+      color: var(--bazi-green);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .careers-hero h1 {
+      max-width: 1120px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4.5rem, 10vw, 10rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.075em;
+    }
+
+    .careers-hero h1 em {
+      color: var(--bazi-green);
+      font-weight: 400;
+    }
+
+    .careers-hero-bottom {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 90px;
+      align-items: end;
+      margin-top: 74px;
+    }
+
+    .careers-hero-copy {
+      max-width: 720px;
+      margin: 0;
+      color: rgba(247,248,243,0.72);
+      font-size: 1.08rem;
+      line-height: 1.82;
+    }
+
+    .careers-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: flex-end;
+    }
+
+    .careers-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 20px;
+      border: 1px solid rgba(247,248,243,0.24);
+      border-radius: 999px;
+      color: var(--bazi-paper);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 180ms ease;
+    }
+
+    .careers-button-primary {
+      border-color: var(--bazi-green);
+      background: var(--bazi-green);
+      color: var(--bazi-deep);
+    }
+
+    .careers-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .careers-section {
+      padding: 150px 0;
+    }
+
+    .careers-section-soft {
+      background: var(--bazi-soft);
+    }
+
+    .careers-section-dark {
+      background: var(--bazi-deep);
+      color: var(--bazi-paper);
+    }
+
+    .careers-section-head {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 90px;
+      align-items: end;
+      margin-bottom: 78px;
+    }
+
+    .careers-label {
+      margin: 0;
+      color: #357f54;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .careers-section-dark .careers-label {
+      color: var(--bazi-green);
+    }
+
+    .careers-section-head h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.2rem, 6vw, 6.4rem);
+      font-weight: 400;
+      line-height: 0.99;
+      letter-spacing: -0.058em;
+    }
+
+    .careers-section-intro {
+      max-width: 730px;
+      margin: 24px 0 0;
+      color: var(--bazi-muted);
+      font-size: 1.03rem;
+      line-height: 1.8;
+    }
+
+    .careers-section-dark .careers-section-intro {
+      color: rgba(247,248,243,0.62);
+    }
+
+    .careers-principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .principle-card {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px;
+      border: 1px solid var(--bazi-line);
+      border-radius: 24px;
+      background: #fff;
+    }
+
+    .principle-card span {
+      color: #357f54;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .principle-card h3 {
+      margin: 86px 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.3rem;
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .principle-card p {
+      margin: 0;
+      color: var(--bazi-muted);
+      line-height: 1.72;
+    }
+
+    .careers-manifesto {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .careers-manifesto blockquote {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 5.6vw, 6rem);
+      line-height: 1.01;
+      letter-spacing: -0.055em;
+    }
+
+    .careers-manifesto-copy {
+      padding-top: 12px;
+    }
+
+    .careers-manifesto-copy p {
+      margin: 0 0 28px;
+      color: rgba(247,248,243,0.66);
+      line-height: 1.82;
+    }
+
+    .careers-manifesto-copy strong {
+      color: var(--bazi-paper);
+      font-weight: 700;
+    }
+
+    .careers-traits {
+      border-top: 1px solid rgba(247,248,243,0.14);
+    }
+
+    .trait-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+      padding: 34px 0;
+      border-bottom: 1px solid rgba(247,248,243,0.14);
+    }
+
+    .trait-row > span {
+      color: var(--bazi-green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.15rem;
+    }
+
+    .trait-row h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+
+    .trait-row p {
+      margin: 0;
+      color: rgba(247,248,243,0.58);
+      line-height: 1.7;
+    }
+
+    .role-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 34px;
+    }
+
+    .role-filter {
+      padding: 10px 15px;
+      border: 1px solid var(--bazi-line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--bazi-muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .role-filter.is-active,
+    .role-filter:hover {
+      border-color: var(--bazi-navy);
+      background: var(--bazi-navy);
+      color: var(--bazi-paper);
+    }
+
+    .role-list {
+      border-top: 1px solid var(--bazi-line);
+    }
+
+    .role-card {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr 130px;
+      gap: 36px;
+      align-items: center;
+      padding: 38px 0;
+      border-bottom: 1px solid var(--bazi-line);
+    }
+
+    .role-card h3 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      font-weight: 400;
+      letter-spacing: -0.035em;
+    }
+
+    .role-card p {
+      margin: 0;
+      color: var(--bazi-muted);
+      line-height: 1.65;
+    }
+
+    .role-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .role-meta span {
+      padding: 8px 11px;
+      border: 1px solid var(--bazi-line);
+      border-radius: 999px;
+      color: var(--bazi-muted);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .role-card a {
+      justify-self: end;
+      color: var(--bazi-navy);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .role-empty {
+      display: none;
+      padding: 46px 0 0;
+      color: var(--bazi-muted);
+      text-align: center;
+    }
+
+    .careers-process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .process-step {
+      min-height: 280px;
+      padding: 28px;
+      border: 1px solid rgba(247,248,243,0.13);
+      border-radius: 22px;
+      background: rgba(247,248,243,0.035);
+    }
+
+    .process-step span {
+      color: var(--bazi-green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.1rem;
+    }
+
+    .process-step h3 {
+      margin: 72px 0 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+
+    .process-step p {
+      margin: 0;
+      color: rgba(247,248,243,0.58);
+      line-height: 1.68;
+    }
+
+    .careers-open-call {
+      padding: 130px 0;
+      background: var(--bazi-green);
+      color: var(--bazi-deep);
+    }
+
+    .careers-open-call-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 90px;
+      align-items: end;
+    }
+
+    .careers-open-call h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.5rem, 7vw, 7.2rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .careers-open-call p {
+      margin: 0 0 28px;
+      line-height: 1.8;
+    }
+
+    .careers-open-call .careers-button {
+      border-color: var(--bazi-deep);
+      background: var(--bazi-deep);
+      color: var(--bazi-paper);
+    }
+
+    .careers-fine-print {
+      padding: 70px 0;
+      background: var(--bazi-paper);
+    }
+
+    .careers-fine-print p {
+      max-width: 900px;
+      margin: 0;
+      color: var(--bazi-muted);
+      font-size: 0.82rem;
+      line-height: 1.75;
+    }
+
+    @media (max-width: 980px) {
+      .careers-hero-bottom,
+      .careers-section-head,
+      .careers-manifesto,
+      .careers-open-call-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .careers-hero-actions {
+        justify-content: flex-start;
+      }
+
+      .careers-principles {
+        grid-template-columns: 1fr;
+      }
+
+      .trait-row {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .trait-row p {
+        grid-column: 2;
+      }
+
+      .role-card {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .role-card a {
+        justify-self: start;
+      }
+
+      .careers-process {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .careers-container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .careers-hero-inner {
+        padding: 145px 0 72px;
+      }
+
+      .careers-hero h1 {
+        font-size: clamp(4rem, 19vw, 6.3rem);
+      }
+
+      .careers-section {
+        padding: 105px 0;
+      }
+
+      .careers-process {
+        grid-template-columns: 1fr;
+      }
+
+      .trait-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .trait-row p {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body class="site-page careers-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- =====================================================
+       Navigation
+       ===================================================== -->
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <button
+        class="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="primary-nav"
+        class="primary-nav"
+        aria-label="Primary navigation"
+      >
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="marginalia.html">Marginalia</a>
+        <a href="careers.html" aria-current="page">Careers</a>
+
+        <a
+          class="button button-small button-outline"
+          href="#open-roles"
+        >
+          View Roles
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+
+    <section class="careers-hero">
+      <div class="careers-container careers-hero-inner">
+        <p class="careers-kicker">
+          CAREERS AT BAZI
+        </p>
+
+        <h1>
+          Build systems that know when to <em>change.</em>
+        </h1>
+
+        <div class="careers-hero-bottom">
+          <p class="careers-hero-copy">
+            Bazi is building adaptive AI infrastructure for
+            software-based medicine. We are looking for people who can
+            work across technical rigor, clinical responsibility and
+            human complexity without reducing any of them to a slogan.
+          </p>
+
+          <div class="careers-hero-actions">
+            <a class="careers-button careers-button-primary" href="#open-roles">
+              Explore Open Roles
+            </a>
+
+            <a class="careers-button" href="#open-call">
+              Introduce Yourself
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Why Bazi
+         ===================================================== -->
+
+    <section class="careers-section">
+      <div class="careers-container">
+        <div class="careers-section-head">
+          <p class="careers-label">
+            THE WORK
+          </p>
+
+          <div>
+            <h2>
+              Not another engagement dashboard.
+            </h2>
+
+            <p class="careers-section-intro">
+              The problem is not simply predicting disengagement. The
+              harder work is deciding what may change, what must remain
+              fixed and how a system should behave when evidence is
+              incomplete.
+            </p>
+          </div>
+        </div>
+
+        <div class="careers-principles">
+          <article class="principle-card">
+            <span>01 · TECHNICAL DEPTH</span>
+
+            <div>
+              <h3>Build the decision layer.</h3>
+
+              <p>
+                Work on adaptive inference, event-driven systems,
+                feedback loops, model evaluation and the infrastructure
+                connecting therapeutic software to bounded actions.
+              </p>
+            </div>
+          </article>
+
+          <article class="principle-card">
+            <span>02 · CLINICAL RESTRAINT</span>
+
+            <div>
+              <h3>Design limits deliberately.</h3>
+
+              <p>
+                Bazi recommends adaptations within provider-approved
+                boundaries. Authority, uncertainty and escalation paths
+                are product architecture, not fine print.
+              </p>
+            </div>
+          </article>
+
+          <article class="principle-card">
+            <span>03 · HUMAN COMPLEXITY</span>
+
+            <div>
+              <h3>Respect what signals cannot explain.</h3>
+
+              <p>
+                A skipped session is evidence, not a diagnosis. We want
+                people who can build useful systems without pretending
+                that observable behavior is the whole person.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Working Philosophy
+         ===================================================== -->
+
+    <section class="careers-section careers-section-dark">
+      <div class="careers-container">
+        <div class="careers-manifesto">
+          <blockquote>
+            We are not hiring people to make healthcare software feel
+            more intelligent.
+            <br><br>
+            We are hiring people to make intelligence more responsible.
+          </blockquote>
+
+          <div class="careers-manifesto-copy">
+            <p>
+              The strongest candidates will be comfortable saying
+              <strong>“I do not know yet”</strong> and disciplined enough
+              to convert that uncertainty into an experiment, a design
+              constraint or a better question.
+            </p>
+
+            <p>
+              You do not need to arrive with every domain already
+              mastered. You do need unusually high standards, intellectual
+              honesty and the ability to learn across boundaries.
+            </p>
+          </div>
+        </div>
+
+        <div class="careers-traits" style="margin-top: 110px;">
+          <article class="trait-row">
+            <span>01</span>
+            <h3>You think in systems.</h3>
+            <p>
+              You notice dependencies, failure modes and second-order
+              effects rather than optimizing a local metric in isolation.
+            </p>
+          </article>
+
+          <article class="trait-row">
+            <span>02</span>
+            <h3>You write clearly.</h3>
+            <p>
+              Technical decisions, model behavior and product boundaries
+              should be explainable without hiding behind abstraction.
+            </p>
+          </article>
+
+          <article class="trait-row">
+            <span>03</span>
+            <h3>You challenge assumptions.</h3>
+            <p>
+              You are willing to question the prompt, the metric and the
+              architecture before polishing an answer to the wrong problem.
+            </p>
+          </article>
+
+          <article class="trait-row">
+            <span>04</span>
+            <h3>You care about consequences.</h3>
+            <p>
+              In healthcare, a technically elegant decision can still be
+              irresponsible. You consider who bears the cost of error.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Open Roles
+         ===================================================== -->
+
+    <section class="careers-section careers-section-soft" id="open-roles">
+      <div class="careers-container">
+        <div class="careers-section-head">
+          <p class="careers-label">
+            OPEN ROLES
+          </p>
+
+          <div>
+            <h2>
+              Small team. Serious problems.
+            </h2>
+
+            <p class="careers-section-intro">
+              Early roles at Bazi will have broad ownership. Titles matter
+              less than the ability to create clarity where the company
+              has not yet established a playbook.
+            </p>
+          </div>
+        </div>
+
+        <div class="role-toolbar" aria-label="Role filters">
+          <button class="role-filter is-active" data-role-filter="all">All</button>
+          <button class="role-filter" data-role-filter="engineering">Engineering</button>
+          <button class="role-filter" data-role-filter="research">Research</button>
+          <button class="role-filter" data-role-filter="design">Design</button>
+          <button class="role-filter" data-role-filter="operations">Operations</button>
+        </div>
+
+        <div class="role-list">
+          <article class="role-card" data-role-category="engineering">
+            <div>
+              <h3>Founding Software Engineer</h3>
+              <p>
+                Build Bazi’s core platform, event pipelines, APIs and
+                adaptive decision infrastructure from first principles.
+              </p>
+            </div>
+
+            <div class="role-meta">
+              <span>Full Time</span>
+              <span>Early Team</span>
+              <span>Hybrid / Remote</span>
+            </div>
+
+            <a href="mailto:careers@bazi.ai?subject=Founding%20Software%20Engineer">
+              Apply ↗
+            </a>
+          </article>
+
+          <article class="role-card" data-role-category="engineering research">
+            <div>
+              <h3>Machine Learning Engineer</h3>
+              <p>
+                Develop behavior-aware models, evaluation systems and
+                feedback mechanisms for bounded adaptive recommendations.
+              </p>
+            </div>
+
+            <div class="role-meta">
+              <span>Full Time</span>
+              <span>ML Systems</span>
+              <span>Hybrid / Remote</span>
+            </div>
+
+            <a href="mailto:careers@bazi.ai?subject=Machine%20Learning%20Engineer">
+              Apply ↗
+            </a>
+          </article>
+
+          <article class="role-card" data-role-category="research">
+            <div>
+              <h3>Clinical Research Lead</h3>
+              <p>
+                Shape evidence strategy, validation plans, study design
+                and the language connecting system behavior to clinical use.
+              </p>
+            </div>
+
+            <div class="role-meta">
+              <span>Full Time</span>
+              <span>Clinical Evidence</span>
+              <span>United States</span>
+            </div>
+
+            <a href="mailto:careers@bazi.ai?subject=Clinical%20Research%20Lead">
+              Apply ↗
+            </a>
+          </article>
+
+          <article class="role-card" data-role-category="design">
+            <div>
+              <h3>Product Designer, Adaptive Systems</h3>
+              <p>
+                Design legible interfaces for uncertainty, provider
+                control, behavioral signals and explainable adaptation.
+              </p>
+            </div>
+
+            <div class="role-meta">
+              <span>Full Time</span>
+              <span>Product Design</span>
+              <span>Hybrid / Remote</span>
+            </div>
+
+            <a href="mailto:careers@bazi.ai?subject=Product%20Designer">
+              Apply ↗
+            </a>
+          </article>
+
+          <article class="role-card" data-role-category="operations research">
+            <div>
+              <h3>Founder's Associate</h3>
+              <p>
+                Work across research, partnerships, operations and
+                company-building in areas where no established function
+                exists yet.
+              </p>
+            </div>
+
+            <div class="role-meta">
+              <span>Full Time</span>
+              <span>Generalist</span>
+              <span>High Ownership</span>
+            </div>
+
+            <a href="mailto:careers@bazi.ai?subject=Founder%27s%20Associate">
+              Apply ↗
+            </a>
+          </article>
+        </div>
+
+        <p class="role-empty" id="role-empty">
+          No roles are currently listed in this category.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Hiring Process
+         ===================================================== -->
+
+    <section class="careers-section careers-section-dark">
+      <div class="careers-container">
+        <div class="careers-section-head">
+          <p class="careers-label">
+            THE PROCESS
+          </p>
+
+          <div>
+            <h2>
+              Clear, demanding and respectful of your time.
+            </h2>
+
+            <p class="careers-section-intro">
+              We want enough signal to make a serious decision without
+              turning an interview process into unpaid consulting work.
+            </p>
+          </div>
+        </div>
+
+        <div class="careers-process">
+          <article class="process-step">
+            <span>01</span>
+            <h3>Introduction</h3>
+            <p>
+              A focused conversation about your work, judgment and what
+              you want to build next.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span>02</span>
+            <h3>Working Session</h3>
+            <p>
+              A live problem-solving discussion using a realistic but
+              self-contained Bazi scenario.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span>03</span>
+            <h3>Deep Dive</h3>
+            <p>
+              Walk us through something you built, researched, designed
+              or changed your mind about.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span>04</span>
+            <h3>Mutual Decision</h3>
+            <p>
+              Direct conversations about expectations, ownership, working
+              style and what success would actually require.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Open Application
+         ===================================================== -->
+
+    <section class="careers-open-call" id="open-call">
+      <div class="careers-container careers-open-call-grid">
+        <h2>
+          The right person may not match a role we have named yet.
+        </h2>
+
+        <div>
+          <p>
+            Send a concise introduction, the problem at Bazi you would
+            want to own and one example of work that shows how you think.
+            A conventional résumé is useful, but it is not the entire application.
+          </p>
+
+          <a
+            class="careers-button"
+            href="mailto:careers@bazi.ai?subject=Open%20Application%20to%20Bazi"
+          >
+            Introduce Yourself
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="careers-fine-print">
+      <div class="careers-container">
+        <p>
+          Bazi is committed to building a team with different disciplines,
+          experiences and ways of thinking. Employment decisions should be
+          based on the requirements of the work and a candidate’s ability
+          to perform it. Replace this statement with jurisdiction-specific
+          equal-employment language before publishing the page.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       Footer
+       ===================================================== -->
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">β</span>
+          <span class="brand-name">Bazi</span>
+        </a>
+
+        <p>
+          The adaptive intelligence layer for software-based medicine.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="marginalia.html">Marginalia</a>
+        <a href="careers.html">Careers</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="year"></span> Bazi. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const filters = [...document.querySelectorAll(".role-filter")];
+      const roles = [...document.querySelectorAll(".role-card")];
+      const empty = document.getElementById("role-empty");
+
+      filters.forEach((button) => {
+        button.addEventListener("click", () => {
+          const activeFilter = button.dataset.roleFilter;
+          let visibleCount = 0;
+
+          filters.forEach((item) => {
+            const isActive = item === button;
+            item.classList.toggle("is-active", isActive);
+            item.setAttribute("aria-pressed", String(isActive));
+          });
+
+          roles.forEach((role) => {
+            const categories = (role.dataset.roleCategory || "").split(" ");
+            const visible =
+              activeFilter === "all" || categories.includes(activeFilter);
+
+            role.hidden = !visible;
+            if (visible) visibleCount += 1;
+          });
+
+          empty.style.display = visibleCount === 0 ? "block" : "none";
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
