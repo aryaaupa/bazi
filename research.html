@@ -1,1 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Bazi Research explores change, meaningful engagement, judgment and responsibility in adaptive digital therapeutics."
+  >
+
+  <title>Bazi Research | The Patient in Motion</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    /* =====================================================
+       Research Page
+       ===================================================== */
+
+    .research-page {
+      background: #f7f8f3;
+      color: #071a2b;
+    }
+
+    .research-page a {
+      text-underline-offset: 0.22em;
+    }
+
+    .research-container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .research-narrow {
+      width: min(820px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .research-serif {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .research-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 860px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(circle at 78% 22%, rgba(85, 232, 137, 0.14), transparent 32%),
+        linear-gradient(135deg, #04111d 0%, #071a2b 64%, #0a2235 100%);
+      color: #f7f8f3;
+    }
+
+    .research-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+      pointer-events: none;
+    }
+
+    .research-hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 170px 0 110px;
+    }
+
+    .research-hero-kicker {
+      margin: 0 0 34px;
+      color: #55e889;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.19em;
+    }
+
+    .research-hero h1 {
+      max-width: 960px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4.3rem, 9vw, 8.6rem);
+      font-weight: 400;
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+    }
+
+    .research-hero h1 em {
+      color: #55e889;
+      font-weight: 400;
+    }
+
+    .research-hero-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: end;
+      margin-top: 72px;
+    }
+
+    .research-hero-intro p {
+      max-width: 650px;
+      margin: 0;
+      color: rgba(247, 248, 243, 0.74);
+      font-size: 1.16rem;
+      line-height: 1.8;
+    }
+
+    .research-hero-index {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .research-hero-index a {
+      padding: 10px 14px;
+      border: 1px solid rgba(247, 248, 243, 0.18);
+      border-radius: 999px;
+      color: rgba(247, 248, 243, 0.76);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: 180ms ease;
+    }
+
+    .research-hero-index a:hover {
+      border-color: #55e889;
+      color: #55e889;
+    }
+
+    .research-prologue {
+      padding: 170px 0;
+      background: #f7f8f3;
+    }
+
+    .research-prologue-grid {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .research-margin-note {
+      position: sticky;
+      top: 130px;
+      padding-top: 8px;
+      color: #66727c;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .research-prologue-copy p {
+      margin: 0 0 34px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 3vw, 2.65rem);
+      line-height: 1.38;
+      letter-spacing: -0.025em;
+    }
+
+    .research-prologue-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .research-chapter {
+      padding: 170px 0;
+      border-top: 1px solid rgba(7, 26, 43, 0.11);
+    }
+
+    .research-chapter-dark {
+      background: #04111d;
+      color: #f7f8f3;
+      border-top: 0;
+    }
+
+    .research-chapter-soft {
+      background: #eef1ec;
+    }
+
+    .research-chapter-number {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 72px;
+      color: #66727c;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+    }
+
+    .research-chapter-dark .research-chapter-number {
+      color: rgba(247, 248, 243, 0.48);
+    }
+
+    .research-chapter-number::after {
+      content: "";
+      width: 80px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.45;
+    }
+
+    .research-quote {
+      max-width: 1030px;
+      margin: 0;
+    }
+
+    .research-quote blockquote {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.1rem, 6.4vw, 6.9rem);
+      font-weight: 400;
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+    }
+
+    .research-quote blockquote::before {
+      content: "“";
+      display: block;
+      height: 0.72em;
+      color: #55e889;
+      font-size: 1.3em;
+      line-height: 1;
+    }
+
+    .research-quote-source {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 48px;
+      color: #66727c;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .research-chapter-dark .research-quote-source {
+      color: rgba(247, 248, 243, 0.55);
+    }
+
+    .research-quote-source a {
+      color: inherit;
+    }
+
+    .research-commentary {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 100px;
+      margin-top: 125px;
+      align-items: start;
+    }
+
+    .research-commentary h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 4.8vw, 5rem);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+    }
+
+    .research-commentary-body {
+      padding-top: 8px;
+    }
+
+    .research-commentary-body p {
+      margin: 0 0 26px;
+      color: #53616c;
+      font-size: 1.08rem;
+      line-height: 1.82;
+    }
+
+    .research-chapter-dark .research-commentary-body p {
+      color: rgba(247, 248, 243, 0.68);
+    }
+
+    .research-commentary-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .research-paper-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      margin-top: 28px;
+      color: #071a2b;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .research-chapter-dark .research-paper-link {
+      color: #55e889;
+    }
+
+    .research-paper-link span {
+      transition: transform 180ms ease;
+    }
+
+    .research-paper-link:hover span {
+      transform: translate(3px, -3px);
+    }
+
+    .research-interlude {
+      padding: 115px 0;
+      background: #55e889;
+      color: #04111d;
+    }
+
+    .research-interlude p {
+      max-width: 1040px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 5vw, 5.5rem);
+      line-height: 1.07;
+      letter-spacing: -0.05em;
+    }
+
+    .research-interlude span {
+      display: block;
+      margin-bottom: 28px;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .research-annotations {
+      margin-top: 105px;
+      border-top: 1px solid rgba(7, 26, 43, 0.13);
+    }
+
+    .research-annotation {
+      display: grid;
+      grid-template-columns: 90px 1fr 180px;
+      gap: 34px;
+      align-items: baseline;
+      padding: 34px 0;
+      border-bottom: 1px solid rgba(7, 26, 43, 0.13);
+    }
+
+    .research-annotation-number {
+      color: #66727c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+    }
+
+    .research-annotation h3 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+    }
+
+    .research-annotation p {
+      max-width: 720px;
+      margin: 0;
+      color: #66727c;
+      line-height: 1.72;
+    }
+
+    .research-annotation a {
+      justify-self: end;
+      color: #071a2b;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .research-questions {
+      padding: 180px 0;
+      background: #071a2b;
+      color: #f7f8f3;
+    }
+
+    .research-questions-header {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 90px;
+      margin-bottom: 100px;
+    }
+
+    .research-questions-header h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.7rem, 7vw, 7.4rem);
+      font-weight: 400;
+      line-height: 0.97;
+      letter-spacing: -0.06em;
+    }
+
+    .research-questions-header p {
+      align-self: end;
+      max-width: 620px;
+      margin: 0;
+      color: rgba(247, 248, 243, 0.66);
+      font-size: 1.08rem;
+      line-height: 1.82;
+    }
+
+    .research-question {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 30px;
+      padding: 38px 0;
+      border-top: 1px solid rgba(247, 248, 243, 0.13);
+    }
+
+    .research-question:last-child {
+      border-bottom: 1px solid rgba(247, 248, 243, 0.13);
+    }
+
+    .research-question span {
+      color: #55e889;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+    }
+
+    .research-question p {
+      max-width: 920px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.65rem, 3vw, 2.9rem);
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+    }
+
+    .research-coda {
+      padding: 190px 0;
+      background: #f7f8f3;
+      text-align: center;
+    }
+
+    .research-coda blockquote {
+      max-width: 1000px;
+      margin: 0 auto;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 6vw, 6.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    .research-coda p {
+      max-width: 720px;
+      margin: 48px auto 0;
+      color: #66727c;
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .research-collaboration {
+      padding: 125px 0;
+      background: #55e889;
+      color: #04111d;
+    }
+
+    .research-collaboration-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 80px;
+      align-items: end;
+    }
+
+    .research-collaboration h2 {
+      max-width: 780px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.4rem, 6vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .research-collaboration-copy p {
+      margin: 0 0 30px;
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+
+    .research-collaboration .button {
+      border-color: #04111d;
+      background: #04111d;
+      color: #f7f8f3;
+    }
+
+    @media (max-width: 900px) {
+      .research-hero {
+        min-height: auto;
+      }
+
+      .research-hero-inner {
+        padding: 145px 0 90px;
+      }
+
+      .research-hero-intro,
+      .research-prologue-grid,
+      .research-commentary,
+      .research-questions-header,
+      .research-collaboration-grid {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .research-hero-index {
+        justify-content: flex-start;
+      }
+
+      .research-margin-note {
+        position: static;
+      }
+
+      .research-annotation {
+        grid-template-columns: 52px 1fr;
+      }
+
+      .research-annotation a {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .research-container,
+      .research-narrow {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .research-hero h1 {
+        font-size: clamp(3.5rem, 16vw, 5rem);
+      }
+
+      .research-prologue,
+      .research-chapter,
+      .research-questions,
+      .research-coda {
+        padding: 110px 0;
+      }
+
+      .research-commentary {
+        margin-top: 80px;
+      }
+
+      .research-quote blockquote {
+        font-size: clamp(2.7rem, 13vw, 4.6rem);
+      }
+
+      .research-annotation {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .research-annotation a {
+        grid-column: auto;
+      }
+
+      .research-question {
+        grid-template-columns: 42px 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body class="site-page research-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- =====================================================
+       Navigation
+       ===================================================== -->
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <button
+        class="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="primary-nav"
+        class="primary-nav"
+        aria-label="Primary navigation"
+      >
+        <a href="index.html#for-companies">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html" aria-current="page">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Demo</a>
+
+        <a
+          class="button button-small button-outline"
+          href="#collaborate"
+        >
+          Collaborate
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+
+    <section class="research-hero">
+      <div class="research-container research-hero-inner">
+        <p class="research-hero-kicker">
+          BAZI RESEARCH / NOTES ON CHANGE, CARE AND JUDGMENT
+        </p>
+
+        <h1>
+          The patient<br>
+          is always <em>in motion.</em>
+        </h1>
+
+        <div class="research-hero-intro">
+          <p>
+            Bazi begins with an old philosophical problem: how should
+            a system act when the subject before it is no longer the
+            same as the subject it first encountered?
+          </p>
+
+          <nav class="research-hero-index" aria-label="Research chapters">
+            <a href="#motion">I. Motion</a>
+            <a href="#meaning">II. Meaning</a>
+            <a href="#judgment">III. Judgment</a>
+            <a href="#limits">IV. Limits</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Prologue
+         ===================================================== -->
+
+    <section class="research-prologue">
+      <div class="research-container research-prologue-grid">
+        <aside class="research-margin-note">
+          Prologue / The premise
+        </aside>
+
+        <div class="research-prologue-copy">
+          <p>
+            Medicine has always lived between constancy and change.
+            A treatment is designed with intention, yet the person
+            receiving it changes from hour to hour.
+          </p>
+
+          <p>
+            Energy changes. Attention changes. Symptoms change.
+            Confidence changes. The same instruction can feel possible
+            on Monday and impossible on Thursday.
+          </p>
+
+          <p>
+            Bazi asks whether therapeutic software can acknowledge this
+            movement without pretending to replace human judgment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Chapter I
+         ===================================================== -->
+
+    <section class="research-chapter research-chapter-dark" id="motion">
+      <div class="research-container">
+        <div class="research-chapter-number">
+          CHAPTER I / MOTION
+        </div>
+
+        <figure class="research-quote">
+          <blockquote>
+            All things are in motion and nothing at rest.
+          </blockquote>
+
+          <figcaption class="research-quote-source">
+            <span>Plato, Cratylus, on Heraclitus</span>
+            <a
+              href="https://classics.mit.edu/Plato/cratylus.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the text ↗
+            </a>
+          </figcaption>
+        </figure>
+
+        <div class="research-commentary">
+          <h2>
+            A patient is not a fixed input.
+          </h2>
+
+          <div class="research-commentary-body">
+            <p>
+              Heraclitus is remembered through the image of the river:
+              neither the water nor the person entering it remains
+              perfectly unchanged.
+            </p>
+
+            <p>
+              Yet much therapeutic software still assumes stability.
+              A sequence is created, a cadence is selected and the same
+              pathway continues even when the person’s behavior begins
+              to communicate that something has shifted.
+            </p>
+
+            <p>
+              Bazi treats behavioral change not as noise to be ignored,
+              but as information that may deserve interpretation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Interlude
+         ===================================================== -->
+
+    <section class="research-interlude">
+      <div class="research-container">
+        <span>The first proposition</span>
+
+        <p>
+          A therapeutic system that can observe change but cannot
+          respond to it is not yet adaptive.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Chapter II
+         ===================================================== -->
+
+    <section class="research-chapter" id="meaning">
+      <div class="research-container">
+        <div class="research-chapter-number">
+          CHAPTER II / MEANING
+        </div>
+
+        <figure class="research-quote">
+          <blockquote>
+            Define the measure of value.
+          </blockquote>
+
+          <figcaption class="research-quote-source">
+            <span>
+              Strauss et al., Meaningful engagement in digital therapeutics
+            </span>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the paper ↗
+            </a>
+          </figcaption>
+        </figure>
+
+        <div class="research-commentary">
+          <h2>
+            Engagement is not obedience.
+          </h2>
+
+          <div class="research-commentary-body">
+            <p>
+              Completion is easy to count. Meaning is harder.
+              A person can open a program, tap through a session and
+              produce a perfect usage metric without receiving meaningful
+              therapeutic value.
+            </p>
+
+            <p>
+              Strauss and colleagues propose that digital therapeutics
+              first define what value means, then operationalize
+              meaningful engagement, implement interventions and
+              evaluate their effect.
+            </p>
+
+            <p>
+              This distinction is central to Bazi. The purpose of
+              adaptation is not to pressure a patient into generating
+              more activity. It is to ask whether the treatment
+              experience is still creating value for the person.
+            </p>
+
+            <a
+              class="research-paper-link"
+              href="https://pubmed.ncbi.nlm.nih.gov/36052316/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View the indexed record <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="research-annotations">
+          <article class="research-annotation">
+            <span class="research-annotation-number">01</span>
+
+            <div>
+              <h3>Participation is evidence, not the endpoint.</h3>
+
+              <p>
+                Usage signals may help reveal whether a treatment
+                experience is becoming difficult, but they do not by
+                themselves establish therapeutic benefit.
+              </p>
+            </div>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">02</span>
+
+            <div>
+              <h3>More engagement is not always better engagement.</h3>
+
+              <p>
+                The relevant question is whether interaction reflects
+                meaningful participation in the intended therapeutic
+                mechanism.
+              </p>
+            </div>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10457707/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Review ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">03</span>
+
+            <div>
+              <h3>Measurement must remain connected to purpose.</h3>
+
+              <p>
+                A metric becomes useful only when its relationship to
+                treatment value, adherence or outcome is made explicit.
+              </p>
+            </div>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Framework ↗
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Chapter III
+         ===================================================== -->
+
+    <section class="research-chapter research-chapter-soft" id="judgment">
+      <div class="research-container">
+        <div class="research-chapter-number">
+          CHAPTER III / JUDGMENT
+        </div>
+
+        <figure class="research-quote">
+          <blockquote>
+            The universe is transformation: life is opinion.
+          </blockquote>
+
+          <figcaption class="research-quote-source">
+            <span>Marcus Aurelius, Meditations IV</span>
+
+            <a
+              href="https://classics.mit.edu/Antoninus/meditations.4.four.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the text ↗
+            </a>
+          </figcaption>
+        </figure>
+
+        <div class="research-commentary">
+          <h2>
+            Observation is not understanding.
+          </h2>
+
+          <div class="research-commentary-body">
+            <p>
+              Software can observe that a session was delayed. It cannot
+              assume that it understands why. Fatigue, pain, work,
+              caregiving, fear, confusion and ordinary human variation
+              can produce similar digital traces.
+            </p>
+
+            <p>
+              This is where adaptive systems require restraint. A model
+              may estimate risk, but estimation is not certainty.
+              A signal may justify a response, but not every response
+              should be automated.
+            </p>
+
+            <p>
+              Bazi is therefore conceived as a constrained decision
+              layer: it evaluates provider-approved options rather than
+              inventing treatment, and it can defer to human review when
+              the limits of machine judgment are reached.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Chapter IV
+         ===================================================== -->
+
+    <section class="research-chapter research-chapter-dark" id="limits">
+      <div class="research-container">
+        <div class="research-chapter-number">
+          CHAPTER IV / LIMITS
+        </div>
+
+        <figure class="research-quote">
+          <blockquote>
+            The reason which governs knows what it does.
+          </blockquote>
+
+          <figcaption class="research-quote-source">
+            <span>Marcus Aurelius, Meditations VI</span>
+
+            <a
+              href="https://classics.mit.edu/Antoninus/meditations.6.six.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the text ↗
+            </a>
+          </figcaption>
+        </figure>
+
+        <div class="research-commentary">
+          <h2>
+            Intelligence in medicine must know its boundary.
+          </h2>
+
+          <div class="research-commentary-body">
+            <p>
+              Medical software is not defined by sophistication alone.
+              Its intended use, the decisions it informs and the risk
+              attached to those decisions shape how it must be evaluated.
+            </p>
+
+            <p>
+              The FDA describes Software as a Medical Device as software
+              intended for one or more medical purposes without being
+              part of a hardware medical device.
+            </p>
+
+            <p>
+              Bazi’s eventual regulatory path will therefore depend on
+              what the system is claimed to do, how it is implemented,
+              the clinical context in which it is used and the degree
+              of human oversight preserved.
+            </p>
+
+            <a
+              class="research-paper-link"
+              href="https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the FDA overview <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Open Questions
+         ===================================================== -->
+
+    <section class="research-questions">
+      <div class="research-container">
+        <div class="research-questions-header">
+          <h2>
+            Questions<br>we have not<br>answered.
+          </h2>
+
+          <p>
+            Research begins where certainty ends. These are not details
+            hidden beneath the product. They are among the central
+            questions the product must earn the right to answer.
+          </p>
+        </div>
+
+        <div>
+          <article class="research-question">
+            <span>01</span>
+            <p>
+              Which behavioral changes predict disengagement early
+              enough to permit a useful response?
+            </p>
+          </article>
+
+          <article class="research-question">
+            <span>02</span>
+            <p>
+              How can a system distinguish temporary difficulty from a
+              pattern that requires intervention?
+            </p>
+          </article>
+
+          <article class="research-question">
+            <span>03</span>
+            <p>
+              Which adaptations restore meaningful engagement rather
+              than merely increasing product activity?
+            </p>
+          </article>
+
+          <article class="research-question">
+            <span>04</span>
+            <p>
+              When should an adaptive system act, when should it ask
+              permission and when should it defer?
+            </p>
+          </article>
+
+          <article class="research-question">
+            <span>05</span>
+            <p>
+              How should a therapeutic product explain that it has
+              changed the experience presented to a patient?
+            </p>
+          </article>
+
+          <article class="research-question">
+            <span>06</span>
+            <p>
+              What evidence is sufficient before adaptive decisioning
+              can responsibly influence real care?
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Selected Reading
+         ===================================================== -->
+
+    <section class="research-chapter">
+      <div class="research-container">
+        <div class="research-chapter-number">
+          SELECTED READING / THE CURRENT SHELF
+        </div>
+
+        <div class="research-annotations">
+          <article class="research-annotation">
+            <span class="research-annotation-number">I</span>
+
+            <div>
+              <h3>Plato, Cratylus</h3>
+
+              <p>
+                A classical meditation on names, knowledge and the
+                Heraclitean idea of a world in continual motion.
+              </p>
+            </div>
+
+            <a
+              href="https://classics.mit.edu/Plato/cratylus.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">II</span>
+
+            <div>
+              <h3>Marcus Aurelius, Meditations</h3>
+
+              <p>
+                Reflections on transformation, judgment, responsibility
+                and the discipline of acting within one’s proper role.
+              </p>
+            </div>
+
+            <a
+              href="https://classics.mit.edu/Antoninus/meditations.html"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">III</span>
+
+            <div>
+              <h3>Meaningful engagement in digital therapeutics</h3>
+
+              <p>
+                Strauss and colleagues propose a four-step framework for
+                defining, operationalizing and evaluating meaningful
+                engagement.
+              </p>
+            </div>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Paper ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">IV</span>
+
+            <div>
+              <h3>Engagement and clinical outcomes</h3>
+
+              <p>
+                A systematic review examining relationships between
+                engagement measures and outcomes in digital mental
+                health interventions for depression.
+              </p>
+            </div>
+
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10457707/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Review ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">V</span>
+
+            <div>
+              <h3>Software as a Medical Device</h3>
+
+              <p>
+                FDA resources describing the SaMD category and the role
+                of intended use in the regulation of medical software.
+              </p>
+            </div>
+
+            <a
+              href="https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              FDA ↗
+            </a>
+          </article>
+
+          <article class="research-annotation">
+            <span class="research-annotation-number">VI</span>
+
+            <div>
+              <h3>AI in Software as a Medical Device</h3>
+
+              <p>
+                FDA materials concerning artificial intelligence,
+                machine learning and the evolving lifecycle of
+                AI-enabled medical software.
+              </p>
+            </div>
+
+            <a
+              href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              FDA ↗
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Coda
+         ===================================================== -->
+
+    <section class="research-coda">
+      <div class="research-container">
+        <blockquote>
+          The task is not to make software appear human.
+          It is to make software more responsible to the human.
+        </blockquote>
+
+        <p>
+          Bazi has not established clinical efficacy for its platform.
+          The philosophical and scientific sources on this page inform
+          the problem space; their inclusion does not constitute
+          endorsement by their authors or institutions.
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Collaboration
+         ===================================================== -->
+
+    <section class="research-collaboration" id="collaborate">
+      <div class="research-container research-collaboration-grid">
+        <h2>
+          The inquiry is open.
+        </h2>
+
+        <div class="research-collaboration-copy">
+          <p>
+            We welcome conversations with researchers, clinicians,
+            digital therapeutic teams and scholars working on
+            engagement, adaptive systems, medical AI and human judgment.
+          </p>
+
+          <a class="button" href="index.html#early-access">
+            Collaborate with Bazi
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================
+       Footer
+       ===================================================== -->
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">β</span>
+          <span class="brand-name">Bazi</span>
+        </a>
+
+        <p>
+          The adaptive intelligence layer for software-based medicine.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html#for-companies">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="careers.html">Careers</a>
+        <a href="demo.html">Product Demo</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="year"></span> Bazi. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
