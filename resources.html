@@ -1,1 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Marginalia: notes written while building Bazi."
+  >
+
+  <title>Marginalia | Bazi</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+
+  <style>
+    /* =====================================================
+       Bazi Marginalia
+       ===================================================== */
+
+    :root {
+      --ink: #071a2b;
+      --deep: #04111d;
+      --paper: #f7f8f3;
+      --paper-soft: #f0f1eb;
+      --green: #55e889;
+      --muted: #66727c;
+      --line: rgba(7, 26, 43, 0.14);
+      --margin-red: rgba(166, 69, 59, 0.72);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body.marginalia-page {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .marginalia-container {
+      width: min(1220px, calc(100% - 42px));
+      margin: 0 auto;
+    }
+
+    .marginalia-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 79% 20%, rgba(85, 232, 137, 0.14), transparent 27%),
+        linear-gradient(135deg, #04111d 0%, #071a2b 72%, #0a2235 100%);
+      color: var(--paper);
+    }
+
+    .marginalia-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+      pointer-events: none;
+    }
+
+    .marginalia-hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 180px 0 90px;
+    }
+
+    .marginalia-overline {
+      margin: 0 0 30px;
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .marginalia-hero h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(5.2rem, 14vw, 13rem);
+      font-weight: 400;
+      line-height: 0.82;
+      letter-spacing: -0.085em;
+    }
+
+    .marginalia-hero h1 em {
+      color: var(--green);
+      font-weight: 400;
+    }
+
+    .marginalia-hero-copy {
+      display: grid;
+      grid-template-columns: 1fr 0.95fr;
+      gap: 100px;
+      align-items: end;
+      margin-top: 86px;
+    }
+
+    .marginalia-hero-copy p {
+      margin: 0;
+      color: rgba(247, 248, 243, 0.7);
+      font-size: 1.04rem;
+      line-height: 1.8;
+    }
+
+    .marginalia-hero-copy .small-note {
+      max-width: 550px;
+      color: rgba(247, 248, 243, 0.46);
+      font-size: 0.82rem;
+    }
+
+    .marginalia-index {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .marginalia-index a {
+      padding: 10px 14px;
+      border: 1px solid rgba(247,248,243,0.14);
+      border-radius: 999px;
+      color: rgba(247,248,243,0.66);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: 180ms ease;
+    }
+
+    .marginalia-index a:hover {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--deep);
+    }
+
+    .marginalia-sheet {
+      position: relative;
+      padding: 170px 0;
+      background:
+        linear-gradient(
+          90deg,
+          transparent 0,
+          transparent calc(50% - 1px),
+          rgba(7,26,43,0.035) calc(50% - 1px),
+          rgba(7,26,43,0.035) calc(50% + 1px),
+          transparent calc(50% + 1px)
+        ),
+        var(--paper);
+    }
+
+    .marginalia-sheet::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: max(24px, calc((100vw - 1220px) / 2 + 120px));
+      width: 1px;
+      background: var(--margin-red);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .entry {
+      position: relative;
+      min-height: 720px;
+      display: grid;
+      grid-template-columns: 0.85fr 1.4fr 0.85fr;
+      gap: 42px;
+      align-items: center;
+      padding: 120px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .entry:first-child {
+      border-top: 0;
+    }
+
+    .entry-source {
+      align-self: start;
+      padding-top: 26px;
+    }
+
+    .entry-number {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--margin-red);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.04rem;
+      letter-spacing: 0.08em;
+    }
+
+    .entry-author {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .entry-work {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    .entry-center {
+      position: relative;
+      padding: 42px 22px;
+    }
+
+    .entry-center::before {
+      content: "“";
+      position: absolute;
+      top: -20px;
+      left: -10px;
+      color: rgba(7, 26, 43, 0.08);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .entry-quote {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.8rem, 5.5vw, 6rem);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+    }
+
+    .entry-context {
+      max-width: 620px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .entry-note {
+      position: relative;
+      align-self: center;
+      padding: 24px 0 24px 28px;
+      border-left: 2px solid var(--green);
+      transform: rotate(-1.4deg);
+    }
+
+    .entry:nth-child(even) .entry-note {
+      transform: rotate(1.2deg);
+    }
+
+    .entry-note::before {
+      content: "→";
+      position: absolute;
+      top: 18px;
+      left: -33px;
+      color: var(--green);
+      font-size: 1.3rem;
+    }
+
+    .entry-note-label {
+      margin: 0 0 16px;
+      color: #357f54;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .entry-note p {
+      margin: 0;
+      font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+      font-size: clamp(1.55rem, 2.5vw, 2.45rem);
+      line-height: 1.28;
+      letter-spacing: -0.025em;
+    }
+
+    .entry-note small {
+      display: block;
+      margin-top: 24px;
+      color: var(--muted);
+      font-family: Inter, Arial, sans-serif;
+      font-size: 0.74rem;
+      line-height: 1.6;
+    }
+
+    .entry-left-note .entry-source {
+      order: 3;
+    }
+
+    .entry-left-note .entry-center {
+      order: 2;
+    }
+
+    .entry-left-note .entry-note {
+      order: 1;
+      padding: 24px 28px 24px 0;
+      border-right: 2px solid var(--green);
+      border-left: 0;
+      text-align: right;
+    }
+
+    .entry-left-note .entry-note::before {
+      content: "←";
+      left: auto;
+      right: -33px;
+    }
+
+    .entry-dark {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      padding: 120px max(21px, calc((100vw - 1220px) / 2));
+      background: var(--deep);
+      color: var(--paper);
+      border-top: 0;
+    }
+
+    .entry-dark .entry-author,
+    .entry-dark .entry-context,
+    .entry-dark .entry-note small {
+      color: rgba(247,248,243,0.5);
+    }
+
+    .entry-dark .entry-center::before {
+      color: rgba(247,248,243,0.06);
+    }
+
+    .entry-dark .entry-note-label {
+      color: var(--green);
+    }
+
+    .entry-dark .entry-note {
+      border-color: var(--green);
+    }
+
+    .entry-dark .entry-work {
+      color: rgba(247,248,243,0.9);
+    }
+
+    .entry-empty {
+      min-height: 640px;
+    }
+
+    .entry-empty .entry-center {
+      text-align: center;
+    }
+
+    .entry-empty .entry-quote {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .entry-empty .entry-note {
+      opacity: 0.42;
+      border-left-style: dashed;
+    }
+
+    .entry-empty .entry-note p {
+      color: var(--muted);
+      font-size: 1.35rem;
+    }
+
+    .scratch {
+      position: absolute;
+      color: var(--margin-red);
+      font-family: "Bradley Hand", "Segoe Print", cursive;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      transform: rotate(-7deg);
+      pointer-events: none;
+    }
+
+    .scratch-question {
+      top: 90px;
+      right: 8%;
+      font-size: 3rem;
+    }
+
+    .scratch-see {
+      bottom: 100px;
+      left: 5%;
+    }
+
+    .scratch-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 68px;
+      height: 68px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .marginalia-interlude {
+      padding: 190px 0;
+      background: var(--green);
+      color: var(--deep);
+    }
+
+    .marginalia-interlude-grid {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .marginalia-interlude-label {
+      margin: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .marginalia-interlude h2 {
+      max-width: 940px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.5rem, 7vw, 7.4rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .marginalia-interlude p {
+      max-width: 700px;
+      margin: 42px 0 0;
+      font-size: 1.03rem;
+      line-height: 1.8;
+    }
+
+    .marginalia-footer-note {
+      padding: 150px 0;
+      background: var(--paper-soft);
+    }
+
+    .marginalia-footer-note-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 90px;
+      align-items: end;
+    }
+
+    .marginalia-footer-note h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.6rem, 7vw, 7rem);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .marginalia-footer-note p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .marginalia-footer-note .button-primary {
+      background: var(--deep);
+      border-color: var(--deep);
+      color: var(--paper);
+    }
+
+    @media (max-width: 980px) {
+      .marginalia-hero-copy,
+      .marginalia-interlude-grid,
+      .marginalia-footer-note-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .entry,
+      .entry-left-note {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        gap: 34px;
+      }
+
+      .entry-source,
+      .entry-center,
+      .entry-note,
+      .entry-left-note .entry-source,
+      .entry-left-note .entry-center,
+      .entry-left-note .entry-note {
+        order: initial;
+      }
+
+      .entry-note,
+      .entry-left-note .entry-note {
+        width: min(620px, 90%);
+        margin-left: auto;
+        padding: 24px 0 24px 26px;
+        border-right: 0;
+        border-left: 2px solid var(--green);
+        text-align: left;
+      }
+
+      .entry-left-note .entry-note::before {
+        content: "→";
+        right: auto;
+        left: -33px;
+      }
+
+      .marginalia-sheet::before {
+        left: 34px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .marginalia-container {
+        width: min(100% - 28px, 1220px);
+      }
+
+      .marginalia-hero-inner {
+        padding: 145px 0 70px;
+      }
+
+      .marginalia-hero h1 {
+        font-size: clamp(4.3rem, 23vw, 7rem);
+      }
+
+      .marginalia-sheet {
+        padding: 70px 0;
+      }
+
+      .marginalia-sheet::before {
+        left: 20px;
+      }
+
+      .entry {
+        padding: 90px 0;
+      }
+
+      .entry-center {
+        padding: 24px 0;
+      }
+
+      .entry-quote {
+        font-size: clamp(2.5rem, 12vw, 4.5rem);
+      }
+
+      .entry-note p {
+        font-size: 1.55rem;
+      }
+
+      .entry-dark {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
+      .marginalia-interlude,
+      .marginalia-footer-note {
+        padding: 110px 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="site-page marginalia-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Bazi home">
+        <span class="brand-mark" aria-hidden="true">β</span>
+        <span class="brand-name">Bazi</span>
+      </a>
+
+      <button
+        class="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        id="primary-nav"
+        class="primary-nav"
+        aria-label="Primary navigation"
+      >
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="marginalia.html" aria-current="page">Marginalia</a>
+        <a href="careers.html">Careers</a>
+
+        <a
+          class="button button-small button-outline"
+          href="#unfinished"
+        >
+          Still Thinking
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+
+    <section class="marginalia-hero">
+      <div class="marginalia-container marginalia-hero-inner">
+        <p class="marginalia-overline">
+          NOTES WRITTEN WHILE BUILDING BAZI
+        </p>
+
+        <h1>
+          Margin<em>alia.</em>
+        </h1>
+
+        <div class="marginalia-hero-copy">
+          <p>
+            Observations collected in the margins of books, papers,
+            conversations and failed experiments.
+          </p>
+
+          <div>
+            <p class="small-note">
+              These are not conclusions, instructions or product claims.
+              They are fragments of a company still deciding what
+              adaptive medicine should become.
+            </p>
+
+            <div class="marginalia-index">
+              <a href="#motion">Motion</a>
+              <a href="#engagement">Engagement</a>
+              <a href="#judgment">Judgment</a>
+              <a href="#intent">Intent</a>
+              <a href="#feedback">Feedback</a>
+              <a href="#limits">Limits</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Marginalia Entries
+         ===================================================== -->
+
+    <section class="marginalia-sheet">
+      <div class="marginalia-container">
+
+        <!-- Entry 01 -->
+
+        <article class="entry" id="motion">
+          <div class="entry-source">
+            <span class="entry-number">001</span>
+            <p class="entry-author">PLATO, PRESERVING HERACLITUS</p>
+            <p class="entry-work"><em>Cratylus</em></p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              All things are in motion and nothing remains still.
+            </blockquote>
+
+            <p class="entry-context">
+              A classical claim about reality, encountered here as a
+              design problem.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              Therapeutic software often behaves as though the patient
+              who enrolled is the patient who remains.
+              <br><br>
+              Heraclitus would object.
+            </p>
+
+            <small>
+              The difficult part may not be personalization. It may be
+              recognizing when yesterday’s personalization has already
+              become obsolete.
+            </small>
+          </aside>
+
+          <span class="scratch scratch-question">?</span>
+        </article>
+
+        <!-- Entry 02 -->
+
+        <article class="entry entry-left-note" id="engagement">
+          <div class="entry-source">
+            <span class="entry-number">002</span>
+            <p class="entry-author">STRAUSS ET AL.</p>
+            <p class="entry-work">Meaningful Engagement in Digital Therapeutics</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              Engagement is not simply the amount of product use.
+            </blockquote>
+
+            <p class="entry-context">
+              A distinction between measurable activity and activity
+              that contributes to therapeutic value.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              Most products ask:
+              <br><br>
+              Did the patient complete the session?
+              <br><br>
+              We keep wondering whether the earlier question is:
+              <br><br>
+              Did the treatment still fit the person?
+            </p>
+
+            <small>
+              Engagement may be a consequence of fit, not the thing to
+              optimize directly.
+            </small>
+          </aside>
+        </article>
+
+        <!-- Interlude -->
+
+      </div>
+
+      <section class="marginalia-interlude">
+        <div class="marginalia-container marginalia-interlude-grid">
+          <p class="marginalia-interlude-label">
+            A WORKING DISTINCTION
+          </p>
+
+          <div>
+            <h2>
+              Adaptation is not personalization.
+            </h2>
+
+            <p>
+              Personalization selects an experience for a person.
+              Adaptation asks whether that experience should remain
+              the same after the person changes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="marginalia-container">
+
+        <!-- Entry 03 -->
+
+        <article class="entry entry-dark" id="judgment">
+          <div class="entry-source">
+            <span class="entry-number">003</span>
+            <p class="entry-author">HERBERT SIMON</p>
+            <p class="entry-work">Bounded Rationality</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              Every decision is made inside limits.
+            </blockquote>
+
+            <p class="entry-context">
+              Limited information. Limited time. Limited models.
+              Limited certainty.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              Prediction is cheap.
+              <br><br>
+              Judgment is expensive.
+              <br><br>
+              A risk score can say what may happen.
+              It cannot silently decide what ought to happen next.
+            </p>
+
+            <small>
+              The harder system begins after prediction.
+            </small>
+          </aside>
+        </article>
+
+        <!-- Entry 04 -->
+
+        <article class="entry entry-left-note" id="intent">
+          <div class="entry-source">
+            <span class="entry-number">004</span>
+            <p class="entry-author">REGULATORY LANGUAGE</p>
+            <p class="entry-work">Intended Use</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              What is the software intended to do?
+            </blockquote>
+
+            <p class="entry-context">
+              A regulatory question that is also a philosophical one.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              Intent matters before accuracy.
+              <br><br>
+              A perfectly accurate system can still be built for the
+              wrong purpose.
+              <br><br>
+              We should be able to say not only what Bazi predicts,
+              but what authority it refuses to claim.
+            </p>
+
+            <small>
+              Limits are part of the product, not legal language added
+              after the product exists.
+            </small>
+          </aside>
+
+          <span class="scratch scratch-see">see also: restraint</span>
+        </article>
+
+        <!-- Entry 05 -->
+
+        <article class="entry" id="feedback">
+          <div class="entry-source">
+            <span class="entry-number">005</span>
+            <p class="entry-author">NORBERT WIENER</p>
+            <p class="entry-work">Cybernetics</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              A system changes by observing the consequences of action.
+            </blockquote>
+
+            <p class="entry-context">
+              Feedback as the relationship between intervention,
+              response and correction.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              A recommendation is not adaptive merely because a model
+              produced it.
+              <br><br>
+              The system becomes adaptive only when it notices whether
+              the recommendation helped.
+            </p>
+
+            <small>
+              Otherwise it is automation wearing the language of learning.
+            </small>
+          </aside>
+        </article>
+
+        <!-- Entry 06 -->
+
+        <article class="entry entry-left-note" id="limits">
+          <div class="entry-source">
+            <span class="entry-number">006</span>
+            <p class="entry-author">MARCUS AURELIUS</p>
+            <p class="entry-work"><em>Meditations</em></p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              The universe is transformation. Life is opinion.
+            </blockquote>
+
+            <p class="entry-context">
+              Observation changes. Interpretation changes.
+              The distinction remains essential.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              The signal is not the person.
+              <br><br>
+              A delayed session may mean fatigue, fear, travel,
+              worsening symptoms, distraction or nothing at all.
+              <br><br>
+              Confidence should never be confused with comprehension.
+            </p>
+
+            <small>
+              Still thinking about how software can express that honestly.
+            </small>
+          </aside>
+        </article>
+
+        <!-- Entry 07 -->
+
+        <article class="entry entry-dark">
+          <div class="entry-source">
+            <span class="entry-number">007</span>
+            <p class="entry-author">DONALD NORMAN</p>
+            <p class="entry-work">Human-Centered Design</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              The problem is rarely only the interface.
+            </blockquote>
+
+            <p class="entry-context">
+              The visible product is only one part of the system that
+              shapes human action.
+            </p>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">BAZI MARGIN</p>
+
+            <p>
+              The interface is where adaptation appears.
+              <br><br>
+              The product is the judgment that decided whether it should.
+            </p>
+
+            <small>
+              We may be designing a decision boundary more than a screen.
+            </small>
+          </aside>
+        </article>
+
+        <!-- Entry 08 -->
+
+        <article class="entry entry-empty" id="unfinished">
+          <div class="entry-source">
+            <span class="entry-number">008</span>
+            <p class="entry-author">UNFINISHED</p>
+            <p class="entry-work">A note not yet written</p>
+          </div>
+
+          <div class="entry-center">
+            <blockquote class="entry-quote">
+              When should an adaptive system choose not to adapt?
+            </blockquote>
+          </div>
+
+          <aside class="entry-note">
+            <p class="entry-note-label">NO MARGIN YET</p>
+
+            <p>
+              We have not decided.
+            </p>
+
+            <small>
+              Some questions should remain visible before their answers
+              become convenient.
+            </small>
+          </aside>
+
+          <span class="scratch scratch-question scratch-circle">?</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Closing
+         ===================================================== -->
+
+    <section class="marginalia-footer-note">
+      <div class="marginalia-container marginalia-footer-note-grid">
+        <h2>
+          We would rather show the question before pretending to own the answer.
+        </h2>
+
+        <div>
+          <p>
+            Marginalia will change as Bazi changes. Notes may be revised,
+            contradicted, removed or left unfinished. That is the point.
+          </p>
+
+          <a class="button button-primary" href="research.html">
+            Enter the Research Room
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">β</span>
+          <span class="brand-name">Bazi</span>
+        </a>
+
+        <p>
+          The adaptive intelligence layer for software-based medicine.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="companies.html">For Companies</a>
+        <a href="individuals.html">For Individuals</a>
+        <a href="index.html#technology">Technology</a>
+        <a href="research.html">Research</a>
+        <a href="marginalia.html">Marginalia</a>
+        <a href="careers.html">Careers</a>
+      </div>
+
+      <p class="copyright">
+        © <span id="year"></span> Bazi. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
