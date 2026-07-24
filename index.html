@@ -81,7 +81,301 @@
         </div>
       </div>
     </section>
+<!-- =====================================================
+     Live Adaptive Cycle
+     Add immediately after the hero section
+     ===================================================== -->
 
+<section class="adaptive-cycle-section" id="adaptive-cycle">
+  <div class="container">
+
+    <div class="adaptive-cycle-heading">
+      <div>
+        <p class="section-kicker">WATCH BAZI ADAPT</p>
+
+        <h2>
+          One changing patient. One bounded decision.
+        </h2>
+      </div>
+
+      <p>
+        Follow a fictional treatment scenario as Bazi detects emerging
+        disengagement, evaluates approved interventions and recommends
+        the next appropriate action.
+      </p>
+    </div>
+
+    <div class="adaptive-cycle-shell">
+
+      <!-- Patient context -->
+      <aside class="adaptive-patient-panel">
+
+        <div class="adaptive-panel-label">
+          FICTIONAL PATIENT
+        </div>
+
+        <div class="adaptive-patient-header">
+          <div class="adaptive-avatar" aria-hidden="true">
+            MC
+          </div>
+
+          <div>
+            <h3>Maya C.</h3>
+            <p>Digital rehabilitation</p>
+          </div>
+        </div>
+
+        <div class="adaptive-patient-meta">
+          <span>Week 5 of 8</span>
+          <span>Human approval required</span>
+        </div>
+
+        <div class="adaptive-signal-list">
+
+          <div class="adaptive-signal">
+            <div>
+              <span>Completion rate</span>
+              <small>Previous baseline: 82%</small>
+            </div>
+
+            <strong>61%</strong>
+          </div>
+
+          <div class="adaptive-signal">
+            <div>
+              <span>Session delay</span>
+              <small>Previous baseline: 8 hours</small>
+            </div>
+
+            <strong>31h</strong>
+          </div>
+
+          <div class="adaptive-signal">
+            <div>
+              <span>Reported fatigue</span>
+              <small>Patient-reported</small>
+            </div>
+
+            <strong>High</strong>
+          </div>
+
+          <div class="adaptive-signal">
+            <div>
+              <span>Difficulty</span>
+              <small>Recent response</small>
+            </div>
+
+            <strong>Too hard</strong>
+          </div>
+
+        </div>
+
+      </aside>
+
+      <!-- Agent activity -->
+      <div class="adaptive-agent-panel">
+
+        <div class="adaptive-agent-topbar">
+          <div>
+            <span class="adaptive-live-dot" aria-hidden="true"></span>
+            BAZI ADAPTIVE CYCLE
+          </div>
+
+          <span id="adaptive-cycle-status">
+            Ready
+          </span>
+        </div>
+
+        <div class="adaptive-progress" aria-label="Adaptive cycle progress">
+
+          <div class="adaptive-progress-step is-active" data-cycle-step="0">
+            <span>01</span>
+            <strong>Observe</strong>
+          </div>
+
+          <div class="adaptive-progress-line"></div>
+
+          <div class="adaptive-progress-step" data-cycle-step="1">
+            <span>02</span>
+            <strong>Interpret</strong>
+          </div>
+
+          <div class="adaptive-progress-line"></div>
+
+          <div class="adaptive-progress-step" data-cycle-step="2">
+            <span>03</span>
+            <strong>Evaluate</strong>
+          </div>
+
+          <div class="adaptive-progress-line"></div>
+
+          <div class="adaptive-progress-step" data-cycle-step="3">
+            <span>04</span>
+            <strong>Guardrail</strong>
+          </div>
+
+          <div class="adaptive-progress-line"></div>
+
+          <div class="adaptive-progress-step" data-cycle-step="4">
+            <span>05</span>
+            <strong>Adapt</strong>
+          </div>
+
+          <div class="adaptive-progress-line"></div>
+
+          <div class="adaptive-progress-step" data-cycle-step="5">
+            <span>06</span>
+            <strong>Monitor</strong>
+          </div>
+
+        </div>
+
+        <div class="adaptive-reasoning-window">
+
+          <div class="adaptive-reasoning-header">
+            <span>AGENT ACTIVITY</span>
+            <small>Fictional demonstration</small>
+          </div>
+
+          <div
+            class="adaptive-reasoning-content"
+            id="adaptive-reasoning-content"
+            aria-live="polite"
+          >
+            <p class="adaptive-reasoning-kicker">
+              READY TO EVALUATE
+            </p>
+
+            <h3>
+              Behavioral signals are available.
+            </h3>
+
+            <p>
+              Start the cycle to see how Bazi interprets the current
+              pattern and evaluates provider-approved actions.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="adaptive-actions">
+
+          <button
+            class="button button-primary"
+            id="start-adaptive-cycle"
+            type="button"
+          >
+            Start Adaptive Cycle
+          </button>
+
+          <button
+            class="adaptive-reset-button"
+            id="reset-adaptive-cycle"
+            type="button"
+          >
+            Reset
+          </button>
+
+          <a class="text-link" href="demo.html">
+            Open the full product demo
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- Decision result -->
+      <aside class="adaptive-decision-panel">
+
+        <div class="adaptive-panel-label">
+          DECISION WORKSPACE
+        </div>
+
+        <div class="adaptive-risk-display">
+          <span>Disengagement risk</span>
+
+          <strong id="adaptive-risk-value">
+            —
+          </strong>
+
+          <small id="adaptive-risk-label">
+            Awaiting evaluation
+          </small>
+        </div>
+
+        <div class="adaptive-candidate-list">
+
+          <p class="adaptive-small-heading">
+            CANDIDATE ACTIONS
+          </p>
+
+          <div class="adaptive-candidate" data-candidate="reminder">
+            <div>
+              <strong>Send another reminder</strong>
+              <small>Low intervention burden</small>
+            </div>
+
+            <span>Pending</span>
+          </div>
+
+          <div class="adaptive-candidate" data-candidate="duration">
+            <div>
+              <strong>Reduce session duration</strong>
+              <small>Approved treatment adjustment</small>
+            </div>
+
+            <span>Pending</span>
+          </div>
+
+          <div class="adaptive-candidate" data-candidate="difficulty">
+            <div>
+              <strong>Reduce difficulty</strong>
+              <small>Requires configured threshold</small>
+            </div>
+
+            <span>Pending</span>
+          </div>
+
+          <div class="adaptive-candidate" data-candidate="escalation">
+            <div>
+              <strong>Escalate immediately</strong>
+              <small>Reserved for higher-risk conditions</small>
+            </div>
+
+            <span>Pending</span>
+          </div>
+
+        </div>
+
+        <div
+          class="adaptive-selected-action"
+          id="adaptive-selected-action"
+        >
+          <span>SELECTED RESPONSE</span>
+
+          <h3>
+            No action selected
+          </h3>
+
+          <p>
+            Bazi will select only from actions configured by the
+            therapeutic organization or clinical team.
+          </p>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <p class="adaptive-cycle-disclaimer">
+      Fictional data and demonstration logic. This prototype is not
+      intended for patient care and does not represent established
+      clinical efficacy.
+    </p>
+
+  </div>
+</section>
     <section class="section audience-section">
       <div class="container">
         <div class="section-title-row">
