@@ -3,132 +3,373 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Bazi helps digital therapeutic companies detect disengagement and recommend provider-approved treatment adaptations.">
+  <meta name="description" content="Bazi is adaptive intelligence infrastructure for digital therapeutics.">
   <title>Bazi for Companies | Adaptive Infrastructure for Digital Therapeutics</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    .companies-page{background:#f6f7f3;color:#111512}.companies-page .section{padding:108px 0}.companies-page .section-kicker,.companies-page .eyebrow,.companies-page .small-label{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}.companies-page .section-kicker,.companies-page .eyebrow{color:#2b8f50}.companies-page h1,.companies-page h2,.companies-page h3,.companies-page p{text-wrap:balance}
-    .company-hero{padding:118px 0 98px;background:radial-gradient(circle at 76% 24%,rgba(70,216,121,.12),transparent 34%),linear-gradient(180deg,#f9faf7 0%,#f3f5ef 100%)}.company-hero-grid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:76px;align-items:center}.company-hero-copy h1{max-width:760px;margin:18px 0 24px;font-size:clamp(3.4rem,7vw,6.7rem);line-height:.96;letter-spacing:-.06em}.company-hero-description{max-width:680px;margin:0;color:rgba(17,21,18,.66);font-size:clamp(1.1rem,1.7vw,1.34rem);line-height:1.7}.company-hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}.company-hero-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:44px}.company-hero-proof div{padding:18px 0 0;border-top:1px solid rgba(17,21,18,.12)}.company-hero-proof strong,.company-hero-proof span{display:block}.company-hero-proof strong{font-size:.94rem}.company-hero-proof span{margin-top:6px;color:rgba(17,21,18,.55);font-size:.82rem;line-height:1.45}.company-hero-note{max-width:690px;margin:28px 0 0;color:rgba(17,21,18,.44);font-size:.8rem;line-height:1.6}.company-hero-window{overflow:hidden;border:1px solid rgba(17,21,18,.12);border-radius:28px;background:#101310;color:#f5f7f2;box-shadow:0 36px 100px rgba(17,21,18,.2)}.company-hero-window-header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,.09);color:rgba(245,247,242,.48);font-size:.7rem;font-weight:800;letter-spacing:.12em}.company-hero-window-header strong{color:#72ef9d}.company-hero-window-body{padding:34px}.company-hero-signal{display:grid;grid-template-columns:1fr auto;gap:18px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}.company-hero-signal:first-of-type{border-top:1px solid rgba(255,255,255,.08)}.company-hero-signal span{color:rgba(245,247,242,.54)}.company-hero-decision{margin-top:28px;padding:24px;border:1px solid rgba(114,239,157,.22);border-radius:18px;background:rgba(114,239,157,.07)}.company-hero-decision span{color:#72ef9d;font-size:.69rem;font-weight:800;letter-spacing:.13em}.company-hero-decision h3{margin:12px 0 8px;font-size:clamp(1.6rem,2.5vw,2.45rem);line-height:1.08;letter-spacing:-.035em}.company-hero-decision p{margin:0;color:rgba(245,247,242,.58);line-height:1.6}
-    .company-why-section{background:#fff}.company-section-heading{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.7fr);gap:72px;align-items:end;margin-bottom:68px}.company-section-heading h2{max-width:900px;margin:14px 0 0;font-size:clamp(2.5rem,4.8vw,4.8rem);line-height:1;letter-spacing:-.05em}.company-section-heading>p{margin:0;color:rgba(17,21,18,.6);font-size:1.04rem;line-height:1.75}.company-why-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(17,21,18,.12)}.company-why-item{padding:34px 30px 10px 0}.company-why-item+.company-why-item{padding-left:30px;border-left:1px solid rgba(17,21,18,.12)}.company-why-item span{color:rgba(17,21,18,.35);font-size:.75rem;font-weight:800;letter-spacing:.12em}.company-why-item h3{margin:22px 0 14px;font-size:1.45rem;letter-spacing:-.025em}.company-why-item p{margin:0;color:rgba(17,21,18,.58);line-height:1.7}
-    .company-cycle-section{background:#eef2ea}.company-cycle-frame{display:grid;grid-template-columns:.8fr 1.2fr;overflow:hidden;border:1px solid rgba(17,21,18,.12);border-radius:30px;background:#fff;box-shadow:0 30px 90px rgba(17,21,18,.09)}.company-cycle-patient{padding:42px;border-right:1px solid rgba(17,21,18,.1);background:#f8f9f6}.company-cycle-patient-header{display:flex;gap:16px;align-items:center;margin:24px 0 36px}.company-cycle-avatar{display:grid;width:54px;height:54px;place-items:center;border-radius:50%;background:#111512;color:#fff;font-weight:800}.company-cycle-patient-header h3,.company-cycle-patient-header p{margin:0}.company-cycle-patient-header p{margin-top:4px;color:rgba(17,21,18,.55)}.company-cycle-signal{display:grid;grid-template-columns:1fr auto;gap:18px;padding:20px 0;border-top:1px solid rgba(17,21,18,.1)}.company-cycle-signal span{color:rgba(17,21,18,.58);font-size:.9rem}.company-cycle-engine{display:flex;flex-direction:column;min-height:610px;padding:42px;background:#101310;color:#f4f7f1}.company-cycle-status{display:flex;justify-content:space-between;gap:18px;align-items:center;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(244,247,241,.52);font-size:.74rem;font-weight:800;letter-spacing:.12em}.company-cycle-status strong{display:inline-flex;gap:9px;align-items:center;color:#72ef9d;white-space:nowrap}.company-cycle-status strong:before{width:7px;height:7px;border-radius:50%;background:#72ef9d;content:"";box-shadow:0 0 0 6px rgba(114,239,157,.1)}.company-cycle-steps{margin:34px 0}.company-cycle-step{display:grid;grid-template-columns:42px 1fr auto;gap:16px;align-items:start;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}.company-cycle-step>span{color:rgba(244,247,241,.34);font-size:.75rem;font-weight:800}.company-cycle-step h3,.company-cycle-step p{margin:0}.company-cycle-step h3{font-size:1rem}.company-cycle-step p{margin-top:5px;color:rgba(244,247,241,.54);font-size:.9rem;line-height:1.55}.company-cycle-step strong{color:#72ef9d;font-size:.76rem}.company-cycle-result{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;margin-top:auto;padding:24px;border:1px solid rgba(114,239,157,.24);border-radius:18px;background:rgba(114,239,157,.07)}.company-cycle-result>div:first-child>span{display:block;margin-bottom:9px;color:#72ef9d;font-size:.69rem;font-weight:800;letter-spacing:.14em}.company-cycle-result h3,.company-cycle-result p{margin:0}.company-cycle-result h3{font-size:1.4rem;line-height:1.2}.company-cycle-result p{margin-top:8px;color:rgba(244,247,241,.56);line-height:1.55}.company-cycle-result-badge{padding:10px 13px;border:1px solid rgba(114,239,157,.3);border-radius:999px;color:#72ef9d;font-size:.72rem;font-weight:800;white-space:nowrap}
-    .company-architecture-section{background:#111512;color:#f5f7f2}.company-architecture-section .company-section-heading>p{color:rgba(245,247,242,.58)}.company-architecture-flow{display:grid;grid-template-columns:1fr 60px 1fr 60px 1fr;align-items:stretch}.company-architecture-node{padding:32px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:#171b18}.company-architecture-node.is-active{border-color:rgba(114,239,157,.32);background:linear-gradient(180deg,rgba(114,239,157,.08),#171b18 42%)}.company-architecture-node-number{color:rgba(245,247,242,.34);font-size:.72rem;font-weight:800;letter-spacing:.12em}.company-architecture-icon{display:grid;width:48px;height:48px;margin:34px 0 24px;place-items:center;border:1px solid rgba(255,255,255,.13);border-radius:14px;color:#72ef9d;font-size:1.25rem}.company-architecture-node h3{margin:10px 0 12px;font-size:1.45rem;letter-spacing:-.025em}.company-architecture-node>p:last-of-type{margin:0;color:rgba(245,247,242,.56);line-height:1.65}.company-architecture-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.company-architecture-tags span{padding:7px 9px;border:1px solid rgba(255,255,255,.09);border-radius:999px;color:rgba(245,247,242,.54);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.7rem}.company-architecture-arrow{display:grid;place-items:center;color:rgba(245,247,242,.34);font-size:1.5rem}
-    .company-boundaries-section{background:#f7f8f5}.company-split-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:88px;align-items:start}.company-split-copy h2{max-width:660px;margin:14px 0 22px;font-size:clamp(2.4rem,4.6vw,4.6rem);line-height:1;letter-spacing:-.05em}.company-split-copy>p:last-child{margin:0;color:rgba(17,21,18,.6);font-size:1.03rem;line-height:1.75}.company-boundary-panel{overflow:hidden;border:1px solid rgba(17,21,18,.12);border-radius:24px;background:#fff;box-shadow:0 24px 70px rgba(17,21,18,.07)}.company-boundary-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:22px 28px;border-bottom:1px solid rgba(17,21,18,.1)}.company-boundary-heading span{color:rgba(17,21,18,.48);font-size:.7rem;font-weight:800;letter-spacing:.14em}.company-boundary-heading strong{color:#278e4e;font-size:.76rem}.company-boundary-list{display:grid;grid-template-columns:1fr 1fr}.company-boundary-column{padding:30px}.company-boundary-column+.company-boundary-column{border-left:1px solid rgba(17,21,18,.1);background:#f7f8f5}.company-boundary-column>span{display:block;margin-bottom:18px;color:rgba(17,21,18,.42);font-size:.68rem;font-weight:800;letter-spacing:.14em}.company-boundary-item{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:14px 0;border-top:1px solid rgba(17,21,18,.08)}.company-boundary-item:first-of-type{border-top:0}.company-boundary-item i{display:grid;width:20px;height:20px;place-items:center;border-radius:50%;background:rgba(39,142,78,.1);color:#278e4e;font-style:normal;font-size:.7rem;font-weight:900}.company-boundary-item.is-blocked i{background:rgba(17,21,18,.08);color:rgba(17,21,18,.44)}.company-boundary-item strong{font-size:.93rem;font-weight:650}
-    .company-explain-section{background:#111512;color:#f5f7f2}.company-explain-section .company-split-copy>p:last-child{color:rgba(245,247,242,.56)}.company-decision-record{overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:24px;background:#171b18;box-shadow:0 28px 90px rgba(0,0,0,.28)}.company-decision-record-header{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:20px 26px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(245,247,242,.46);font-size:.7rem;font-weight:800;letter-spacing:.12em}.company-decision-record-header strong{color:#72ef9d}.company-decision-body{padding:32px}.company-decision-kicker{color:#72ef9d;font-size:.69rem;font-weight:800;letter-spacing:.14em}.company-decision-body h3{max-width:580px;margin:12px 0 28px;font-size:clamp(1.9rem,3vw,3.2rem);line-height:1.05;letter-spacing:-.04em}.company-decision-reasons{border-top:1px solid rgba(255,255,255,.08)}.company-decision-reason{display:grid;grid-template-columns:1fr auto;gap:24px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}.company-decision-reason span{color:rgba(245,247,242,.56)}.company-decision-reason strong{text-align:right}.company-decision-footer{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;border:1px solid rgba(255,255,255,.08);border-radius:16px}.company-decision-footer div{padding:18px}.company-decision-footer div+div{border-left:1px solid rgba(255,255,255,.08)}.company-decision-footer span,.company-decision-footer strong{display:block}.company-decision-footer span{margin-bottom:7px;color:rgba(245,247,242,.42);font-size:.68rem;letter-spacing:.1em}
-    .company-evidence-section{background:#0d0f0e;color:#f5f7f2}.company-evidence-section .company-section-heading>p{color:rgba(245,247,242,.57)}.company-evidence-list{border-top:1px solid rgba(255,255,255,.12)}.company-evidence-item{display:grid;grid-template-columns:80px minmax(0,1fr) 250px 52px;gap:26px;align-items:center;padding:36px 0;color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12);transition:padding .2s ease,background-color .2s ease}.company-evidence-item:hover,.company-evidence-item:focus-visible{padding-left:18px;padding-right:18px;background:rgba(255,255,255,.035);outline:none}.company-evidence-index{color:rgba(245,247,242,.34);font-size:.75rem;font-weight:800;letter-spacing:.12em}.company-evidence-type{display:block;margin-bottom:10px;color:#72ef9d;font-size:.68rem;font-weight:800;letter-spacing:.15em}.company-evidence-main h3{max-width:740px;margin:0;font-size:clamp(1.35rem,2.2vw,2.25rem);line-height:1.1;letter-spacing:-.035em}.company-evidence-meta{color:rgba(245,247,242,.55);font-size:.88rem;line-height:1.55}.company-evidence-meta strong{display:block;margin-bottom:5px;color:#f5f7f2}.company-evidence-arrow{display:grid;width:44px;height:44px;place-items:center;justify-self:end;border:1px solid rgba(255,255,255,.16);border-radius:50%;color:#72ef9d;transition:.2s ease}.company-evidence-item:hover .company-evidence-arrow,.company-evidence-item:focus-visible .company-evidence-arrow{color:#0d0f0e;background:#72ef9d;border-color:#72ef9d;transform:translate(3px,-3px)}.company-evidence-thesis{max-width:940px;margin:54px 0 0 106px}.company-evidence-thesis span{display:block;margin-bottom:15px;color:rgba(245,247,242,.4);font-size:.68rem;font-weight:800;letter-spacing:.14em}.company-evidence-thesis p{margin:0;font-size:clamp(1.3rem,2.3vw,2.15rem);line-height:1.32;letter-spacing:-.025em}.company-evidence-note{max-width:880px;margin:38px 0 0 106px;color:rgba(245,247,242,.38);font-size:.78rem;line-height:1.65}
-    .company-contact-section{background:#eff3eb}.company-final-cta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:60px;align-items:end;padding:58px;border:1px solid rgba(17,21,18,.12);border-radius:28px;background:#fff;box-shadow:0 26px 80px rgba(17,21,18,.07)}.company-final-cta h2{max-width:820px;margin:14px 0 18px;font-size:clamp(2.45rem,4.8vw,4.8rem);line-height:1;letter-spacing:-.05em}.company-final-cta p{max-width:700px;margin:0;color:rgba(17,21,18,.6);line-height:1.7}.company-final-cta-actions{display:flex;flex-direction:column;gap:12px;min-width:230px}
-    @media(max-width:1060px){.company-hero-grid,.company-section-heading,.company-split-grid{grid-template-columns:1fr;gap:38px}.company-architecture-flow{grid-template-columns:1fr;gap:18px}.company-architecture-arrow{transform:rotate(90deg)}.company-final-cta{grid-template-columns:1fr}.company-final-cta-actions{flex-direction:row;flex-wrap:wrap}}
-    @media(max-width:840px){.companies-page .section{padding:82px 0}.company-hero{padding:90px 0 76px}.company-hero-proof,.company-why-grid,.company-cycle-frame{grid-template-columns:1fr}.company-why-item,.company-why-item+.company-why-item{padding:28px 0;border-left:0;border-top:1px solid rgba(17,21,18,.12)}.company-cycle-patient{border-right:0;border-bottom:1px solid rgba(17,21,18,.1)}.company-cycle-engine{min-height:auto}.company-evidence-item{grid-template-columns:54px minmax(0,1fr) 46px}.company-evidence-meta{grid-column:2}.company-evidence-arrow{grid-column:3;grid-row:1/span 2}.company-evidence-thesis,.company-evidence-note{margin-left:72px}}
-    @media(max-width:620px){.company-hero-copy h1{font-size:clamp(3rem,15vw,4.5rem)}.company-hero-window-body,.company-cycle-patient,.company-cycle-engine,.company-decision-body{padding:26px}.company-cycle-status{align-items:flex-start;flex-direction:column}.company-cycle-step{grid-template-columns:34px 1fr}.company-cycle-step>strong{grid-column:2}.company-cycle-result,.company-boundary-list,.company-decision-footer{grid-template-columns:1fr}.company-boundary-column+.company-boundary-column{border-top:1px solid rgba(17,21,18,.1);border-left:0}.company-decision-footer div+div{border-top:1px solid rgba(255,255,255,.08);border-left:0}.company-decision-reason{grid-template-columns:1fr;gap:8px}.company-decision-reason strong{text-align:left}.company-evidence-item{grid-template-columns:1fr 42px}.company-evidence-index,.company-evidence-main,.company-evidence-meta{grid-column:1}.company-evidence-arrow{grid-column:2;grid-row:1/span 3}.company-evidence-thesis,.company-evidence-note{margin-left:0}.company-final-cta{padding:32px}.company-final-cta-actions{flex-direction:column}}
+    :root{
+      --ink:#06131e;
+      --navy:#071a2b;
+      --navy-2:#0a2237;
+      --green:#55e889;
+      --green-2:#9cffbb;
+      --cream:#f5f7f1;
+      --paper:#ffffff;
+      --muted:#697782;
+      --line:rgba(6,19,30,.12);
+      --line-dark:rgba(255,255,255,.12);
+      --shadow:0 32px 90px rgba(6,19,30,.13);
+      --radius:28px;
+      --container:1200px;
+      --mouse-x:50%;
+      --mouse-y:50%;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+    body.menu-open{overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    h1,h2,h3,p{margin-top:0}
+    h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;line-height:1.03;letter-spacing:-.045em}
+    p{color:var(--muted)}
+    .container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link{position:fixed;top:12px;left:12px;z-index:1000;transform:translateY(-160%);padding:10px 14px;border-radius:999px;background:var(--green);font-weight:800}.skip-link:focus{transform:none}
+
+    .site-header{position:fixed;inset:0 0 auto;z-index:100;color:white;transition:background .25s ease,box-shadow .25s ease,backdrop-filter .25s ease}
+    .site-header.scrolled{background:rgba(5,17,29,.82);backdrop-filter:blur(18px);box-shadow:0 10px 35px rgba(0,0,0,.14)}
+    .nav-wrap{display:flex;align-items:center;justify-content:space-between;min-height:82px;border-bottom:1px solid rgba(255,255,255,.12)}
+    .brand{display:inline-flex;align-items:center;gap:10px;font-size:1.22rem;font-weight:800;letter-spacing:-.04em}
+    .brand-mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--green);border-radius:12px;color:var(--green);font-family:Georgia,serif;font-size:1.4rem}
+    .primary-nav{display:flex;align-items:center;gap:26px;font-size:.9rem}
+    .primary-nav a:not(.nav-cta){color:rgba(255,255,255,.78);transition:color .2s ease}
+    .primary-nav a:hover,.primary-nav a[aria-current="page"]{color:white}
+    .nav-cta{padding:10px 16px;border:1px solid rgba(85,232,137,.5);border-radius:999px;color:var(--green);font-weight:800}
+    .nav-toggle{display:none;width:44px;height:44px;border:0;background:transparent;color:white}
+    .nav-toggle span:not(.sr-only){display:block;width:24px;height:2px;margin:5px auto;background:currentColor}
+
+    .hero{position:relative;min-height:100svh;display:grid;align-items:center;padding:145px 0 92px;overflow:hidden;background:#05131f;color:white}
+    .hero::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at var(--mouse-x) var(--mouse-y),rgba(85,232,137,.2),transparent 22%),radial-gradient(circle at 82% 16%,rgba(61,130,255,.16),transparent 27%),linear-gradient(145deg,#04111d 0%,#071a2b 50%,#08243a 100%);transition:background .08s linear}
+    .hero::after{content:"";position:absolute;inset:0;opacity:.2;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+    .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(420px,.92fr);gap:72px;align-items:center}
+    .eyebrow,.kicker{margin-bottom:18px;color:var(--green);font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    .hero h1{max-width:850px;margin-bottom:26px;font-size:clamp(4rem,8.5vw,8.2rem);line-height:.89}
+    .hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.62)}
+    .hero-copy>p:not(.eyebrow){max-width:690px;color:#b6c3cb;font-size:clamp(1.05rem,1.65vw,1.28rem)}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:34px}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border:1px solid transparent;border-radius:999px;font-weight:800;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,color .18s ease}
+    .button:hover{transform:translateY(-3px)}
+    .button-primary{background:var(--green);color:var(--ink);box-shadow:0 12px 36px rgba(85,232,137,.18)}
+    .button-secondary{border-color:rgba(255,255,255,.28);color:white;background:rgba(255,255,255,.03)}
+    .hero-microcopy{margin-top:20px!important;color:#718591!important;font-size:.8rem!important}
+
+    .decision-orbit{position:relative;min-height:590px;display:grid;place-items:center}
+    .orbit-ring{position:absolute;border:1px solid rgba(255,255,255,.12);border-radius:50%;animation:spin 22s linear infinite}
+    .orbit-ring.one{width:520px;height:520px}.orbit-ring.two{width:390px;height:390px;animation-direction:reverse;animation-duration:17s}
+    .orbit-dot{position:absolute;top:50%;left:50%;width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 24px rgba(85,232,137,.8)}
+    .one .orbit-dot{transform:translate(-50%,-50%) translateX(260px)}.two .orbit-dot{transform:translate(-50%,-50%) translateX(195px)}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .decision-card{position:relative;z-index:2;width:min(100%,430px);padding:28px;border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));backdrop-filter:blur(18px);box-shadow:0 40px 100px rgba(0,0,0,.27);transform-style:preserve-3d;transition:transform .12s ease-out}
+    .decision-card-top{display:flex;justify-content:space-between;gap:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.1);color:#8498a4;font-size:.68rem;font-weight:800;letter-spacing:.12em}
+    .live{display:inline-flex;align-items:center;gap:7px;color:var(--green)}
+    .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 6px rgba(85,232,137,.1)}
+    .signal-row{display:grid;grid-template-columns:1fr auto;gap:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    .signal-row span{color:#95a7b1;font-size:.87rem}.signal-row strong{font-size:1rem}
+    .recommendation{margin-top:24px;padding:20px;border:1px solid rgba(85,232,137,.26);border-radius:18px;background:rgba(85,232,137,.075)}
+    .recommendation span{color:var(--green);font-size:.66rem;font-weight:800;letter-spacing:.14em}
+    .recommendation h3{margin:10px 0 8px;font-size:1.7rem}.recommendation p{margin:0;color:#9fb0b8;font-size:.85rem}
+
+    .section{padding:125px 0}
+    .section-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.65fr);gap:70px;align-items:end;margin-bottom:72px}
+    .section-head h2,.split-copy h2{margin:0;font-size:clamp(3rem,6vw,6rem)}
+    .section-head>p,.split-copy>p:last-child{margin:0;font-size:1.04rem;line-height:1.8}
+
+    .manifesto{background:var(--paper)}
+    .manifesto-lines{display:grid;border-top:1px solid var(--line)}
+    .manifesto-line{position:relative;display:grid;grid-template-columns:100px 1fr;gap:30px;padding:42px 0;border-bottom:1px solid var(--line);overflow:hidden}
+    .manifesto-line::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(85,232,137,.13),transparent 62%);transform:translateX(-110%);transition:transform .45s ease}
+    .manifesto-line:hover::before{transform:none}
+    .manifesto-line span{position:relative;color:var(--green-dark);font-size:.75rem;font-weight:800;letter-spacing:.12em}
+    .manifesto-line h3{position:relative;margin:0;font-size:clamp(2.1rem,4.5vw,5rem)}
+    .manifesto-line h3 em{color:var(--muted);font-style:normal;font-weight:500}
+
+    .cycle{background:#edf2ea}
+    .cycle-layout{display:grid;grid-template-columns:360px 1fr;gap:36px;align-items:stretch}
+    .patient-panel,.cycle-stage{border:1px solid var(--line);border-radius:var(--radius);background:white;box-shadow:var(--shadow)}
+    .patient-panel{padding:30px;position:sticky;top:110px;height:max-content}
+    .patient-head{display:flex;align-items:center;gap:14px;padding:22px 0 28px;border-bottom:1px solid var(--line)}
+    .avatar{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;background:var(--ink);color:white;font-weight:800}
+    .patient-head h3,.patient-head p{margin:0}.patient-head p{font-size:.82rem}
+    .metric{padding:18px 0;border-bottom:1px solid var(--line)}
+    .metric-top{display:flex;justify-content:space-between;gap:20px}.metric span{color:var(--muted);font-size:.85rem}.metric-bar{height:6px;margin-top:11px;border-radius:99px;background:#e8ece9;overflow:hidden}.metric-bar i{display:block;height:100%;width:var(--value);background:linear-gradient(90deg,var(--green-dark),var(--green));border-radius:inherit;transform-origin:left;animation:grow 1s both paused}.revealed .metric-bar i{animation-play-state:running}@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    .cycle-stage{overflow:hidden;background:var(--ink);color:white}
+    .cycle-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line-dark)}
+    .cycle-tab{position:relative;padding:20px 16px;border:0;border-right:1px solid var(--line-dark);background:transparent;color:#718591;text-align:left;cursor:pointer;transition:background .2s ease,color .2s ease}
+    .cycle-tab:last-child{border-right:0}.cycle-tab span{display:block;color:var(--green);font-size:.62rem;font-weight:800}.cycle-tab strong{font-size:.8rem}.cycle-tab.active{color:white;background:rgba(85,232,137,.07)}
+    .cycle-tab.active::after{content:"";position:absolute;inset:auto 0 0;height:3px;background:var(--green)}
+    .cycle-content{display:grid;grid-template-columns:1fr 280px;min-height:470px}
+    .reasoning{padding:44px;display:flex;flex-direction:column;justify-content:center}
+    .reasoning .step-label{color:var(--green);font-size:.68rem;font-weight:800;letter-spacing:.14em}
+    .reasoning h3{max-width:650px;margin:14px 0 18px;font-size:clamp(2.4rem,4.5vw,4.8rem)}
+    .reasoning p{max-width:650px;color:#9db0ba;font-size:1rem}
+    .reason-list{display:grid;gap:10px;margin-top:24px}.reason-list div{padding:13px 15px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.025);color:#a9b8c0;font-size:.82rem}.reason-list b{color:var(--green);margin-right:8px}
+    .policy-side{padding:28px;border-left:1px solid var(--line-dark);background:rgba(255,255,255,.025)}
+    .policy-side h4{margin:0 0 18px;color:#7f929d;font-size:.65rem;letter-spacing:.14em}.candidate{padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:13px;margin-bottom:10px;transition:.2s ease}.candidate strong,.candidate small{display:block}.candidate strong{font-size:.78rem}.candidate small{color:#6f8490;font-size:.65rem}.candidate.selected{border-color:rgba(85,232,137,.46);background:rgba(85,232,137,.08)}.candidate.selected strong{color:var(--green)}
+
+    .architecture{position:relative;background:#06131e;color:white;overflow:hidden}
+    .architecture::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--mouse-x) var(--mouse-y),rgba(85,232,137,.1),transparent 22%)}
+    .architecture .container{position:relative}
+    .architecture .section-head>p{color:#91a4ae}
+    .pipeline{position:relative;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;gap:0;padding:60px 0}
+    .pipeline-line{position:absolute;left:8%;right:8%;top:50%;height:2px;background:rgba(255,255,255,.14)}
+    .pipeline-progress{position:absolute;left:8%;top:50%;height:2px;width:0;background:var(--green);box-shadow:0 0 16px rgba(85,232,137,.7);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+    .architecture.revealed .pipeline-progress{width:84%}
+    .pipe-node{position:relative;z-index:2;text-align:center}
+    .pipe-icon{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 18px;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:#0a2032;color:var(--green);font-size:1.3rem;box-shadow:0 0 0 12px #06131e;transition:transform .25s ease,background .25s ease}
+    .pipe-node:hover .pipe-icon{transform:translateY(-8px) scale(1.05);background:rgba(85,232,137,.12)}
+    .pipe-node strong{display:block;font-size:.9rem}.pipe-node small{color:#6f8390}
+    .data-pulse{position:absolute;z-index:3;top:calc(50% - 5px);left:8%;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 20px var(--green);opacity:0}.architecture.revealed .data-pulse{animation:travel 3.4s ease-in-out infinite 1.3s}@keyframes travel{0%{left:8%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:92%;opacity:0}}
+
+    .boundaries{background:#f7f8f5}
+    .split{display:grid;grid-template-columns:.78fr 1.22fr;gap:86px;align-items:start}
+    .permissions{overflow:hidden;border:1px solid var(--line);border-radius:26px;background:white;box-shadow:var(--shadow)}
+    .permissions-top{display:flex;justify-content:space-between;padding:20px 26px;border-bottom:1px solid var(--line);font-size:.7rem;font-weight:800;letter-spacing:.12em}.permissions-top b{color:var(--green-dark)}
+    .permission-row{display:grid;grid-template-columns:42px 1fr auto;gap:14px;align-items:center;padding:19px 26px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s ease,padding .2s ease}.permission-row:last-child{border-bottom:0}.permission-row:hover{padding-left:32px;background:#f4f8f3}
+    .permission-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(35,157,88,.11);color:var(--green-dark);font-weight:900}.permission-row.blocked .permission-icon{background:rgba(6,19,30,.07);color:#73818a}.permission-row strong{font-size:.92rem}.permission-row span:last-child{color:#7b8a93;font-size:.72rem}.permission-detail{grid-column:2/-1;max-height:0;overflow:hidden;color:var(--muted);font-size:.78rem;transition:max-height .25s ease,margin .25s ease}.permission-row.open .permission-detail{max-height:90px;margin-top:5px}
+
+    .explain{background:#06131e;color:white}
+    .explain .split-copy>p:last-child{color:#91a4ae}
+    .record{overflow:hidden;border:1px solid var(--line-dark);border-radius:26px;background:#0a1d2d;box-shadow:0 40px 110px rgba(0,0,0,.26)}
+    .record-top{display:flex;justify-content:space-between;padding:20px 26px;border-bottom:1px solid var(--line-dark);color:#738792;font-size:.7rem;font-weight:800;letter-spacing:.12em}.record-top b{color:var(--green)}
+    .record-body{padding:34px}.record-body h3{margin:11px 0 28px;font-size:clamp(2rem,3.6vw,3.6rem)}
+    .analysis-line{display:grid;grid-template-columns:1fr auto;gap:20px;padding:17px 0;border-bottom:1px solid var(--line-dark);opacity:.18;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}.analysis-line.visible{opacity:1;transform:none}.analysis-line span{color:#8ea1ac}.analysis-line strong{text-align:right}
+    .record-footer{display:grid;grid-template-columns:repeat(3,1fr);margin-top:26px;border:1px solid var(--line-dark);border-radius:15px}.record-footer div{padding:17px}.record-footer div+div{border-left:1px solid var(--line-dark)}.record-footer span,.record-footer strong{display:block}.record-footer span{color:#718591;font-size:.65rem;letter-spacing:.1em}.record-footer strong{margin-top:6px}
+    .build-button{margin-top:24px;border:0;background:var(--green);color:var(--ink)}
+
+    .evidence{background:#0c0f0e;color:white}
+    .evidence .section-head>p{color:#8e9a94}
+    .shelf{display:grid;border-top:1px solid var(--line-dark)}
+    .book{display:grid;grid-template-columns:80px 1fr 250px 52px;gap:26px;align-items:center;padding:36px 0;border-bottom:1px solid var(--line-dark);cursor:pointer;transition:padding .25s ease,background .25s ease}
+    .book:hover{padding-left:18px;padding-right:18px;background:rgba(255,255,255,.035)}
+    .book-index{color:#4e5c55;font-size:.74rem;font-weight:800}.book-type{display:block;margin-bottom:9px;color:var(--green);font-size:.67rem;font-weight:800;letter-spacing:.14em}.book h3{margin:0;font-size:clamp(1.4rem,2.5vw,2.5rem)}.book-meta{color:#7f8c86;font-size:.86rem}.book-meta strong{display:block;color:white}.book-arrow{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line-dark);border-radius:50%;color:var(--green);transition:.2s ease}.book:hover .book-arrow{background:var(--green);color:#0c0f0e;transform:translate(3px,-3px)}
+
+    .final-cta{position:relative;padding:145px 0;background:var(--green);overflow:hidden}
+    .final-cta::before{content:"β";position:absolute;right:-2vw;bottom:-24vw;color:rgba(6,19,30,.08);font-family:Georgia,serif;font-size:52vw;line-height:1}
+    .final-cta .container{position:relative}.final-cta h2{max-width:980px;margin:0 0 28px;font-size:clamp(4rem,9vw,9rem);line-height:.88}.final-cta p{max-width:660px;color:rgba(6,19,30,.67);font-size:1.1rem}.final-cta .button{margin-top:25px;background:var(--ink);color:white}
+
+    .site-footer{padding:56px 0;background:#020b12;color:white}.footer-grid{display:grid;grid-template-columns:1fr auto;gap:34px}.footer-copy p{max-width:430px;color:#72838d}.footer-links{display:flex;flex-wrap:wrap;gap:18px 24px;max-width:520px;justify-content:flex-end;color:#9dabb3;font-size:.86rem}.copyright{grid-column:1/-1;margin:24px 0 0;padding-top:24px;border-top:1px solid var(--line-dark);color:#5f707a;font-size:.8rem}
+
+    [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}[data-reveal].revealed{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+    @media(max-width:1050px){
+      .hero-grid,.section-head,.split{grid-template-columns:1fr}.decision-orbit{min-height:520px}.cycle-layout{grid-template-columns:1fr}.patient-panel{position:relative;top:auto}.pipeline{grid-template-columns:1fr;gap:26px}.pipeline-line,.pipeline-progress,.data-pulse{display:none}.pipe-icon{box-shadow:none}.book{grid-template-columns:60px 1fr 46px}.book-meta{grid-column:2}.book-arrow{grid-column:3;grid-row:1/span 2}.footer-grid{grid-template-columns:1fr}.footer-links{justify-content:flex-start}
+    }
+    @media(max-width:820px){
+      .nav-toggle{display:block}.primary-nav{position:fixed;inset:82px 16px auto;display:none;padding:20px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:rgba(5,17,29,.96);backdrop-filter:blur(18px);flex-direction:column;align-items:stretch}.primary-nav.open{display:flex}.hero-grid{grid-template-columns:1fr}.decision-orbit{min-height:470px}.orbit-ring.one{width:430px;height:430px}.orbit-ring.two{width:320px;height:320px}.one .orbit-dot{transform:translate(-50%,-50%) translateX(215px)}.two .orbit-dot{transform:translate(-50%,-50%) translateX(160px)}.cycle-content{grid-template-columns:1fr}.policy-side{border-left:0;border-top:1px solid var(--line-dark)}.cycle-tabs{grid-template-columns:repeat(2,1fr)}.pipeline{padding-top:20px}.record-footer{grid-template-columns:1fr}.record-footer div+div{border-left:0;border-top:1px solid var(--line-dark)}
+    }
+    @media(max-width:620px){
+      .container{width:min(calc(100% - 28px),var(--container))}.section{padding:90px 0}.hero{padding-top:125px}.hero h1{font-size:clamp(3.5rem,18vw,5.7rem)}.decision-orbit{min-height:430px}.orbit-ring{display:none}.decision-card{padding:22px}.manifesto-line{grid-template-columns:1fr;gap:10px}.cycle-tabs{grid-template-columns:1fr 1fr}.reasoning{padding:28px}.policy-side{padding:22px}.permissions-top{align-items:flex-start;flex-direction:column}.permission-row{grid-template-columns:34px 1fr}.permission-row>span:last-of-type{grid-column:2}.book{grid-template-columns:1fr 42px}.book-index,.book-main,.book-meta{grid-column:1}.book-arrow{grid-column:2;grid-row:1/span 3}.final-cta h2{font-size:clamp(3.5rem,17vw,6rem)}
+    }
   </style>
 </head>
-<body class="site-page companies-page">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header" id="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="index.html" aria-label="Bazi home"><span class="brand-name">Bazi</span></a>
-      <button class="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span><span></span></button>
-      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
-        <a href="companies.html" aria-current="page">For Companies</a><a href="individuals.html">For Individuals</a><a href="index.html#technology">Technology</a><a href="index.html#product-preview">Product</a><a href="research.html">Research</a><a href="marginalia.html">Marginalia</a><a href="careers.html">Careers</a><a class="button button-small button-outline" href="demo.html">Live Demo</a>
+      <a class="brand" href="index.html" aria-label="Bazi home"><span class="brand-mark">β</span><span>Bazi</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span><span></span></button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <a href="companies.html" aria-current="page">For Companies</a><a href="individuals.html">For Individuals</a><a href="index.html#technology">Technology</a><a href="index.html#product-preview">Product</a><a href="research.html">Research</a><a href="marginalia.html">Marginalia</a><a href="careers.html">Careers</a><a class="nav-cta" href="demo.html">Live Demo</a>
       </nav>
     </div>
   </header>
 
-  <main id="main-content">
-    <section class="hero company-hero">
-      <div class="container company-hero-grid">
-        <div class="company-hero-copy">
-          <p class="eyebrow">ADAPTIVE INFRASTRUCTURE FOR DIGITAL THERAPEUTICS</p>
-          <h1>Make your therapeutic product responsive.</h1>
-          <p class="company-hero-description">Bazi helps digital therapeutic companies detect emerging disengagement, evaluate provider-approved responses and recommend the next appropriate action before treatment is lost.</p>
-          <div class="company-hero-actions"><a class="button button-primary" href="demo.html">Explore the Live Demo</a><a class="button button-secondary" href="#company-contact">Become a Design Partner</a></div>
-          <div class="company-hero-proof"><div><strong>Behind your product</strong><span>No separate patient application required.</span></div><div><strong>Within your rules</strong><span>Only approved interventions are considered.</span></div><div><strong>With human oversight</strong><span>Review and escalation remain configurable.</span></div></div>
-          <p class="company-hero-note">Bazi is being developed as product infrastructure. It does not independently diagnose, prescribe or create treatment plans.</p>
+  <main id="main">
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow">Adaptive infrastructure for digital therapeutics</p>
+          <h1>Software that <span>responds.</span></h1>
+          <p>Bazi detects emerging disengagement, evaluates only provider-approved interventions and recommends the next appropriate action before treatment is lost.</p>
+          <div class="hero-actions"><a class="button button-primary" href="demo.html">Explore the Live Demo</a><a class="button button-secondary" href="#partner">Become a Design Partner</a></div>
+          <p class="hero-microcopy">Product infrastructure, not an autonomous clinician. Bazi does not diagnose, prescribe or create treatment plans.</p>
         </div>
-        <div class="company-hero-window">
-          <div class="company-hero-window-header"><span>BAZI DECISION ENGINE</span><strong>Evaluation complete</strong></div>
-          <div class="company-hero-window-body">
-            <p class="small-label">CURRENT SIGNALS</p>
-            <div class="company-hero-signal"><span>Completion rate</span><strong>61%</strong></div>
-            <div class="company-hero-signal"><span>Average session delay</span><strong>31 hours</strong></div>
-            <div class="company-hero-signal"><span>Reported fatigue</span><strong>High</strong></div>
-            <div class="company-hero-decision"><span>RECOMMENDED RESPONSE</span><h3>Reduce session duration.</h3><p>Selected from the intervention library configured by the therapeutic organization.</p></div>
+
+        <div class="decision-orbit" aria-label="Animated Bazi decision example" data-reveal>
+          <div class="orbit-ring one"><span class="orbit-dot"></span></div><div class="orbit-ring two"><span class="orbit-dot"></span></div>
+          <article class="decision-card" id="tilt-card">
+            <div class="decision-card-top"><span>BAZI DECISION ENGINE</span><strong class="live">LIVE</strong></div>
+            <div class="signal-row"><span>Completion rate</span><strong>61%</strong></div><div class="signal-row"><span>Average delay</span><strong>31 h</strong></div><div class="signal-row"><span>Reported fatigue</span><strong>High</strong></div>
+            <div class="recommendation"><span>RECOMMENDED RESPONSE</span><h3>Reduce session duration.</h3><p>Selected from the intervention library configured by the therapeutic organization.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section manifesto">
+      <div class="container">
+        <div class="section-head" data-reveal><div><p class="kicker">Why Bazi</p><h2>Software changed medicine. It never learned to adapt.</h2></div><p>Bazi adds a bounded intelligence layer behind the patient experience you already built, while your organization retains control over clinical policy, interventions and escalation.</p></div>
+        <div class="manifesto-lines">
+          <div class="manifesto-line" data-reveal><span>01 / OBSERVE</span><h3>Detect change <em>before abandonment.</em></h3></div>
+          <div class="manifesto-line" data-reveal><span>02 / INTERPRET</span><h3>Understand patterns, <em>not isolated clicks.</em></h3></div>
+          <div class="manifesto-line" data-reveal><span>03 / EVALUATE</span><h3>Compare only <em>approved options.</em></h3></div>
+          <div class="manifesto-line" data-reveal><span>04 / RECOMMEND</span><h3>Return a decision <em>with a reason.</em></h3></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cycle" id="cycle">
+      <div class="container">
+        <div class="section-head" data-reveal><div><p class="kicker">The adaptive cycle</p><h2>One changing patient. One bounded recommendation.</h2></div><p>Select each stage to see how Bazi moves from behavioral change to an explainable action.</p></div>
+        <div class="cycle-layout" data-reveal>
+          <aside class="patient-panel">
+            <p class="kicker">Fictional patient</p><div class="patient-head"><div class="avatar">MC</div><div><h3>Maya Chen</h3><p>Digital rehabilitation · Week 5 of 8</p></div></div>
+            <div class="metric"><div class="metric-top"><span>Completion rate</span><strong>61%</strong></div><div class="metric-bar"><i style="--value:61%"></i></div></div>
+            <div class="metric"><div class="metric-top"><span>Average delay</span><strong>31 h</strong></div><div class="metric-bar"><i style="--value:78%"></i></div></div>
+            <div class="metric"><div class="metric-top"><span>Reported fatigue</span><strong>High</strong></div><div class="metric-bar"><i style="--value:88%"></i></div></div>
+            <div class="metric"><div class="metric-top"><span>Recent difficulty</span><strong>Too hard</strong></div><div class="metric-bar"><i style="--value:82%"></i></div></div>
+          </aside>
+          <div class="cycle-stage">
+            <div class="cycle-tabs" role="tablist">
+              <button class="cycle-tab active" data-step="0" role="tab"><span>01</span><strong>Observe</strong></button><button class="cycle-tab" data-step="1" role="tab"><span>02</span><strong>Interpret</strong></button><button class="cycle-tab" data-step="2" role="tab"><span>03</span><strong>Evaluate</strong></button><button class="cycle-tab" data-step="3" role="tab"><span>04</span><strong>Guardrails</strong></button>
+            </div>
+            <div class="cycle-content">
+              <div class="reasoning"><span class="step-label" id="step-label">STEP 01 · OBSERVE</span><h3 id="step-title">Behavior has shifted from Maya's baseline.</h3><p id="step-copy">Completion, delay and fatigue changed together. Bazi treats the combined pattern as more meaningful than any one event.</p><div class="reason-list" id="reason-list"></div></div>
+              <aside class="policy-side"><h4>INTERVENTION LIBRARY</h4><div class="candidate selected"><strong>Shorten session</strong><small>Provider approved</small></div><div class="candidate"><strong>Move reminder</strong><small>Provider approved</small></div><div class="candidate"><strong>Reduce difficulty</strong><small>Provider approved</small></div><div class="candidate"><strong>Change medication</strong><small>Outside authority</small></div></aside>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section company-why-section">
+    <section class="section architecture" data-reveal>
       <div class="container">
-        <div class="company-section-heading"><div><p class="section-kicker">WHY BAZI</p><h2>Improve the therapeutic product you already built.</h2></div><p>Bazi adds adaptive decisioning behind the existing patient experience. Your organization keeps control of the product, intervention library and clinical escalation policy.</p></div>
-        <div class="company-why-grid">
-          <article class="company-why-item"><span>01</span><h3>Detect change earlier</h3><p>Identify gradual shifts across completion, timing, fatigue, difficulty and treatment behavior before abandonment becomes the only visible signal.</p></article>
-          <article class="company-why-item"><span>02</span><h3>Choose within approved options</h3><p>Compare the actions already configured by your clinical and product teams instead of generating an unrestricted response.</p></article>
-          <article class="company-why-item"><span>03</span><h3>Learn what restores engagement</h3><p>Track how different approved adaptations perform across behavioral patterns, treatment contexts and patient groups.</p></article>
+        <div class="section-head"><div><p class="kicker">Product architecture</p><h2>A living decision layer behind your therapeutic experience.</h2></div><p>Behavioral data moves through Bazi, is evaluated against your policy and returns as an approved adaptation or human review request.</p></div>
+        <div class="pipeline"><div class="pipeline-line"></div><div class="pipeline-progress"></div><div class="data-pulse"></div>
+          <div class="pipe-node"><div class="pipe-icon">●</div><strong>Patient</strong><small>Behavior changes</small></div>
+          <div class="pipe-node"><div class="pipe-icon">◫</div><strong>Your product</strong><small>Events emitted</small></div>
+          <div class="pipe-node"><div class="pipe-icon">β</div><strong>Bazi</strong><small>Decision evaluated</small></div>
+          <div class="pipe-node"><div class="pipe-icon">◇</div><strong>Clinical policy</strong><small>Bounds applied</small></div>
+          <div class="pipe-node"><div class="pipe-icon">↗</div><strong>Adaptation</strong><small>Review or response</small></div>
         </div>
       </div>
     </section>
 
-    <section class="section company-cycle-section">
-      <div class="container">
-        <div class="company-section-heading"><div><p class="section-kicker">THE ADAPTIVE CYCLE</p><h2>One changing patient. One bounded recommendation.</h2></div><p>Bazi interprets changes across the treatment experience, compares only the interventions your organization has approved and returns a recommendation for review.</p></div>
-        <div class="company-cycle-frame">
-          <aside class="company-cycle-patient"><p class="small-label">FICTIONAL PATIENT</p><div class="company-cycle-patient-header"><div class="company-cycle-avatar" aria-hidden="true">MC</div><div><h3>Maya Chen</h3><p>Digital rehabilitation · Week 5 of 8</p></div></div><div class="company-cycle-signal"><span>Completion rate</span><strong>61%</strong></div><div class="company-cycle-signal"><span>Average session delay</span><strong>31 hours</strong></div><div class="company-cycle-signal"><span>Reported fatigue</span><strong>High</strong></div><div class="company-cycle-signal"><span>Recent difficulty</span><strong>Too hard</strong></div></aside>
-          <div class="company-cycle-engine"><div class="company-cycle-status"><span>BAZI DECISION RECORD</span><strong>Evaluation complete</strong></div><div class="company-cycle-steps"><div class="company-cycle-step"><span>01</span><div><h3>Observe</h3><p>Behavior has shifted meaningfully from the recent baseline.</p></div><strong>Complete</strong></div><div class="company-cycle-step"><span>02</span><div><h3>Interpret</h3><p>The combined pattern is consistent with rising treatment friction.</p></div><strong>Complete</strong></div><div class="company-cycle-step"><span>03</span><div><h3>Evaluate</h3><p>Three configured interventions were compared against the current context.</p></div><strong>Complete</strong></div><div class="company-cycle-step"><span>04</span><div><h3>Apply guardrails</h3><p>Medication, diagnosis and autonomous treatment changes remain unavailable.</p></div><strong>Complete</strong></div></div><div class="company-cycle-result"><div><span>RECOMMENDED RESPONSE</span><h3>Reduce session duration for the next two sessions.</h3><p>Selected from the intervention library configured by the therapeutic organization.</p></div><div class="company-cycle-result-badge">Human review required</div></div></div>
+    <section class="section boundaries">
+      <div class="container split">
+        <div class="split-copy" data-reveal><p class="kicker">Decision boundaries</p><h2>Intelligence with explicit authority.</h2><p>Click any permission to see why it is available or blocked. Bazi ranks configured choices. It does not invent unrestricted care.</p></div>
+        <div class="permissions" data-reveal>
+          <div class="permissions-top"><span>EXAMPLE INTERVENTION POLICY</span><b>Provider configured</b></div>
+          <div class="permission-row"><span class="permission-icon">✓</span><strong>Shorten session duration</strong><span>Allowed</span><div class="permission-detail">Available because the provider has predefined the acceptable duration range and review conditions.</div></div>
+          <div class="permission-row"><span class="permission-icon">✓</span><strong>Adjust reminder timing</strong><span>Allowed</span><div class="permission-detail">Available within the communication windows and frequency limits configured by the organization.</div></div>
+          <div class="permission-row"><span class="permission-icon">✓</span><strong>Request clinician review</strong><span>Allowed</span><div class="permission-detail">Escalation is available whenever configured thresholds or uncertainty criteria are met.</div></div>
+          <div class="permission-row blocked"><span class="permission-icon">×</span><strong>Change medication</strong><span>Blocked</span><div class="permission-detail">Medication changes remain outside Bazi's authority and require appropriate licensed clinical decision-making.</div></div>
+          <div class="permission-row blocked"><span class="permission-icon">×</span><strong>Diagnose or create a treatment plan</strong><span>Blocked</span><div class="permission-detail">Bazi does not diagnose conditions or independently author treatment plans.</div></div>
         </div>
       </div>
     </section>
 
-    <section class="section company-architecture-section">
-      <div class="container">
-        <div class="company-section-heading"><div><p class="section-kicker">PRODUCT ARCHITECTURE</p><h2>One adaptive intelligence layer behind your existing experience.</h2></div><p>Bazi is designed as infrastructure. The patient remains in your product while behavioral events, decision rules and approved responses move through a controlled adaptive layer.</p></div>
-        <div class="company-architecture-flow">
-          <article class="company-architecture-node"><span class="company-architecture-node-number">01</span><div class="company-architecture-icon" aria-hidden="true">◫</div><p class="small-label">YOUR PRODUCT</p><h3>Behavioral events</h3><p>Sessions, assessments, timing, completion, fatigue, difficulty and treatment feedback.</p><div class="company-architecture-tags"><span>session.completed</span><span>fatigue.reported</span><span>difficulty.changed</span></div></article>
-          <div class="company-architecture-arrow" aria-hidden="true">→</div>
-          <article class="company-architecture-node is-active"><span class="company-architecture-node-number">02</span><div class="company-architecture-icon" aria-hidden="true">β</div><p class="small-label">BAZI</p><h3>Adaptive decision engine</h3><p>Signal interpretation, risk estimation, intervention ranking and decision explanation within configured constraints.</p><div class="company-architecture-tags"><span>risk.evaluate</span><span>action.rank</span><span>decision.explain</span></div></article>
-          <div class="company-architecture-arrow" aria-hidden="true">→</div>
-          <article class="company-architecture-node"><span class="company-architecture-node-number">03</span><div class="company-architecture-icon" aria-hidden="true">↗</div><p class="small-label">YOUR EXPERIENCE</p><h3>Approved adaptation</h3><p>Pacing, reminder timing, configured difficulty, support or appropriate clinician escalation.</p><div class="company-architecture-tags"><span>plan.adjusted</span><span>reminder.updated</span><span>clinician.notified</span></div></article>
+    <section class="section explain">
+      <div class="container split">
+        <div class="split-copy" data-reveal><p class="kicker">Decision visibility</p><h2>Watch the recommendation build itself.</h2><p>Each recommendation can expose the contributing signals, policy status, rejected alternatives and review requirements.</p></div>
+        <div class="record" data-reveal>
+          <div class="record-top"><span>DECISION · FICTIONAL_MC_018</span><b id="record-status">Ready to evaluate</b></div>
+          <div class="record-body"><span class="kicker">Recommendation</span><h3>Reduce session duration for the next two sessions.</h3>
+            <div class="analysis-line"><span>Completion rate</span><strong>Down 21 points</strong></div><div class="analysis-line"><span>Average delay</span><strong>Up 23 hours</strong></div><div class="analysis-line"><span>Reported fatigue</span><strong>Moderate → High</strong></div><div class="analysis-line"><span>Alternative rejected</span><strong>Reminder alone insufficient</strong></div>
+            <div class="record-footer"><div><span>CONFIDENCE</span><strong>86%</strong></div><div><span>POLICY STATUS</span><strong>Within bounds</strong></div><div><span>REVIEW</span><strong>Clinician required</strong></div></div>
+            <button class="button build-button" id="build-decision">Build decision record</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section company-boundaries-section">
-      <div class="container company-split-grid">
-        <div class="company-split-copy"><p class="section-kicker">DECISION BOUNDARIES</p><h2>Your teams define what Bazi may consider.</h2><p>Bazi does not create an unrestricted treatment plan. It ranks configured options, respects exclusion rules and routes decisions to human review when required.</p></div>
-        <div class="company-boundary-panel"><div class="company-boundary-heading"><span>EXAMPLE INTERVENTION POLICY</span><strong>Provider configured</strong></div><div class="company-boundary-list"><div class="company-boundary-column"><span>AVAILABLE TO EVALUATE</span><div class="company-boundary-item"><i aria-hidden="true">✓</i><strong>Shorten session duration</strong></div><div class="company-boundary-item"><i aria-hidden="true">✓</i><strong>Adjust reminder timing</strong></div><div class="company-boundary-item"><i aria-hidden="true">✓</i><strong>Reduce configured difficulty</strong></div><div class="company-boundary-item"><i aria-hidden="true">✓</i><strong>Request clinician review</strong></div></div><div class="company-boundary-column"><span>OUTSIDE BAZI'S AUTHORITY</span><div class="company-boundary-item is-blocked"><i aria-hidden="true">×</i><strong>Diagnose a condition</strong></div><div class="company-boundary-item is-blocked"><i aria-hidden="true">×</i><strong>Change medication</strong></div><div class="company-boundary-item is-blocked"><i aria-hidden="true">×</i><strong>Override a clinician</strong></div><div class="company-boundary-item is-blocked"><i aria-hidden="true">×</i><strong>Create a new treatment plan</strong></div></div></div></div>
-      </div>
-    </section>
-
-    <section class="section company-explain-section">
-      <div class="container company-split-grid">
-        <div class="company-split-copy"><p class="section-kicker">DECISION VISIBILITY</p><h2>Every recommendation arrives with a reason.</h2><p>Product and clinical teams can inspect the contributing signals, the intervention selected, the alternatives rejected and the review requirements attached to the decision.</p></div>
-        <div class="company-decision-record"><div class="company-decision-record-header"><span>DECISION · FICTIONAL_MC_018</span><strong>Ready for review</strong></div><div class="company-decision-body"><span class="company-decision-kicker">RECOMMENDATION</span><h3>Reduce session duration for the next two sessions.</h3><div class="company-decision-reasons"><div class="company-decision-reason"><span>Completion rate</span><strong>Down 21 points</strong></div><div class="company-decision-reason"><span>Average delay</span><strong>Up 23 hours</strong></div><div class="company-decision-reason"><span>Reported fatigue</span><strong>Moderate → High</strong></div><div class="company-decision-reason"><span>Alternative rejected</span><strong>Reminder alone insufficient</strong></div></div><div class="company-decision-footer"><div><span>CONFIDENCE</span><strong>86%</strong></div><div><span>POLICY STATUS</span><strong>Within bounds</strong></div><div><span>REVIEW</span><strong>Clinician required</strong></div></div></div></div>
-      </div>
-    </section>
-
-    <section class="section company-evidence-section" id="company-evidence">
+    <section class="section evidence">
       <div class="container">
-        <div class="company-section-heading"><div><p class="section-kicker">RESEARCH FOUNDATIONS</p><h2>The evidence base behind adaptive therapeutic software.</h2></div><p>Bazi is informed by research on meaningful engagement, digital interventions and responsible medical software. These sources define the problem space. They do not validate Bazi itself.</p></div>
-        <div class="company-evidence-list">
-          <a class="company-evidence-item" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/" target="_blank" rel="noopener noreferrer"><span class="company-evidence-index">01</span><div class="company-evidence-main"><span class="company-evidence-type">DIGITAL THERAPEUTICS</span><h3>Meaningful engagement must be defined and measured, not inferred from app activity alone.</h3></div><div class="company-evidence-meta"><strong>Frontiers in Digital Health</strong>Engagement framework for digital therapeutics</div><span class="company-evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="company-evidence-item" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10457707/" target="_blank" rel="noopener noreferrer"><span class="company-evidence-index">02</span><div class="company-evidence-main"><span class="company-evidence-type">CLINICAL EVIDENCE</span><h3>Engagement should be evaluated in relation to therapeutic outcomes, not treated as an end in itself.</h3></div><div class="company-evidence-meta"><strong>Journal of Medical Internet Research</strong>Review of engagement and clinical outcomes</div><span class="company-evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="company-evidence-item" href="https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd" target="_blank" rel="noopener noreferrer"><span class="company-evidence-index">03</span><div class="company-evidence-main"><span class="company-evidence-type">REGULATORY CONTEXT</span><h3>Medical software must be understood through its intended use, function and level of clinical risk.</h3></div><div class="company-evidence-meta"><strong>U.S. Food and Drug Administration</strong>Software as a Medical Device</div><span class="company-evidence-arrow" aria-hidden="true">↗</span></a>
-          <a class="company-evidence-item" href="research.html"><span class="company-evidence-index">04</span><div class="company-evidence-main"><span class="company-evidence-type">BAZI RESEARCH</span><h3>See how Bazi connects behavioral change, bounded decisioning and human oversight.</h3></div><div class="company-evidence-meta"><strong>Bazi Research</strong>Product thesis and research direction</div><span class="company-evidence-arrow" aria-hidden="true">→</span></a>
+        <div class="section-head" data-reveal><div><p class="kicker">Research foundations</p><h2>The evidence base behind adaptive therapeutic software.</h2></div><p>These independent sources frame the problem space. Their inclusion does not imply endorsement or clinical validation of Bazi.</p></div>
+        <div class="shelf">
+          <a class="book" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9426459/" target="_blank" rel="noopener" data-reveal><span class="book-index">01</span><div class="book-main"><span class="book-type">DIGITAL THERAPEUTICS</span><h3>Meaningful engagement must be defined and measured.</h3></div><div class="book-meta"><strong>Frontiers in Digital Health</strong>Engagement framework</div><span class="book-arrow">↗</span></a>
+          <a class="book" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10457707/" target="_blank" rel="noopener" data-reveal><span class="book-index">02</span><div class="book-main"><span class="book-type">CLINICAL EVIDENCE</span><h3>Engagement matters in relation to therapeutic outcomes.</h3></div><div class="book-meta"><strong>Journal of Medical Internet Research</strong>Systematic review</div><span class="book-arrow">↗</span></a>
+          <a class="book" href="https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd" target="_blank" rel="noopener" data-reveal><span class="book-index">03</span><div class="book-main"><span class="book-type">REGULATORY CONTEXT</span><h3>Medical software is defined by intended use and clinical risk.</h3></div><div class="book-meta"><strong>U.S. FDA</strong>Software as a Medical Device</div><span class="book-arrow">↗</span></a>
+          <a class="book" href="research.html" data-reveal><span class="book-index">04</span><div class="book-main"><span class="book-type">BAZI RESEARCH</span><h3>Behavioral change, bounded decisioning and human oversight.</h3></div><div class="book-meta"><strong>Bazi Research</strong>Product thesis</div><span class="book-arrow">→</span></a>
         </div>
-        <div class="company-evidence-thesis"><span>THE PRODUCT THESIS</span><p>Digital therapeutics established that software can deliver treatment. Bazi is building the infrastructure that helps therapeutic software respond when the patient experience changes.</p></div>
-        <p class="company-evidence-note">The external publications and regulatory resources above are independent sources. Their inclusion does not imply endorsement, clinical validation or evidence that Bazi improves treatment outcomes.</p>
       </div>
     </section>
 
-    <section class="section company-contact-section" id="company-contact">
-      <div class="container"><div class="company-final-cta"><div><p class="section-kicker">PARTNER WITH BAZI</p><h2>Add adaptive intelligence to your therapeutic product.</h2><p>We are speaking with digital-health teams, clinical leaders, researchers and potential design partners interested in testing adaptive engagement workflows.</p></div><div class="company-final-cta-actions"><a class="button button-primary" href="mailto:hello@bazi.health?subject=Bazi%20Design%20Partnership">Become a Design Partner</a><a class="button button-secondary" href="demo.html">Explore the Live Demo</a></div></div></div>
+    <section class="final-cta" id="partner">
+      <div class="container" data-reveal><p class="kicker" style="color:#06131e">Partner with Bazi</p><h2>Adaptive software is inevitable. Build it first.</h2><p>We are speaking with digital-health teams, clinical leaders, researchers and potential design partners interested in testing adaptive engagement workflows.</p><a class="button" href="mailto:hello@bazi.health?subject=Bazi%20Design%20Partnership">Become a Design Partner</a></div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">β</span><span class="brand-name">Bazi</span></a><p>The adaptive intelligence layer for software-based medicine.</p></div><div class="footer-links"><a href="companies.html">For Companies</a><a href="individuals.html">For Individuals</a><a href="index.html#technology">Technology</a><a href="index.html#product-preview">Product</a><a href="research.html">Research</a><a href="marginalia.html">Marginalia</a><a href="careers.html">Careers</a><a href="demo.html">Live Demo</a></div><p class="copyright">© <span id="year"></span> Bazi. All rights reserved.</p></div>
-  </footer>
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-copy"><a class="brand" href="index.html"><span class="brand-mark">β</span><span>Bazi</span></a><p>The adaptive intelligence layer for software-based medicine.</p></div><div class="footer-links"><a href="companies.html">For Companies</a><a href="individuals.html">For Individuals</a><a href="index.html#technology">Technology</a><a href="index.html#product-preview">Product</a><a href="research.html">Research</a><a href="marginalia.html">Marginalia</a><a href="careers.html">Careers</a><a href="demo.html">Live Demo</a></div><p class="copyright">© <span id="year"></span> Bazi. All rights reserved.</p></div></footer>
+
+  <script>
+    const $ = (selector, parent = document) => parent.querySelector(selector);
+    const $$ = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+
+    $('#year').textContent = new Date().getFullYear();
+
+    const header = $('#site-header');
+    const onScroll = () => header.classList.toggle('scrolled', scrollY > 24);
+    onScroll(); addEventListener('scroll', onScroll, {passive:true});
+
+    const navToggle = $('#nav-toggle');
+    const nav = $('#primary-nav');
+    navToggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('menu-open', open);
+    });
+    $$('#primary-nav a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); document.body.classList.remove('menu-open'); navToggle.setAttribute('aria-expanded','false'); }));
+
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if(entry.isIntersecting){ entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); }
+    }), {threshold:.12});
+    $$('[data-reveal], .architecture').forEach(el => revealObserver.observe(el));
+
+    const hero = $('#hero');
+    const architecture = $('.architecture');
+    addEventListener('pointermove', e => {
+      const x = `${(e.clientX / innerWidth) * 100}%`; const y = `${(e.clientY / innerHeight) * 100}%`;
+      hero.style.setProperty('--mouse-x', x); hero.style.setProperty('--mouse-y', y);
+      architecture.style.setProperty('--mouse-x', x); architecture.style.setProperty('--mouse-y', y);
+    }, {passive:true});
+
+    const tiltCard = $('#tilt-card');
+    tiltCard.addEventListener('pointermove', e => {
+      const r = tiltCard.getBoundingClientRect();
+      const rx = ((e.clientY-r.top)/r.height-.5)*-8; const ry = ((e.clientX-r.left)/r.width-.5)*10;
+      tiltCard.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    });
+    tiltCard.addEventListener('pointerleave', () => tiltCard.style.transform = '');
+
+    const steps = [
+      {label:'STEP 01 · OBSERVE',title:"Behavior has shifted from Maya's baseline.",copy:'Completion, delay and fatigue changed together. Bazi treats the combined pattern as more meaningful than any one event.',reasons:['Completion declined across three sessions','Average delay rose by 23 hours','Fatigue changed from moderate to high']},
+      {label:'STEP 02 · INTERPRET',title:'The pattern indicates rising treatment friction.',copy:'Bazi distinguishes likely friction from a single missed session by considering timing, trajectory and recent patient-reported difficulty.',reasons:['Change is sustained, not isolated','Multiple signals move in the same direction','Difficulty report supports the behavioral pattern']},
+      {label:'STEP 03 · EVALUATE',title:'Approved interventions are ranked against context.',copy:'Only options already configured by the organization are compared. The engine weighs expected fit, policy constraints and review requirements.',reasons:['Shorter sessions address fatigue directly','Reminder-only intervention is insufficient','Difficulty reduction remains an alternative']},
+      {label:'STEP 04 · GUARDRAILS',title:'Authority is checked before a recommendation leaves Bazi.',copy:'Diagnosis, medication and autonomous treatment creation remain unavailable. Human review is attached where policy requires it.',reasons:['Recommendation is inside configured bounds','Medication change is blocked','Clinician review is required before application']}
+    ];
+    function renderStep(index){
+      const s=steps[index]; $('#step-label').textContent=s.label; $('#step-title').textContent=s.title; $('#step-copy').textContent=s.copy;
+      $('#reason-list').innerHTML=s.reasons.map(x=>`<div><b>✓</b>${x}</div>`).join('');
+      $$('.cycle-tab').forEach((t,i)=>t.classList.toggle('active',i===index));
+      $$('.candidate').forEach((c,i)=>c.classList.toggle('selected', index===2 ? i===0 : index===3 ? i===0 : i===index%3));
+    }
+    renderStep(0); $$('.cycle-tab').forEach(t=>t.addEventListener('click',()=>renderStep(Number(t.dataset.step))));
+
+    $$('.permission-row').forEach(row=>row.addEventListener('click',()=>row.classList.toggle('open')));
+
+    const buildBtn=$('#build-decision'); const lines=$$('.analysis-line');
+    buildBtn.addEventListener('click',()=>{
+      lines.forEach(l=>l.classList.remove('visible')); $('#record-status').textContent='Evaluating…'; buildBtn.disabled=true; buildBtn.textContent='Building…';
+      lines.forEach((line,i)=>setTimeout(()=>line.classList.add('visible'),350+i*500));
+      setTimeout(()=>{ $('#record-status').textContent='Ready for review'; buildBtn.textContent='Rebuild decision record'; buildBtn.disabled=false; },350+lines.length*500+250);
+    });
+  </script>
 </body>
 </html>
