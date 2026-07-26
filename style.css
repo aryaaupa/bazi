@@ -754,3 +754,31 @@ box-shadow:
     margin-bottom: 34px;
   }
 }
+.sculpture-core{
+    width:320px;
+    height:320px;
+}
+
+.chip-a{
+    top:-45px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.chip-b{
+    right:-120px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+.chip-c{
+    bottom:-45px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.chip-d{
+    left:-120px;
+    top:50%;
+    transform:translateY(-50%);
+}
