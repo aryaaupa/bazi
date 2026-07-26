@@ -220,6 +220,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
+      opacity: .38;
       pointer-events: none;
     }
 
@@ -235,9 +236,16 @@
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 76px;
-      align-items: end;
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr);
+      gap: clamp(48px, 7vw, 108px);
+      align-items: center;
+      min-height: calc(100vh - 230px);
+    }
+
+    .hero-left {
+      position: relative;
+      z-index: 3;
+      max-width: 760px;
     }
 
     .kicker,
@@ -256,11 +264,11 @@
     }
 
     .hero h1 {
-      max-width: 930px;
-      margin-bottom: 0;
-      font-size: clamp(4.5rem, 9.5vw, 9.6rem);
-      line-height: .85;
-      letter-spacing: -.066em;
+      max-width: 760px;
+      margin-bottom: 34px;
+      font-size: clamp(4rem, 6.5vw, 7.4rem);
+      line-height: .88;
+      letter-spacing: -.062em;
     }
 
     .hero h1 em {
@@ -269,7 +277,7 @@
     }
 
     .hero-copy {
-      max-width: 560px;
+      max-width: 610px;
       padding-bottom: 8px;
     }
 
@@ -323,18 +331,16 @@
 
 
     .hero-sculpture {
-      position: absolute;
-      right: clamp(32px, 7vw, 120px);
-      top: 50%;
+      position: relative;
       z-index: 2;
-      width: min(38vw, 520px);
-      min-width: 380px;
+      width: min(100%, 520px);
       aspect-ratio: 1;
       display: grid;
       place-items: center;
-      transform: translateY(-42%);
+      justify-self: end;
       pointer-events: none;
     }
+
     .hero-intelligence { position: relative; width: 100%; height: 100%; display: grid; place-items: center; text-align: center; isolation: isolate; }
     .hero-rings { position: absolute; inset: 0; display: grid; place-items: center; }
     .ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.1); }
@@ -344,8 +350,8 @@
     .hero-rings::before { content: ""; position: absolute; width: 58%; height: 58%; border-radius: 50%; background: radial-gradient(circle, rgba(85,232,137,.2) 0%, rgba(85,232,137,.06) 35%, transparent 72%); filter: blur(10px); animation: core-glow 4.8s ease-in-out infinite; }
     .hero-beta { position: relative; z-index: 2; width: 118px; height: 118px; display: grid; place-items: center; border: 1px solid rgba(85,232,137,.55); border-radius: 50%; background: radial-gradient(circle at 38% 32%, rgba(255,255,255,.12), transparent 34%), rgba(85,232,137,.08); color: var(--green); font-family: var(--serif); font-size: 4.2rem; line-height: 1; box-shadow: 0 0 0 12px rgba(85,232,137,.025), 0 0 62px rgba(85,232,137,.22), inset 0 0 35px rgba(85,232,137,.08); }
     .hero-intelligence-title, .hero-intelligence-copy { position: absolute; z-index: 2; width: 100%; margin: 0; }
-    .hero-intelligence-title { top: 73%; color: var(--white) !important; font-family: var(--serif); font-size: clamp(1.6rem, 2.3vw, 2.35rem); letter-spacing: -.025em; }
-    .hero-intelligence-copy { top: 81%; max-width: 320px; color: rgba(255,255,255,.48) !important; font-size: .82rem; letter-spacing: .02em; }
+    .hero-intelligence-title { top: 72%; color: var(--white) !important; font-family: var(--serif); font-size: clamp(1.6rem, 2.3vw, 2.35rem); letter-spacing: -.025em; }
+    .hero-intelligence-copy { top: 80%; max-width: 320px; color: rgba(255,255,255,.48) !important; font-size: .82rem; letter-spacing: .02em; }
     .signal { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 16px rgba(85,232,137,.8); }
     .signal-one { animation: signal-one 7s linear infinite; }
     .signal-two { width: 5px; height: 5px; opacity: .72; animation: signal-two 9s linear infinite; }
@@ -1530,36 +1536,36 @@
       <div class="hero-noise"></div>
 
       <div class="container hero-layout">
-        <div>
+        <div class="hero-left">
           <p class="kicker">Adaptive intelligence for digital therapeutics</p>
           <h1>Software learned to treat.<br>It never learned to <em>adapt.</em></h1>
+
+          <div class="hero-copy">
+            <p>Bazi helps therapeutic software recognize developing disengagement and recommend a provider-approved response before a patient leaves treatment.</p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="demo.html">Explore the Product</a>
+              <a class="button button-outline-dark" href="#early-access">Partner with Bazi</a>
+            </div>
+
+            <p class="hero-note">Designed to operate within provider-defined intervention boundaries. Bazi does not diagnose or independently prescribe treatment.</p>
+          </div>
         </div>
 
-        <div class="hero-copy">
-          <p>Bazi helps therapeutic software recognize developing disengagement and recommend a provider-approved response before a patient leaves treatment.</p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="demo.html">Explore the Product</a>
-            <a class="button button-outline-dark" href="#early-access">Partner with Bazi</a>
+        <div class="hero-sculpture" aria-label="Bazi adaptive intelligence">
+          <div class="hero-intelligence">
+            <div class="hero-rings" aria-hidden="true">
+              <span class="ring ring-one"></span>
+              <span class="ring ring-two"></span>
+              <span class="ring ring-three"></span>
+              <span class="signal signal-one"></span>
+              <span class="signal signal-two"></span>
+              <span class="signal signal-three"></span>
+            </div>
+            <div class="hero-beta" aria-hidden="true">β</div>
+            <p class="hero-intelligence-title">Adaptive Intelligence</p>
+            <p class="hero-intelligence-copy">Many signals. One bounded clinical decision.</p>
           </div>
-
-          <p class="hero-note">Designed to operate within provider-defined intervention boundaries. Bazi does not diagnose or independently prescribe treatment.</p>
-        </div>
-      </div>
-
-      <div class="hero-sculpture" aria-label="Bazi adaptive intelligence">
-        <div class="hero-intelligence">
-          <div class="hero-rings" aria-hidden="true">
-            <span class="ring ring-one"></span>
-            <span class="ring ring-two"></span>
-            <span class="ring ring-three"></span>
-            <span class="signal signal-one"></span>
-            <span class="signal signal-two"></span>
-            <span class="signal signal-three"></span>
-          </div>
-          <div class="hero-beta" aria-hidden="true">β</div>
-          <p class="hero-intelligence-title">Adaptive Intelligence</p>
-          <p class="hero-intelligence-copy">Many signals. One bounded clinical decision.</p>
         </div>
       </div>
 
