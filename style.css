@@ -754,31 +754,84 @@ box-shadow:
     margin-bottom: 34px;
   }
 }
-.sculpture-core{
-    width:320px;
-    height:320px;
+.hero-sculpture {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
 }
 
-.chip-a{
-    top:-45px;
-    left:50%;
-    transform:translateX(-50%);
+.sculpture-core {
+  position: relative;
+  width: 300px;
+  height: 300px;
 }
 
-.chip-b{
-    right:-120px;
-    top:50%;
-    transform:translateY(-50%);
+.orbit-chip {
+  position: absolute;
+  min-width: 150px;
+  z-index: 5;
 }
 
-.chip-c{
-    bottom:-45px;
-    left:50%;
-    transform:translateX(-50%);
+/* Top */
+.chip-a {
+  top: -90px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.chip-d{
-    left:-120px;
-    top:50%;
-    transform:translateY(-50%);
+/* Right */
+.chip-b {
+  top: 50%;
+  right: -190px;
+  transform: translateY(-50%);
+}
+
+/* Left */
+.chip-c {
+  top: 50%;
+  left: -190px;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+/* Bottom */
+.chip-d {
+  right: auto;
+  bottom: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (max-width: 680px) {
+  .hero-sculpture {
+    min-height: 500px;
+    transform: none;
+  }
+
+  .sculpture-core {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbit-chip {
+    min-width: 125px;
+    padding: 10px 12px;
+  }
+
+  .chip-a {
+    top: -78px;
+  }
+
+  .chip-b {
+    right: -115px;
+  }
+
+  .chip-c {
+    left: -115px;
+  }
+
+  .chip-d {
+    bottom: -78px;
+  }
 }
