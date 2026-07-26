@@ -756,7 +756,7 @@ box-shadow:
 }
 .hero-sculpture {
   position: relative;
-  min-height: 560px;
+  min-height: 520px;
   display: grid;
   place-items: center;
   overflow: visible;
@@ -764,74 +764,152 @@ box-shadow:
 
 .sculpture-core {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 310px;
+  height: 310px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(85, 232, 137, 0.42);
+  border-radius: 50%;
+  background: rgba(85, 232, 137, 0.035);
+  box-shadow:
+    inset 0 0 100px rgba(85, 232, 137, 0.05),
+    0 0 80px rgba(85, 232, 137, 0.04);
 }
 
-.orbit-chip {
+.sculpture-core::before,
+.sculpture-core::after {
+  content: "";
   position: absolute;
-  min-width: 150px;
-  z-index: 5;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-/* Top */
-.chip-a {
-  top: -90px;
+.sculpture-core::before {
+  inset: -72px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.sculpture-core::after {
+  inset: -148px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.core-mark {
+  position: relative;
+  z-index: 4;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 3.3rem;
+  box-shadow:
+    0 0 0 12px rgba(85, 232, 137, 0.06),
+    0 0 65px rgba(85, 232, 137, 0.35);
+}
+
+.active-orbit-card {
+  position: absolute;
+  z-index: 8;
+  top: -108px;
   left: 50%;
+  width: 250px;
+  min-height: 125px;
+  padding: 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: rgba(3, 17, 29, 0.9);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    0 0 30px rgba(85, 232, 137, 0.06);
+  backdrop-filter: blur(18px);
   transform: translateX(-50%);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    border-color 0.28s ease;
 }
 
-/* Right */
-.chip-b {
-  top: 50%;
-  right: -190px;
-  transform: translateY(-50%);
+.active-orbit-card.changing {
+  opacity: 0;
+  transform: translateX(-50%) translateY(12px) scale(0.97);
 }
 
-/* Left */
-.chip-c {
-  top: 50%;
-  left: -190px;
-  bottom: auto;
-  transform: translateY(-50%);
+.active-orbit-card span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-/* Bottom */
-.chip-d {
-  right: auto;
-  bottom: -90px;
-  left: 50%;
-  transform: translateX(-50%);
+.active-orbit-card strong {
+  display: block;
+  color: var(--white);
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
-@media (max-width: 680px) {
-  .hero-sculpture {
-    min-height: 500px;
-    transform: none;
+
+.orbit-dot {
+  position: absolute;
+  z-index: 3;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 18px rgba(85, 232, 137, 0.75);
+  pointer-events: none;
+}
+
+.orbit-dot-1 {
+  animation: orbit-one 9s linear infinite;
+}
+
+.orbit-dot-2 {
+  width: 8px;
+  height: 8px;
+  opacity: 0.7;
+  animation: orbit-two 13s linear infinite reverse;
+}
+
+.orbit-dot-3 {
+  width: 6px;
+  height: 6px;
+  opacity: 0.45;
+  animation: orbit-three 18s linear infinite;
+}
+
+@keyframes orbit-one {
+  from {
+    transform: rotate(0deg) translateX(155px) rotate(0deg);
   }
 
-  .sculpture-core {
-    width: 220px;
-    height: 220px;
+  to {
+    transform: rotate(360deg) translateX(155px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-two {
+  from {
+    transform: rotate(0deg) translateX(228px) rotate(0deg);
   }
 
-  .orbit-chip {
-    min-width: 125px;
-    padding: 10px 12px;
+  to {
+    transform: rotate(360deg) translateX(228px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit-three {
+  from {
+    transform: rotate(0deg) translateX(300px) rotate(0deg);
   }
 
-  .chip-a {
-    top: -78px;
-  }
-
-  .chip-b {
-    right: -115px;
-  }
-
-  .chip-c {
-    left: -115px;
-  }
-
-  .chip-d {
-    bottom: -78px;
+  to {
+    transform: rotate(360deg) translateX(300px) rotate(-360deg);
   }
 }
