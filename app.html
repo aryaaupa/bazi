@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazi Alpha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="index.html"><span class="brand-mark">B</span><span>Bazi</span></a>
+      <div class="alpha-pill">ALPHA · RESEARCH USE</div>
+      <nav>
+        <button class="nav-item active" data-scroll="workspace">Patient intelligence</button>
+        <button class="nav-item" data-scroll="decision-log">Decision log</button>
+        <button class="nav-item" data-scroll="copilot">Bazi Copilot</button>
+      </nav>
+      <div class="sidebar-note">
+        <strong>Not clinical software.</strong>
+        <span>This Alpha uses synthetic seed data and has not been clinically validated.</span>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">BAZI INTELLIGENCE ENGINE</span>
+          <h1>Patient state control center</h1>
+        </div>
+        <div class="top-actions">
+          <button id="resetBtn" class="button ghost">Reset patient</button>
+          <button id="addEventBtn" class="button primary">+ Add session event</button>
+        </div>
+      </header>
+
+      <section id="workspace" class="grid metrics-grid">
+        <article class="card metric-card">
+          <span class="metric-label">Disengagement risk</span>
+          <div class="metric-row"><strong id="riskValue">—</strong><span id="riskBadge" class="badge">Initializing</span></div>
+          <div class="progress"><span id="riskBar"></span></div>
+          <span class="metric-sub" id="riskWindow">Predicted probability over next 7 days</span>
+        </article>
+        <article class="card metric-card">
+          <span class="metric-label">Engagement state</span>
+          <div class="metric-row"><strong id="engagementValue">—</strong><span id="trendBadge" class="badge neutral">—</span></div>
+          <div class="progress"><span id="engagementBar"></span></div>
+          <span class="metric-sub">Computed from longitudinal session behavior</span>
+        </article>
+        <article class="card metric-card">
+          <span class="metric-label">Model status</span>
+          <div class="metric-row"><strong id="modelStatus">Training</strong><span class="badge success">Local</span></div>
+          <span class="metric-sub" id="modelMeta">Fitting synthetic research baseline…</span>
+        </article>
+      </section>
+
+      <section class="grid main-grid">
+        <article class="card trajectory-card">
+          <div class="card-heading">
+            <div><span class="eyebrow">LONGITUDINAL STATE</span><h2>Maya Chen</h2></div>
+            <span id="patientStatus" class="badge neutral">Monitoring</span>
+          </div>
+          <svg id="trajectoryChart" viewBox="0 0 820 310" role="img" aria-label="Patient engagement trajectory"></svg>
+          <div class="feature-strip" id="featureStrip"></div>
+        </article>
+
+        <article class="card decision-card">
+          <div class="card-heading">
+            <div><span class="eyebrow">CURRENT DECISION</span><h2>Bazi recommendation</h2></div>
+            <button id="runEngineBtn" class="button secondary">Run engine</button>
+          </div>
+          <div id="decisionEmpty" class="empty-state">
+            <div class="pulse-dot"></div>
+            <h3>Engine ready</h3>
+            <p>Run Bazi against the current longitudinal state. The result is computed from the trained model and policy engine.</p>
+          </div>
+          <div id="decisionResult" class="decision-result hidden">
+            <div class="decision-hero">
+              <div><span>Risk</span><strong id="decisionRisk">—</strong></div>
+              <div><span>Confidence</span><strong id="decisionConfidence">—</strong></div>
+            </div>
+            <h3 id="decisionTitle"></h3>
+            <p id="decisionReason"></p>
+            <div class="divider"></div>
+            <span class="section-label">Top contributing signals</span>
+            <ul id="signalList" class="signal-list"></ul>
+            <span class="section-label">Permitted recommendation</span>
+            <div id="recommendationAction" class="recommendation-action"></div>
+            <div class="decision-buttons">
+              <button id="approveBtn" class="button primary">Provider approve</button>
+              <button id="dismissBtn" class="button ghost">Dismiss</button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid lower-grid">
+        <article class="card">
+          <div class="card-heading"><div><span class="eyebrow">EVENT STREAM</span><h2>Patient sessions</h2></div><span id="eventCount" class="badge neutral"></span></div>
+          <div class="table-wrap">
+            <table><thead><tr><th>Date</th><th>Status</th><th>Duration</th><th>Fatigue</th><th>Difficulty</th><th>Engagement</th></tr></thead><tbody id="eventsBody"></tbody></table>
+          </div>
+        </article>
+
+        <article id="copilot" class="card copilot-card">
+          <div class="card-heading"><div><span class="eyebrow">GROUND-TRUTHED INTERFACE</span><h2>Bazi Copilot</h2></div><span class="badge success">State-aware</span></div>
+          <div id="copilotMessages" class="copilot-messages"></div>
+          <div class="quick-prompts">
+            <button data-prompt="Why did risk change?">Why did risk change?</button>
+            <button data-prompt="What should we do?">What should we do?</button>
+            <button data-prompt="Summarize this patient">Summarize patient</button>
+          </div>
+          <form id="copilotForm" class="copilot-form"><input id="copilotInput" placeholder="Ask Bazi about this patient…" autocomplete="off"/><button class="button primary" type="submit">Ask</button></form>
+        </article>
+      </section>
+
+      <section id="decision-log" class="card log-card">
+        <div class="card-heading"><div><span class="eyebrow">AUDITABILITY</span><h2>Decision record</h2></div><button id="exportBtn" class="button ghost">Export JSON</button></div>
+        <div id="decisionLog" class="decision-log"></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="eventDialog">
+    <form id="eventForm" method="dialog" class="dialog-card">
+      <div class="card-heading"><div><span class="eyebrow">NEW EVENT</span><h2>Add session</h2></div><button type="button" id="closeDialog" class="icon-button">×</button></div>
+      <label>Status<select name="status"><option value="completed">Completed</option><option value="late">Completed late</option><option value="shortened">Shortened</option><option value="skipped">Skipped</option></select></label>
+      <label>Duration (minutes)<input name="duration" type="number" min="0" max="120" value="20" required></label>
+      <label>Fatigue<select name="fatigue"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label>
+      <label>Difficulty<select name="difficulty"><option value="easy">Easy</option><option value="appropriate" selected>Appropriate</option><option value="too-hard">Too hard</option></select></label>
+      <label>Engagement score<input name="engagement" type="number" min="0" max="100" value="75" required></label>
+      <button class="button primary wide" type="submit">Ingest event</button>
+    </form>
+  </dialog>
+
+  <script src="bazi-engine.js"></script>
+</body>
+</html>
