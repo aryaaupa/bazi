@@ -1,0 +1,4 @@
+*.private.jwk.json
+evidence/*.jsonl
+evidence/*participant*.json
+coverage/

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bazi.example/schemas/action-manifest.schema.json",
+  "title": "Bazi provider-reviewed action manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "status", "reviewedBy", "reviewedAt", "reviewScope", "attestation", "actions", "contraindications"],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "status": { "const": "approved" },
+    "reviewedBy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "professionalRole"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "professionalRole": { "type": "string", "minLength": 1 },
+        "credential": { "type": "string" },
+        "jurisdiction": { "type": "string" }
+      }
+    },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "reviewScope": { "type": "string", "minLength": 1 },
+    "attestation": { "type": "string", "minLength": 1 },
+    "actions": { "type": "array", "minItems": 1, "items": { "$ref": "action.schema.json" } },
+    "contraindications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "when", "denyActionIds", "rationale"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "when": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["field", "operator", "value"],
+            "properties": {
+              "field": { "type": "string" },
+              "operator": { "enum": ["gt", "gte", "lt", "lte", "eq", "in"] },
+              "value": {}
+            }
+          },
+          "denyActionIds": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

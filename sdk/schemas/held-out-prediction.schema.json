@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bazi.example/schemas/held-out-prediction.schema.json",
+  "title": "Bazi held-out prediction row",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["participantId", "split", "probability", "label", "monitoredMs"],
+  "properties": {
+    "participantId": { "type": "string", "minLength": 1 },
+    "split": { "const": "held_out" },
+    "probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "label": { "type": ["integer", "null"], "enum": [0, 1, null] },
+    "monitoredMs": { "type": "number", "minimum": 0 },
+    "decisionTimestamp": { "type": "string", "format": "date-time" }
+  }
+}

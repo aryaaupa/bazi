@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bazi.example/schemas/telemetry.schema.json",
+  "title": "Bazi telemetry sample",
+  "type": "object",
+  "required": ["kind", "metrics"],
+  "additionalProperties": false,
+  "properties": {
+    "timestamp": { "type": "number", "minimum": 0 },
+    "kind": { "type": "string", "minLength": 1 },
+    "taskType": { "type": "string" },
+    "quality": { "type": "number", "minimum": 0, "maximum": 1 },
+    "sessionId": { "type": ["string", "null"] },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "latencyMs": { "type": "number" },
+        "pauseMs": { "type": "number" },
+        "cadence": { "type": "number" },
+        "motionEnergy": { "type": "number" },
+        "smoothness": { "type": "number" },
+        "engagementScore": { "type": "number" },
+        "error": { "type": "boolean" },
+        "fatigue": { "type": "number", "minimum": 0, "maximum": 1 },
+        "difficulty": { "type": "number", "minimum": 0, "maximum": 1 },
+        "completed": { "type": "boolean" }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Intervention safety state machine</title><desc id="desc">A decision transitions through no action, pending approval, execution, outcome observation, or censored/rejected states.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:16px;font-weight:700}.s{font-size:13px}.state{fill:#e0f2fe;stroke:#0369a1;stroke-width:3}.safe{fill:#dcfce7;stroke:#15803d;stroke-width:3}.stop{fill:#fee2e2;stroke:#b91c1c;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="55" class="h">Figure 10. Intervention safety state machine</text>
+  <circle cx="105" cy="245" r="18" fill="#0f172a"/><rect x="175" y="190" width="185" height="110" rx="45" class="state"/><text x="268" y="235" class="b" text-anchor="middle">Decision created</text><text x="268" y="263" class="s" text-anchor="middle">reviewed allowed set</text>
+  <rect x="455" y="95" width="190" height="100" rx="45" class="safe"/><text x="550" y="138" class="b" text-anchor="middle">No action</text><text x="550" y="165" class="s" text-anchor="middle">safe terminal path</text>
+  <rect x="455" y="250" width="190" height="100" rx="45" class="state"/><text x="550" y="292" class="b" text-anchor="middle">Pending approval</text><text x="550" y="320" class="s" text-anchor="middle">no execution yet</text>
+  <rect x="745" y="180" width="190" height="100" rx="45" class="state"/><text x="840" y="222" class="b" text-anchor="middle">Executed</text><text x="840" y="250" class="s" text-anchor="middle">cooldown starts</text>
+  <rect x="745" y="365" width="190" height="100" rx="45" class="stop"/><text x="840" y="407" class="b" text-anchor="middle">Rejected</text><text x="840" y="435" class="s" text-anchor="middle">learning censored</text>
+  <rect x="1010" y="180" width="150" height="100" rx="45" class="safe"/><text x="1085" y="222" class="b" text-anchor="middle">Observed</text><text x="1085" y="250" class="s" text-anchor="middle">valid reward</text>
+  <rect x="1010" y="365" width="150" height="100" rx="45" class="stop"/><text x="1085" y="407" class="b" text-anchor="middle">Censored</text><text x="1085" y="435" class="s" text-anchor="middle">no update</text>
+  <path d="M123 245H172M360 220L452 155M360 260L452 295M645 280L742 235M645 325L742 400M935 230H1007M935 260L1007 390" class="line"/>
+  <text x="390" y="148" class="s">gate fails</text><text x="385" y="300" class="s">approval required</text><text x="675" y="253" class="s">approve</text><text x="675" y="382" class="s">reject</text><text x="950" y="205" class="s">valid</text><text x="950" y="350" class="s">invalid / early</text>
+  <text x="60" y="610" class="s">Only valid, complete, unconfounded outcomes from executed non-no_action decisions update the local policy.</text>
+</svg>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bazi SDK browser example</title>
+  <style>
+    body { max-width: 60rem; margin: 2rem auto; padding: 0 1rem; color: #17202a; background: #fff; font: 1rem/1.5 system-ui, sans-serif; }
+    button { min-width: 44px; min-height: 44px; padding: .65rem 1rem; color: #fff; background: #075985; border: 2px solid #075985; border-radius: .35rem; font: inherit; }
+    button:focus-visible { outline: 3px solid #c2410c; outline-offset: 3px; }
+    pre { overflow: auto; padding: 1rem; color: #f8fafc; background: #17202a; border-radius: .35rem; white-space: pre-wrap; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Bazi SDK browser example</h1>
+    <p>Activate the button to add one synthetic, non-clinical telemetry sample.</p>
+    <button id="sample" type="button" aria-describedby="sample-help">Ingest sample</button>
+    <span id="sample-help">The result appears below.</span>
+    <h2>SDK result</h2>
+    <pre id="output" role="status" aria-live="polite" aria-atomic="true">No sample has been ingested.</pre>
+  </main>
+  <script type="module">
+    import { BaziEngagementSDK, LocalStorageAdapter } from '../src/index.js';
+    const sdk = new BaziEngagementSDK({
+      storage: new LocalStorageAdapter(),
+      constraints: { allowedActionIds: ['no_action', 'encouragement', 'provider_review'] }
+    });
+    sdk.startSession();
+    let count = 0;
+    document.querySelector('#sample').addEventListener('click', async () => {
+      count += 1;
+      const output = document.querySelector('#output');
+      try {
+        const decision = await sdk.ingest({
+          kind: 'tap', taskType: 'cognitive', quality: 0.95,
+          metrics: { latencyMs: 250 + count * 80, pauseMs: count > 3 ? 1800 : 200, engagementScore: 90 - count * 5, error: count > 5, fatigue: Math.min(count / 10, 1) }
+        });
+        output.textContent = JSON.stringify({ decision, privacy: sdk.privacyStatus() }, null, 2);
+      } catch (error) {
+        output.textContent = `Unable to process sample: ${error.message}`;
+      }
+    });
+  </script>
+</body>
+</html>

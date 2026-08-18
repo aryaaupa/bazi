@@ -1,0 +1,17 @@
+export { BaziEngagementSDK } from './engine.js';
+export { ActionRegistry, DEFAULT_ACTIONS, NO_ACTION_ID } from './actions.js';
+export { AuditLog } from './audit.js';
+export { EligibilityManager } from './eligibility.js';
+export { RollingFeatureExtractor, FEATURE_ORDER, featureVector } from './features.js';
+export { LinUCBPolicy } from './policy.js';
+export { LogisticRiskModel } from './risk.js';
+export { RewardEvaluator } from './reward.js';
+export { EphemeralTelemetryBuffer, validateTelemetry } from './telemetry.js';
+export { LocalStorageAdapter, MemoryStorageAdapter } from './storage.js';
+export { BaziError, ConfigurationError, DecisionNotFoundError, ValidationError } from './errors.js';
+export { DisengagementDefinition, DEFAULT_DISENGAGEMENT_DEFINITION } from './outcomes.js';
+export { evaluatePredictions, participantBootstrap, subgroupReport, calibrationReport, validateHeldOutRows, DriftMonitor } from './validation.js';
+export { FrozenActionManifest } from './manifest.js';
+export { ConsentManager } from './consent.js';
+export { HostAuthorizer, IncidentLog, EncryptedStorageAdapter, SignedPackageVerifier, SignedPackageSigner, canonicalJson } from './security.js';
+export { createVerifiedBaziSDK } from './runtime-package.js';

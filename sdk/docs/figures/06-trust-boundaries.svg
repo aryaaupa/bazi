@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Security trust boundaries</title><desc id="desc">The SDK sits between endpoint, identity, encrypted storage, signed release, action executor, and monitoring boundaries.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:17px;font-weight:700}.s{font-size:13px}.zone{fill:#f8fafc;stroke:#64748b;stroke-width:3;stroke-dasharray:10 8}.core{fill:#e0f2fe;stroke:#0369a1;stroke-width:4}.ext{fill:#fff7ed;stroke:#c2410c;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="55" class="h">Figure 6. Security trust boundaries</text>
+  <rect x="330" y="105" width="540" height="470" rx="28" class="zone"/><text x="600" y="140" class="b" text-anchor="middle">Host application security boundary</text>
+  <rect x="455" y="260" width="290" height="150" rx="18" class="core"/><text x="600" y="318" class="b" text-anchor="middle">Bazi SDK</text><text x="600" y="348" class="s" text-anchor="middle">gates / policy / audit</text><text x="600" y="375" class="s" text-anchor="middle">no network transport</text>
+  <rect x="55" y="140" width="200" height="95" rx="14" class="ext"/><text x="155" y="178" class="b" text-anchor="middle">Endpoint sensors</text><text x="155" y="205" class="s" text-anchor="middle">untrusted input</text>
+  <rect x="55" y="425" width="200" height="95" rx="14" class="ext"/><text x="155" y="463" class="b" text-anchor="middle">Identity provider</text><text x="155" y="490" class="s" text-anchor="middle">principal + roles</text>
+  <rect x="945" y="110" width="200" height="95" rx="14" class="ext"/><text x="1045" y="148" class="b" text-anchor="middle">Signing system</text><text x="1045" y="175" class="s" text-anchor="middle">offline private key</text>
+  <rect x="945" y="290" width="200" height="95" rx="14" class="ext"/><text x="1045" y="328" class="b" text-anchor="middle">Action executor</text><text x="1045" y="355" class="s" text-anchor="middle">allowlisted effects</text>
+  <rect x="945" y="470" width="200" height="95" rx="14" class="ext"/><text x="1045" y="508" class="b" text-anchor="middle">Security sinks</text><text x="1045" y="535" class="s" text-anchor="middle">audit + incidents</text>
+  <path d="M255 188H452M255 472H390V360H452M945 158H820V280H748M745 337H942M745 385H835V518H942" class="line"/>
+</svg>

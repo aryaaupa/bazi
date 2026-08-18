@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Disengagement outcome labeling decision tree</title><desc id="desc">Qualifying event gives label one, full negative follow-up gives zero, otherwise the record is censored.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:18px;font-weight:700}.s{font-size:14px}.q{fill:#f8fafc;stroke:#0e7490;stroke-width:3}.yes{fill:#dcfce7;stroke:#15803d;stroke-width:3}.no{fill:#ffedd5;stroke:#c2410c;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="60" class="h">Figure 3. Endpoint labeling and censoring</text>
+  <rect x="410" y="115" width="380" height="90" rx="16" class="q"/><text x="600" y="150" class="b" text-anchor="middle">Qualifying event in (t0, t0 + 120 s]?</text><text x="600" y="178" class="s" text-anchor="middle">composite event after exclusions</text>
+  <rect x="110" y="310" width="250" height="100" rx="16" class="yes"/><text x="235" y="352" class="b" text-anchor="middle">Label = 1</text><text x="235" y="382" class="s" text-anchor="middle">positive event observed</text>
+  <rect x="475" y="310" width="250" height="100" rx="16" class="q"/><text x="600" y="352" class="b" text-anchor="middle">Full horizon observed?</text><text x="600" y="382" class="s" text-anchor="middle">through t0 + 120 s</text>
+  <rect x="840" y="310" width="250" height="100" rx="16" class="yes"/><text x="965" y="352" class="b" text-anchor="middle">Label = 0</text><text x="965" y="382" class="s" text-anchor="middle">observed negative</text>
+  <rect x="475" y="520" width="250" height="90" rx="16" class="no"/><text x="600" y="558" class="b" text-anchor="middle">Label = null</text><text x="600" y="586" class="s" text-anchor="middle">censored; reason retained</text>
+  <path d="M500 205L280 307M600 205V307M725 360H837M600 410V517" class="line"/>
+  <text x="370" y="250" class="s">yes</text><text x="615" y="250" class="s">no</text><text x="770" y="345" class="s">yes</text><text x="615" y="470" class="s">no</text>
+</svg>

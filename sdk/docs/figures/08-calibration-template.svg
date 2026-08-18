@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Calibration plot template</title><desc id="desc">A blank scientific template shows the ideal calibration line and where held-out participant bootstrap intervals must be plotted.</desc>
+  <defs><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:17px;font-weight:700}.s{font-size:13px}.axis{stroke:#0f172a;stroke-width:4;fill:none}.grid{stroke:#cbd5e1;stroke-width:1;fill:none}.ideal{stroke:#64748b;stroke-width:3;stroke-dasharray:10 8;fill:none}.note{fill:#fff7ed;stroke:#c2410c;stroke-width:3}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="55" class="h">Figure 8. Calibration plot template - no participant data</text>
+  <g transform="translate(170 100)">
+    <path d="M0 0V450H760" class="axis"/>
+    <path d="M0 360H760M0 270H760M0 180H760M0 90H760M152 0V450M304 0V450M456 0V450M608 0V450" class="grid"/>
+    <path d="M0 450L760 0" class="ideal"/>
+    <text x="380" y="505" class="b" text-anchor="middle">Mean predicted probability</text><text x="-225" y="-100" class="b" text-anchor="middle" transform="rotate(-90)">Observed event rate</text>
+    <text x="0" y="475" class="s" text-anchor="middle">0</text><text x="760" y="475" class="s" text-anchor="middle">1</text><text x="-22" y="455" class="s">0</text><text x="-22" y="8" class="s">1</text>
+    <text x="550" y="90" class="s">ideal calibration</text>
+  </g>
+  <rect x="955" y="185" width="190" height="180" rx="14" class="note"/><text x="1050" y="225" class="b" text-anchor="middle">Required overlay</text><text x="1050" y="260" class="s" text-anchor="middle">bin means</text><text x="1050" y="288" class="s" text-anchor="middle">observed rates</text><text x="1050" y="316" class="s" text-anchor="middle">participant-bootstrap CI</text><text x="1050" y="344" class="s" text-anchor="middle">bin counts</text>
+  <text x="60" y="625" class="s">This template intentionally contains no performance points. Populate only from the locked held-out report.</text>
+</svg>

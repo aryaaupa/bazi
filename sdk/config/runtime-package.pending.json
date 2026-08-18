@@ -1,0 +1,30 @@
+{
+  "kind": "bazi-runtime-package",
+  "version": "REPLACE-AFTER-VALIDATION-AND-REVIEW",
+  "status": "pending_validation_and_provider_review",
+  "model": {
+    "version": "REPLACE-WITH-LOCKED-MODEL-VERSION",
+    "validated": false,
+    "bias": -1.4,
+    "weights": {
+      "latencyDeviation": 0.55,
+      "pauseRate": 1.15,
+      "cadenceDrift": 0.75,
+      "motionVariance": 0.35,
+      "smoothnessDrop": 0.6,
+      "engagementSlope": 0.9,
+      "errorRate": 1.1,
+      "fatigue": 0.8,
+      "monotony": 0.35,
+      "missingRate": 0.9
+    }
+  },
+  "config": {
+    "recoveryWindowMs": 30000,
+    "decisionRetentionMs": 2592000000,
+    "stateRetentionMs": 2592000000,
+    "requireEncryptedStorage": true,
+    "protocolEnabled": true
+  },
+  "actionManifest": "INSERT-APPROVED-ACTION-MANIFEST-OBJECT-BEFORE-SIGNING"
+}

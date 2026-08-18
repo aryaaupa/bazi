@@ -1,0 +1,54 @@
+{
+  "version": "REPLACE-WITH-REVIEWED-VERSION",
+  "status": "pending_provider_review",
+  "reviewedBy": {
+    "name": "",
+    "professionalRole": "",
+    "credential": "",
+    "jurisdiction": ""
+  },
+  "reviewedAt": null,
+  "reviewScope": "Review intended use, action wording, burden, approval gates, populations, settings, and every contraindication.",
+  "attestation": "",
+  "actions": [
+    {
+      "id": "gentle_prompt",
+      "label": "Brief neutral re-engagement prompt",
+      "burden": 0.05,
+      "priorScore": 0,
+      "requiresApproval": false,
+      "safeForExploration": false,
+      "allowedTaskTypes": ["cognitive"],
+      "minRisk": 0.6,
+      "maxRisk": 1,
+      "maxFatigue": 0.7,
+      "metadata": {
+        "draftOnly": true,
+        "increasesIntensity": false
+      }
+    },
+    {
+      "id": "provider_review",
+      "label": "Route session for provider review",
+      "burden": 0.02,
+      "priorScore": 0,
+      "requiresApproval": false,
+      "safeForExploration": false,
+      "minRisk": 0.7,
+      "maxRisk": 1,
+      "maxFatigue": 1,
+      "metadata": {
+        "draftOnly": true,
+        "increasesIntensity": false
+      }
+    }
+  ],
+  "contraindications": [
+    {
+      "id": "high-discomfort-no-prompt",
+      "when": { "field": "discomfort", "operator": "gte", "value": 0.5 },
+      "denyActionIds": ["gentle_prompt"],
+      "rationale": "Draft rule for provider review; the SDK always preserves no_action."
+    }
+  ]
+}

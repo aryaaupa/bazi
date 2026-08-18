@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-08-18T07:06:39.117Z",
+  "evidenceScope": "reference-container-run",
+  "device": {
+    "name": "unidentified CI/container host",
+    "platform": "linux",
+    "release": "6.18.35",
+    "architecture": "x64",
+    "cpuModel": "AMD EPYC 9V74 80-Core Processor",
+    "logicalCpus": 9,
+    "totalMemoryBytes": 17106231296,
+    "freeMemoryBytesAtStart": 16133099520,
+    "runtime": "v24.19.0"
+  },
+  "workload": {
+    "warmupSamples": 500,
+    "measuredSamples": 5000,
+    "measuredDecisions": 500
+  },
+  "latencyMs": {
+    "ingest": {
+      "mean": 0.011070699599999989,
+      "p50": 0.0064889999999877546,
+      "p95": 0.027521500000006683,
+      "p99": 0.0415272000000007,
+      "max": 1.4538649999999933
+    },
+    "decide": {
+      "mean": 0.10223268000000013,
+      "p50": 0.08256800000000908,
+      "p95": 0.22914404999999127,
+      "p99": 0.48469582999999944,
+      "max": 1.2722440000000006
+    }
+  },
+  "memory": {
+    "heapBeforeBytes": 8340272,
+    "heapAfterBytes": 17797280,
+    "observedPeakHeapBytes": 16588848
+  },
+  "cpuMicroseconds": {
+    "user": 99553,
+    "system": 44096,
+    "perMeasuredOperation": 26.118
+  },
+  "energy": {
+    "status": "not_measured",
+    "reason": "Supply --energy-mwh from an external device power measurement."
+  },
+  "privacy": {
+    "rawRecordCount": 0,
+    "policy": "consume-after-feature-extraction",
+    "persistedRawTelemetry": false
+  },
+  "limitations": [
+    "This is a software workload profile, not clinical validation.",
+    "A reference-container run does not substitute for every supported endpoint model and OS version."
+  ]
+}

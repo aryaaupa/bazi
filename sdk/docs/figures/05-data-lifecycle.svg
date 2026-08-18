@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Privacy and data lifecycle</title><desc id="desc">Raw telemetry is ephemeral while derived state is encrypted, retained for a defined period, and deleted on expiry or request.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:18px;font-weight:700}.s{font-size:14px}.raw{fill:#ffedd5;stroke:#c2410c;stroke-width:3}.box{fill:#e0f2fe;stroke:#0369a1;stroke-width:3}.lock{fill:#dcfce7;stroke:#15803d;stroke-width:3}.del{fill:#fee2e2;stroke:#b91c1c;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="60" class="h">Figure 5. Data lifecycle and deletion</text>
+  <rect x="55" y="160" width="195" height="110" rx="14" class="raw"/><text x="153" y="200" class="b" text-anchor="middle">Raw sample</text><text x="153" y="230" class="s" text-anchor="middle">bounded memory only</text>
+  <rect x="305" y="160" width="195" height="110" rx="14" class="box"/><text x="403" y="200" class="b" text-anchor="middle">Derived feature</text><text x="403" y="230" class="s" text-anchor="middle">sample consumed</text>
+  <rect x="555" y="160" width="195" height="110" rx="14" class="lock"/><text x="653" y="200" class="b" text-anchor="middle">AES-GCM state</text><text x="653" y="230" class="s" text-anchor="middle">platform-held key</text>
+  <rect x="805" y="160" width="195" height="110" rx="14" class="box"/><text x="903" y="200" class="b" text-anchor="middle">Retention timer</text><text x="903" y="230" class="s" text-anchor="middle">approved TTL</text>
+  <rect x="805" y="410" width="195" height="100" rx="14" class="del"/><text x="903" y="450" class="b" text-anchor="middle">Deletion</text><text x="903" y="480" class="s" text-anchor="middle">expiry or subject request</text>
+  <path d="M250 215H302M500 215H552M750 215H802M903 270V407" class="line"/>
+  <rect x="305" y="410" width="445" height="100" rx="14" class="box"/><text x="528" y="448" class="b" text-anchor="middle">Derived audit / incident metadata</text><text x="528" y="478" class="s" text-anchor="middle">separate approved sink, access and retention policy</text>
+  <path d="M653 270V350H528V407" class="line"/><text x="60" y="610" class="s">Deletion verification must include host databases, external sinks, backups, exports, and legal holds - not only the SDK adapter.</text>
+</svg>

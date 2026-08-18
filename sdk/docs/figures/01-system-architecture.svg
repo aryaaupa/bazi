@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Bazi engagement SDK system architecture</title><desc id="desc">Telemetry becomes derived features, risk, eligibility, constrained action selection, execution, and delayed outcome learning.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:18px;font-weight:700}.s{font-size:14px}.box{fill:#f8fafc;stroke:#0e7490;stroke-width:3}.safe{fill:#ecfdf5;stroke:#047857;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="60" class="h">Figure 1. System architecture</text>
+  <rect x="55" y="150" width="180" height="110" rx="14" class="box"/><text x="145" y="190" class="b" text-anchor="middle">Endpoint events</text><text x="145" y="220" class="s" text-anchor="middle">allowlisted metrics</text>
+  <rect x="285" y="150" width="180" height="110" rx="14" class="box"/><text x="375" y="190" class="b" text-anchor="middle">Feature window</text><text x="375" y="220" class="s" text-anchor="middle">raw consumed</text>
+  <rect x="515" y="150" width="180" height="110" rx="14" class="box"/><text x="605" y="190" class="b" text-anchor="middle">Risk model</text><text x="605" y="220" class="s" text-anchor="middle">p + uncertainty</text>
+  <rect x="745" y="150" width="180" height="110" rx="14" class="box"/><text x="835" y="190" class="b" text-anchor="middle">Safety gate</text><text x="835" y="220" class="s" text-anchor="middle">eligibility + limits</text>
+  <rect x="975" y="150" width="170" height="110" rx="14" class="safe"/><text x="1060" y="190" class="b" text-anchor="middle">Constrained action</text><text x="1060" y="220" class="s" text-anchor="middle">or no_action</text>
+  <path d="M235 205H282M465 205H512M695 205H742M925 205H972" class="line"/>
+  <rect x="355" y="390" width="210" height="100" rx="14" class="box"/><text x="460" y="430" class="b" text-anchor="middle">Provider manifest</text><text x="460" y="460" class="s" text-anchor="middle">actions + contraindications</text>
+  <rect x="635" y="390" width="210" height="100" rx="14" class="box"/><text x="740" y="430" class="b" text-anchor="middle">Delayed outcome</text><text x="740" y="460" class="s" text-anchor="middle">valid or censored reward</text>
+  <path d="M565 440H632M740 390V310H1060V263" fill="none" class="line"/><path d="M635 440H605V263" fill="none" class="line"/>
+  <text x="60" y="620" class="s">Invariant: action selection can only choose from the reviewed, non-contraindicated set; no_action is always available.</text>
+</svg>

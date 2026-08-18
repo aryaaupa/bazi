@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Disengagement prediction horizon</title><desc id="desc">A decision at time zero anchors a 120 second horizon with a 30 second inactivity criterion.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0f172a"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:18px;font-weight:700}.s{font-size:15px}.axis{stroke:#0f172a;stroke-width:4;marker-end:url(#a)}.tick{stroke:#0f172a;stroke-width:3}.window{fill:#cffafe;stroke:#0e7490;stroke-width:3}.event{fill:#fb923c;stroke:#c2410c;stroke-width:3}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="60" class="h">Figure 2. Prediction window and endpoint timing</text>
+  <rect x="250" y="230" width="760" height="100" rx="18" class="window"/><text x="630" y="285" class="b" text-anchor="middle">locked prediction horizon: (t0, t0 + 120 seconds]</text>
+  <path d="M130 390H1090" class="axis"/><path d="M250 370V410M440 370V410M1010 370V410" class="tick"/>
+  <text x="250" y="445" class="b" text-anchor="middle">t0</text><text x="250" y="472" class="s" text-anchor="middle">feature snapshot / prediction</text>
+  <text x="440" y="445" class="b" text-anchor="middle">+30 s</text><text x="440" y="472" class="s" text-anchor="middle">inactivity criterion</text>
+  <text x="1010" y="445" class="b" text-anchor="middle">+120 s</text><text x="1010" y="472" class="s" text-anchor="middle">horizon closes</text>
+  <circle cx="680" cy="390" r="14" class="event"/><text x="680" y="535" class="b" text-anchor="middle">qualifying event gives label 1</text>
+  <text x="60" y="610" class="s">No event + full follow-up gives 0. No event + early observation loss is censored. Observed positive events remain positive.</text>
+</svg>

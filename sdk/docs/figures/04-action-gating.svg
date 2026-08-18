@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Provider-constrained action gating</title><desc id="desc">The reviewed library is filtered by contraindications and eligibility before selection, with no action always available.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#0e7490"/></marker><style>text{font-family:Arial,sans-serif;fill:#0f172a}.h{font-size:28px;font-weight:700}.b{font-size:18px;font-weight:700}.s{font-size:14px}.box{fill:#f8fafc;stroke:#0e7490;stroke-width:3}.stop{fill:#fee2e2;stroke:#b91c1c;stroke-width:3}.safe{fill:#dcfce7;stroke:#15803d;stroke-width:3}.line{stroke:#0e7490;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect width="1200" height="675" fill="#fff"/><text x="60" y="60" class="h">Figure 4. Provider-constrained action gating</text>
+  <rect x="60" y="145" width="235" height="110" rx="14" class="box"/><text x="178" y="185" class="b" text-anchor="middle">Signed manifest</text><text x="178" y="215" class="s" text-anchor="middle">reviewed action universe</text>
+  <rect x="365" y="145" width="235" height="110" rx="14" class="stop"/><text x="483" y="185" class="b" text-anchor="middle">Contraindications</text><text x="483" y="215" class="s" text-anchor="middle">deny unsafe actions</text>
+  <rect x="670" y="145" width="235" height="110" rx="14" class="box"/><text x="788" y="185" class="b" text-anchor="middle">Eligibility gate</text><text x="788" y="215" class="s" text-anchor="middle">risk, uncertainty, burden</text>
+  <rect x="955" y="145" width="185" height="110" rx="14" class="safe"/><text x="1048" y="185" class="b" text-anchor="middle">Allowed set</text><text x="1048" y="215" class="s" text-anchor="middle">includes no_action</text>
+  <path d="M295 200H362M600 200H667M905 200H952" class="line"/>
+  <rect x="365" y="390" width="235" height="100" rx="14" class="box"/><text x="483" y="430" class="b" text-anchor="middle">Policy selection</text><text x="483" y="460" class="s" text-anchor="middle">within allowed set only</text>
+  <rect x="670" y="390" width="235" height="100" rx="14" class="box"/><text x="788" y="430" class="b" text-anchor="middle">Approval state</text><text x="788" y="460" class="s" text-anchor="middle">if action requires provider</text>
+  <path d="M1048 255V330H483V387M600 440H667" class="line"/><text x="60" y="610" class="s">Fail-safe behavior: disabled protocol, failed gate, empty allowed set, or cooldown gives no_action.</text>
+</svg>

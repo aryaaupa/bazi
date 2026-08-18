@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bazi.example/schemas/action.schema.json",
+  "title": "Bazi provider-authorized action",
+  "type": "object",
+  "required": ["id"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "label": { "type": "string" },
+    "burden": { "type": "number", "minimum": 0, "maximum": 1 },
+    "priorScore": { "type": "number" },
+    "requiresApproval": { "type": "boolean" },
+    "safeForExploration": { "type": "boolean" },
+    "allowedTaskTypes": { "type": ["array", "null"], "items": { "type": "string" }, "uniqueItems": true },
+    "minRisk": { "type": "number", "minimum": 0, "maximum": 1 },
+    "maxRisk": { "type": "number", "minimum": 0, "maximum": 1 },
+    "maxFatigue": { "type": "number", "minimum": 0, "maximum": 1 },
+    "metadata": { "type": "object" }
+  }
+}
