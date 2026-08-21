@@ -3,6 +3,6 @@
 window.BAZI_CONFIG = window.BAZI_CONFIG || {
   supabaseUrl: 'https://rcenyeepxawkuxrqdicx.supabase.co',
   supabaseAnonKey: 'sb_publishable_OvgKu6p1QfzSsZ9ITvmebQ_SEvpj_5p',
-  organizationId: '',
+  organizationId: 'fa4591dd-5d65-41c5-bd01-a3e8e3a472fa',
   mode: 'supabase'
 };
