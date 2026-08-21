@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bazi Pilot v1 Validation</title>
+  <style>
+    body{font-family:Inter,system-ui,sans-serif;margin:0;background:#0d1512;color:#eaf4ef}.wrap{max-width:1000px;margin:40px auto;padding:0 20px}.card{background:#14201b;border:1px solid #294338;border-radius:16px;padding:20px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.metric{background:#101915;border:1px solid #243b31;border-radius:12px;padding:14px}.metric b{display:block;font-size:28px;margin-top:6px}button,input{font:inherit}button{background:#2bc47d;color:#07110c;border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer}input[type=file]{display:block;margin:12px 0;color:#dbe9e2}.warn{color:#ffd18c}.muted{color:#9fb7ab}pre{white-space:pre-wrap;background:#0a110e;padding:14px;border-radius:10px;overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid #294338}</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Bazi Pilot v1 — Retrospective Validation</h1>
+  <p class="warn"><strong>Research use only.</strong> Do not upload PHI or partner data to a public deployment of this page. Run in a controlled local/private environment.</p>
+
+  <div class="card">
+    <h2>Frozen model artifact</h2>
+    <div id="modelMeta" class="muted">Loading…</div>
+  </div>
+
+  <div class="card">
+    <h2>Evaluate held-out cohort CSV</h2>
+    <p class="muted">Expected columns are documented in <code>pilot/README.md</code>. The threshold is taken from the frozen model artifact and is not tuned on this file.</p>
+    <input id="csvFile" type="file" accept=".csv,text/csv" />
+    <button id="runBtn">Run locked evaluation</button>
+    <div id="error" class="warn"></div>
+  </div>
+
+  <div id="results" class="card" hidden>
+    <h2>Evaluation report</h2>
+    <div id="metrics" class="grid"></div>
+    <h3>Calibration</h3>
+    <table><thead><tr><th>Bin</th><th>N</th><th>Mean predicted</th><th>Observed</th></tr></thead><tbody id="calBody"></tbody></table>
+    <h3>Raw report</h3>
+    <pre id="raw"></pre>
+  </div>
+</div>
+<script src="model-artifact.js"></script>
+<script src="validate.js"></script>
+<script>
+  const model=window.BAZI_FROZEN_MODEL;
+  document.getElementById('modelMeta').textContent=`${model.name} · ${model.version} · ${model.artifactClass} · ${model.predictionHorizonDays}-day horizon · threshold ${Math.round(model.defaultThreshold*100)}%`;
+  const fmt=v=>Number.isFinite(v)?(v*100).toFixed(1)+'%':'—';
+  document.getElementById('runBtn').onclick=async()=>{
+    const file=document.getElementById('csvFile').files[0],err=document.getElementById('error'); err.textContent='';
+    if(!file){err.textContent='Choose a CSV first.';return}
+    try{
+      const report=window.BaziPilotValidation.evaluateCsv(await file.text(),model);
+      const m=report.metrics,c=report.cohort;
+      const cards=[['Participants',c.participants],['Rows',c.rows],['Prevalence',fmt(c.prevalence)],['AUROC',fmt(m.auroc)],['AUPRC',fmt(m.auprc)],['Sensitivity',fmt(m.sensitivity)],['Specificity',fmt(m.specificity)],['PPV',fmt(m.ppv)],['NPV',fmt(m.npv)],['False alerts / patient-week',Number.isFinite(m.falseAlertsPerPatientWeek)?m.falseAlertsPerPatientWeek.toFixed(3):'—'],['Median lead time',m.leadTime.median==null?'—':m.leadTime.median+' d']];
+      document.getElementById('metrics').innerHTML=cards.map(([k,v])=>`<div class="metric"><span class="muted">${k}</span><b>${v}</b></div>`).join('');
+      document.getElementById('calBody').innerHTML=report.calibration.map(x=>`<tr><td>${x.bin}</td><td>${x.n}</td><td>${fmt(x.meanPredicted)}</td><td>${fmt(x.observedRate)}</td></tr>`).join('');
+      document.getElementById('raw').textContent=JSON.stringify(report,null,2);
+      document.getElementById('results').hidden=false;
+    }catch(e){err.textContent=e.message}
+  };
+</script>
+</body>
+</html>
