@@ -40,7 +40,7 @@
     <section class="panel-grid">
       <article class="saas-card span-4"><div class="kicker">7-DAY DISENGAGEMENT RISK</div><div id="riskStat" class="stat">—</div><div class="muted">Computed from current longitudinal behavior</div></article>
       <article class="saas-card span-4"><div class="kicker">ENGAGEMENT STATE</div><div id="engagementStat" class="stat">—</div><div class="muted">Patient-relative behavioral state</div></article>
-      <article class="saas-card span-4"><div class="kicker">EVENTS / DECISIONS</div><div><span id="eventStat" class="stat">—</span> <span class="muted">events</span> · <strong id="decisionStat">—</strong> decisions</div><div id="modelMeta" class="muted" style="margin-top:8px">Training…</div></article>
+      <article class="saas-card span-4"><div class="kicker">EVENTS / DECISIONS</div><div><span id="eventStat" class="stat">—</span> <span class="muted">events</span> · <strong id="decisionStat">—</strong> decisions</div><div id="modelMeta" class="muted" style="margin-top:8px">Loading frozen reference model…</div></article>
 
       <article class="saas-card span-7">
         <div class="kicker">LIVE PATIENT STATE</div><h2>Behavioral features</h2>
@@ -106,6 +106,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="bazi-config.js"></script>
+<script src="pilot/model-artifact.js"></script>
 <script src="bazi-platform.js"></script>
 </body>
 </html>

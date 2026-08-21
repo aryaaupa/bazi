@@ -4,87 +4,86 @@ Bazi ships in **local development mode** by default so `app.html` works immediat
 
 > This repository is a research/product Alpha. Use synthetic or properly de-identified data only until independent security, privacy, legal, and clinical review is complete. Do not represent this build as HIPAA compliant or clinically validated.
 
-## 1. Create a development Supabase project
+## 1. Create a dedicated Supabase development project
 
-Create a new project. In Project Settings / API, copy the project URL and the browser-safe publishable/anon key.
+Create a new project. In Project Settings / API, copy:
 
-**Never expose the `service_role` key in GitHub Pages or any browser code.**
+- the project URL
+- the browser-safe publishable/anon key
 
-## 2. Create the database
+**Never expose the `service_role` key in GitHub Pages or browser code.**
 
-Open the Supabase SQL editor and run `supabase-schema.sql`.
+## 2. Apply the database files in this order
 
-That creates:
+Run these in the Supabase SQL editor:
 
-- organizations
-- organization memberships with `owner`, `admin`, `provider`, and `viewer` roles
-- patients
-- timestamped patient events
-- organization-specific intervention policies
-- immutable-style model decision records
-- row-level-security policies tied to organization membership
+1. `supabase-schema.sql`
+2. `supabase-hardening.sql`
+3. `supabase-bootstrap.sql`
 
-## 3. Create your first provider user
+The schema provides organizations, memberships, patients, timestamped patient events, organization-specific intervention policies, model decisions, and RLS. The hardening migration adds tenant-integrity checks, immutable model provenance fields, and removes browser DELETE access from event/decision audit data.
 
-Create a test user through Supabase Authentication using an email and password. Copy the user's UUID.
+## 3. Create the first provider account
 
-Then bootstrap a development organization in the SQL editor, replacing `YOUR_AUTH_USER_UUID`:
+Create a test provider user in Supabase Authentication with email/password.
 
-```sql
-insert into public.organizations (name)
-values ('Bazi Founding Design Partner')
-returning id;
-```
-
-Copy the returned organization UUID, then run:
+After that user signs in, initialize one workspace by calling the authenticated RPC:
 
 ```sql
-insert into public.organization_members (organization_id, user_id, role)
-values ('YOUR_ORG_UUID', 'YOUR_AUTH_USER_UUID', 'owner');
-
-insert into public.intervention_policies
-  (organization_id, name, min_risk, max_risk, recommendation, requires_approval)
-values
-  ('YOUR_ORG_UUID', 'Monitor', 0, 39, 'Continue current plan and monitor.', false),
-  ('YOUR_ORG_UUID', 'Engagement friction', 40, 69, 'Reduce non-clinical friction: adjust reminder timing and request a brief engagement check-in.', true),
-  ('YOUR_ORG_UUID', 'Provider review', 70, 100, 'Escalate for provider review before any treatment-plan change.', true);
+select public.bootstrap_bazi_workspace('Bazi Founding Design Partner');
 ```
+
+The function is limited to authenticated users and returns the user's existing organization if one already exists. On first use it creates the organization, owner membership, and the default provider-reviewed intervention policy set.
+
+If you prefer to bootstrap only from the SQL editor, you may still create the organization and membership manually.
 
 ## 4. Connect the browser app
 
-Edit `bazi-config.js`:
+Edit `bazi-config.js` with the browser-safe values:
 
 ```js
 window.BAZI_CONFIG = {
   supabaseUrl: 'https://YOUR_PROJECT.supabase.co',
-  supabaseAnonKey: 'YOUR_BROWSER_SAFE_KEY',
+  supabaseAnonKey: 'YOUR_BROWSER_SAFE_PUBLISHABLE_KEY',
   organizationId: 'YOUR_ORG_UUID',
   mode: 'supabase'
 };
 ```
 
-After deployment, `app.html` will show a provider sign-in gate. Auth sessions persist through Supabase Auth. The app automatically loads only the organization, patients, events, policies, and decisions permitted by RLS.
+The Supabase publishable/anon key is designed for client applications; authorization must come from RLS, not from treating that key as a secret.
 
-## 5. Add synthetic patients and events
+After deployment, `app.html` shows a provider sign-in gate. Auth sessions persist through Supabase Auth. The app loads only data allowed by the logged-in user's organization membership and RLS policies.
 
-Sign in, add a patient, then ingest session events. Each event triggers the real Bazi Alpha loop:
+## 5. Model behavior
 
-`event → feature computation → risk model → policy match → recommendation → decision record`
+The provider app now loads `pilot/model-artifact.js` before `bazi-platform.js`. That means the working UI uses the **frozen synthetic reference artifact** rather than retraining a model on every page load.
+
+The frozen artifact remains a software-plumbing/reference model only. It is not clinically validated and must be replaced by a governed model artifact before any external performance claim.
+
+## 6. Add synthetic or de-identified pilot data
+
+Sign in, add a patient, and ingest session events. The current product loop is:
+
+`event → feature computation → frozen risk model → policy match → recommendation → decision record`
 
 High/moderate-risk recommendations remain pending until a provider explicitly approves or dismisses them.
 
-## What is real in this Alpha
+## 7. What is real in this Alpha
 
-- multi-patient event storage
-- longitudinal feature computation
-- trained in-browser logistic regression model
-- risk probability generated from current patient events
-- organization-specific policy constraints
-- provider approval gate
-- decision/audit persistence
-- state-aware Copilot answers
-- Supabase Auth + Postgres + RLS integration path
+- Supabase Auth sign-in flow
+- multi-tenant Postgres schema
+- organization membership roles
+- RLS-based tenant isolation
+- patient/event storage
+- frozen model execution in the provider UI
+- provider-reviewed policy layer
+- approval/dismissal workflow
+- persistent decision/audit records
+- retrospective validation harness in `pilot/`
+- deterministic state-grounded Copilot
 
-## What is deliberately not claimed
+## 8. What is deliberately not claimed
 
-The current model is trained on seeded **synthetic trajectories**, so its output is not a clinically validated probability. The current Copilot is deterministic and grounded in Bazi state rather than an unrestricted LLM. Before any real clinical deployment, move model execution behind controlled server infrastructure, validate on governed real-world data, complete threat modeling/security testing, establish privacy/BAA requirements where applicable, and complete clinical/regulatory review.
+The current reference model is derived from synthetic trajectories, so its output is not a clinically validated probability. Before real patient-facing deployment, Bazi still requires governed real-world validation, independent security/privacy review, applicable BAA/legal work, threat modeling, accessibility testing, incident-response planning, and clinical/regulatory determination.
+
+For the first external collaboration, use the staged plan in `docs/PILOT_PROTOCOL.md`: retrospective validation first, then silent prospective validation, then only a controlled intervention study after the appropriate approvals.
