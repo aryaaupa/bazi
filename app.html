@@ -72,12 +72,6 @@
       </article>
 
       <article class="saas-card span-5">
-        <div class="kicker">BAZI COPILOT</div><h2>Ask the patient state</h2>
-        <div id="copilotThread" class="copilot-thread"><div class="chat ai">I query Bazi's current computed state. Ask why risk changed, who needs attention, or what the active policy permits.</div></div>
-        <form id="copilotForm" class="copilot-compose"><input id="copilotInput" placeholder="Why did risk change?" autocomplete="off"><button>Ask</button></form>
-      </article>
-
-      <article class="saas-card span-5">
         <div class="kicker">PROVIDER POLICY LAYER</div><h2>Allowed intervention boundaries</h2>
         <div id="policyList"></div>
       </article>
@@ -114,6 +108,14 @@
   <label>Email<input name="email" type="email" required></label><label>Password<input name="password" type="password" required></label>
   <div id="authError" class="status-high"></div><button class="button primary" type="submit">Sign in</button>
 </form></div>
+<button id="copilotToggle" class="copilot-fab" aria-expanded="false">✦ Ask Bazi</button>
+<aside id="copilotDock" class="copilot-dock hidden" aria-label="Bazi Copilot">
+  <div class="copilot-head"><div><div class="kicker">BAZI COPILOT</div><strong>Patient-state review</strong></div><button id="copilotClose" class="copilot-close" aria-label="Close">×</button></div>
+  <p class="copilot-intro">Grounded in the visible synthetic patient state. It explains evidence and policy boundaries; it does not provide clinical advice.</p>
+  <div class="copilot-prompts"><button data-copilot-prompt="Why did risk change?">Why did Leila surface?</button><button data-copilot-prompt="What is recommended?">What action is allowed?</button><button data-copilot-prompt="Who needs attention?">Who needs review?</button></div>
+  <div id="copilotThread" class="copilot-thread"><div class="chat ai">I can explain the observed trajectory, evidence coverage, and the care-program policy boundary.</div></div>
+  <form id="copilotForm" class="copilot-compose"><input id="copilotInput" placeholder="Ask about the current patient…" autocomplete="off"><button>Send</button></form>
+</aside>
 <div id="toast" class="toast-v2 hidden"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
