@@ -38,7 +38,7 @@
     </header>
 
     <section class="panel-grid">
-      <article class="saas-card span-4"><div class="kicker">7-DAY DISENGAGEMENT RISK</div><div id="riskStat" class="stat">—</div><div class="muted">Computed from current longitudinal behavior</div></article>
+      <article class="saas-card span-4"><div class="kicker">7-DAY ENGAGEMENT-CHANGE SIGNAL</div><div id="riskStat" class="stat">—</div><div class="muted">Relative model output; not a clinical probability</div></article>
       <article class="saas-card span-4"><div class="kicker">ENGAGEMENT STATE</div><div id="engagementStat" class="stat">—</div><div class="muted">Patient-relative behavioral state</div></article>
       <article class="saas-card span-4"><div class="kicker">EVENTS / DECISIONS</div><div><span id="eventStat" class="stat">—</span> <span class="muted">events</span> · <strong id="decisionStat">—</strong> decisions</div><div id="modelMeta" class="muted" style="margin-top:8px">Loading frozen reference model…</div></article>
 
@@ -46,6 +46,12 @@
         <div class="kicker">LIVE PATIENT STATE</div><h2>Behavioral features</h2>
         <div id="featureGrid" class="mini-grid"></div>
         <div class="notice" style="margin-top:14px">These features are recalculated from the most recent patient events whenever Bazi runs. No displayed risk value is hard-coded.</div>
+      </article>
+
+      <article class="saas-card span-12">
+        <div class="kicker">PATIENT-SPECIFIC TRAJECTORY</div><h2>Change from this participant’s own baseline</h2>
+        <div id="trajectoryPanel"></div>
+        <div class="notice" style="margin-top:14px">Trajectory interpretation is a review aid. Bazi does not infer symptoms, diagnose, or make treatment decisions.</div>
       </article>
 
       <article class="saas-card span-5">
