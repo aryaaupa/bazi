@@ -131,9 +131,29 @@ function currentDecision(){return Store.state.decisions.find(d=>d.patient_id===S
 function render(){if(!Store.state)return;const p=patient();if(!p)return;const f=computeFeatures(),r=risk(f),e=engagement(f),d=currentDecision();
  $('#orgName').textContent=Store.state.organization?.name||'Bazi workspace';$('#modeBadge').textContent=Store.mode==='supabase'?'Supabase connected':'Local development';$('#modeBadge').className=`mode-badge ${Store.mode==='supabase'?'connected':''}`;$('#userEmail').textContent=Store.state.user?.email||'—';$('#userRole').textContent=Store.state.user?.role||'—';
  $('#patientName').textContent=p.display_name;$('#patientPathway').textContent=p.pathway;$('#riskStat').textContent=`${r}%`;$('#riskStat').className=`stat ${r>=70?'status-high':r>=40?'status-moderate':'status-low'}`;$('#engagementStat').textContent=e;$('#eventStat').textContent=events().length;$('#decisionStat').textContent=Store.state.decisions.filter(x=>x.patient_id===p.id).length;$('#modelMeta').textContent=model.samples?`${model.version} · ${model.samples.toLocaleString()} synthetic training trajectories`:`${model.version} · frozen ${model.artifactClass}`;
- renderPatients();renderFeatures(f);renderTrajectory(f,r);renderEvents();renderDecision(d,r);renderPolicies();renderAudit();
+ renderPatients();renderFeatures(f);renderTrajectory(f,r);renderControls(f,r);renderEvents();renderDecision(d,r);renderPolicies();renderAudit();
 }
 function renderPatients(){const q=($('#patientSearch')?.value||'').toLowerCase();$('#patientList').innerHTML=Store.state.patients.filter(p=>`${p.display_name} ${p.external_id} ${p.pathway}`.toLowerCase().includes(q)).map(p=>`<button class="patient-item ${p.id===Store.state.activePatientId?'active':''}" data-patient="${p.id}"><strong>${esc(p.display_name)}</strong><span>${esc(p.pathway)} · ${esc(p.external_id)}</span></button>`).join('');$$('[data-patient]').forEach(b=>b.onclick=()=>{Store.state.activePatientId=b.dataset.patient;Store.persist();render()})}
+function controlState(f,r){
+ const c=confidence(f),coverage=Math.min(events().length,6),approved=Store.state.decisions.filter(d=>d.patient_id===patient().id&&d.status==='provider_approved').length;
+ const uncertainty=Math.max(4,100-c),evidenceValid=coverage>=4;
+ const actionPolicy=policyFor(r);
+ const actions=['No action / monitor'];
+ if(!evidenceValid||uncertainty>35)actions.push('Collect another engagement observation before outreach');
+ else if(approved>0)actions.push('Hold new outreach; observe recovery window');
+ else if(r>=40)actions.push(actionPolicy.recommendation);
+ return{coverage,uncertainty,evidenceValid,approved,actions,actionPolicy};
+}
+function renderControls(f,r){
+ const s=controlState(f,r);
+ $('#controlPanel').innerHTML=`<div class="mini-grid">
+  <div class="mini-stat"><strong>${s.evidenceValid?'sufficient':'limited'}</strong><span>Evidence coverage · ${s.coverage}/6 recent events</span></div>
+  <div class="mini-stat"><strong>${s.uncertainty}%</strong><span>Model uncertainty proxy</span></div>
+  <div class="mini-stat"><strong>${s.approved}</strong><span>Prior approved intervention(s)</span></div>
+  <div class="mini-stat"><strong>${s.actionPolicy.requires_approval?'required':'not required'}</strong><span>Provider approval</span></div>
+ </div><div class="notice" style="margin-top:13px"><strong>Allowed action set</strong><br>${s.actions.map(a=>`• ${esc(a)}`).join('<br>')}</div>
+ <div class="notice" style="margin-top:10px"><strong>Delayed recovery attribution</strong><br>After an approved action, Bazi should evaluate subsequent engagement in a pre-specified observation window and attach the recovery/no-recovery outcome to the decision record. In this alpha, that outcome window is displayed as a governed pilot requirement—not a clinical outcome claim.</div>`;
+}
 function renderTrajectory(f,r){
  const p=patient(),ev=events().slice(-6),baseline=Number(p?.baseline_engagement||80);
  const vals=ev.map(x=>Number(x.engagement)||baseline);
