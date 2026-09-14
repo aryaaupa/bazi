@@ -186,7 +186,11 @@ function wire(){
  $('#eventForm').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);await Store.addEvent(Store.state.activePatientId,{status:fd.get('status'),duration_minutes:Number(fd.get('duration')),fatigue:fd.get('fatigue'),difficulty:fd.get('difficulty'),engagement:Number(fd.get('engagement'))});$('#eventDialog').close();await runEngine('event_ingestion')};
  $('#patientForm').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);await Store.addPatient({display_name:fd.get('name'),pathway:fd.get('pathway'),baseline_duration:Number(fd.get('duration')),baseline_engagement:Number(fd.get('engagement'))});$('#patientDialog').close();render();toast('Patient added')};
  $$('.dialog-close').forEach(b=>b.onclick=()=>b.closest('dialog').close());
- $('#copilotForm').onsubmit=e=>{e.preventDefault();const input=$('#copilotInput'),q=input.value.trim();if(!q)return;$('#copilotThread').insertAdjacentHTML('beforeend',`<div class="chat user">${esc(q)}</div><div class="chat ai">${esc(copilot(q))}</div>`);input.value='';$('#copilotThread').scrollTop=$('#copilotThread').scrollHeight};
+ const askCopilot=q=>{q=(q||'').trim();if(!q)return;const thread=$('#copilotThread');thread.insertAdjacentHTML('beforeend',`<div class="chat user">${esc(q)}</div><div class="chat ai">${esc(copilot(q))}</div>`);thread.scrollTop=thread.scrollHeight};
+ $('#copilotForm').onsubmit=e=>{e.preventDefault();const input=$('#copilotInput');askCopilot(input.value);input.value=''};
+ $('#copilotToggle').onclick=()=>{const dock=$('#copilotDock'),open=dock.classList.contains('hidden');dock.classList.toggle('hidden',!open);$('#copilotToggle').setAttribute('aria-expanded',String(open));if(open)$('#copilotInput').focus()};
+ $('#copilotClose').onclick=()=>{$('#copilotDock').classList.add('hidden');$('#copilotToggle').setAttribute('aria-expanded','false')};
+ $('[data-copilot-prompt]').forEach(b=>b.onclick=()=>askCopilot(b.dataset.copilotPrompt));
  $('#resetLocal').onclick=()=>{if(Store.mode!=='local'){toast('Reset is only available in local development mode');return}localStorage.removeItem(LOCAL_KEY);Store.state=defaultLocal();Store.persist();render();toast('Local sandbox reset')};
  $('#signOut').onclick=async()=>{await Store.signOut();location.reload()};
  $('#authForm').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target),res=await Store.signIn(fd.get('email'),fd.get('password'));if(!res.ok){$('#authError').textContent=res.error;return}$('#authGate').classList.add('hidden');render()};
