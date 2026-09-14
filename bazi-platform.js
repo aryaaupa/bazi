@@ -11,15 +11,15 @@ const now=()=>new Date().toISOString();
 const uid=prefix=>`${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,7)}`;
 
 const DEFAULT_POLICIES=[
- {id:'P-LOW',min_risk:0,max_risk:39,recommendation:'Continue current plan and monitor.',requires_approval:false},
- {id:'P-MOD',min_risk:40,max_risk:69,recommendation:'Reduce non-clinical friction: adjust reminder timing and request a brief engagement check-in.',requires_approval:true},
- {id:'P-HIGH',min_risk:70,max_risk:100,recommendation:'Escalate for provider review before any treatment-plan change.',requires_approval:true}
+ {id:'BH-LOW',min_risk:0,max_risk:39,recommendation:'Continue the current CBT-program plan and monitor engagement.',requires_approval:false},
+ {id:'BH-MOD',min_risk:40,max_risk:69,recommendation:'Offer the approved supportive check-in and scheduling support; provider review is required before outreach.',requires_approval:true},
+ {id:'BH-HIGH',min_risk:70,max_risk:100,recommendation:'Escalate for provider review. Bazi cannot modify treatment or autonomously contact the participant.',requires_approval:true}
 ];
 
 function demoPatients(){return [
- {id:'pt-maya',external_id:'BZ-001',display_name:'Maya Chen',pathway:'Digital rehabilitation',baseline_duration:26,baseline_engagement:87,status:'monitoring'},
- {id:'pt-jordan',external_id:'BZ-002',display_name:'Jordan Lee',pathway:'CBT program',baseline_duration:18,baseline_engagement:82,status:'monitoring'},
- {id:'pt-sam',external_id:'BZ-003',display_name:'Sam Rivera',pathway:'Cardiac rehabilitation',baseline_duration:30,baseline_engagement:90,status:'monitoring'}
+ {id:'pt-maya',external_id:'BZ-001',display_name:'Leila Patel',pathway:'Digital CBT program',baseline_duration:26,baseline_engagement:87,status:'monitoring'},
+ {id:'pt-jordan',external_id:'BZ-002',display_name:'Marcus Hill',pathway:'Digital CBT program',baseline_duration:18,baseline_engagement:82,status:'monitoring'},
+ {id:'pt-sam',external_id:'BZ-003',display_name:'Anika Shah',pathway:'Digital CBT program',baseline_duration:30,baseline_engagement:90,status:'monitoring'}
 ]}
 function demoEvents(){return {
  'pt-maya':[
