@@ -48,19 +48,19 @@
         <div class="notice" style="margin-top:14px">These features are recalculated from the most recent patient events whenever Bazi runs. No displayed risk value is hard-coded.</div>
       </article>
 
-      <article class="saas-card span-12">
+      <article class="saas-card span-12 trajectory-card">
         <div class="kicker">PATIENT-SPECIFIC TRAJECTORY</div><h2>Change from this participant’s own baseline</h2>
         <div id="trajectoryPanel"></div>
         <div class="notice" style="margin-top:14px">Trajectory interpretation is a review aid. Bazi does not infer symptoms, diagnose, or make treatment decisions.</div>
       </article>
 
-      <article class="saas-card span-7">
+      <article class="saas-card span-7 control-card">
         <div class="kicker">ENGAGEMENT PRESERVATION CONTROL LAYER</div><h2>Uncertainty, burden, and policy constrain what Bazi may surface</h2>
         <div id="controlPanel"></div>
         <div class="notice" style="margin-top:14px">Bazi always retains “no action / monitor” as a permitted option. It surfaces a bounded action set; it does not autonomously deliver an intervention.</div>
       </article>
 
-      <article class="saas-card span-5">
+      <article class="saas-card span-5 decision-card">
         <div class="kicker">DECISION ENGINE</div><h2>Current recommendation</h2>
         <div id="decisionPanel"></div>
         <div class="action-stack" style="margin-top:14px"><button id="runEngine" class="primary">Run Bazi engine</button><button id="addEvent">+ Ingest event</button></div>
