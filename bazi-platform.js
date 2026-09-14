@@ -45,7 +45,9 @@ function defaultLocal(){return {user:{id:'local-provider',email:'founder@bazi.lo
 const Store={
  mode:'local', client:null, state:null,
  async init(){
-  const cfg=window.BAZI_CONFIG||{};
+  const params=new URLSearchParams(window.location.search);
+  const forceDemo=params.get('demo')==='1'||window.location.hostname==='aryaaupa.github.io';
+  const cfg=forceDemo?{}:(window.BAZI_CONFIG||{});
   if(cfg.supabaseUrl&&cfg.supabaseAnonKey&&window.supabase){
    this.mode='supabase';
    this.client=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
