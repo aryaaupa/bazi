@@ -52,7 +52,9 @@ export function assess(patient, events, threshold = MODEL.defaultThreshold) {
   const features = computeFeatures(patient, events);
   const available = features.observedCount >= 3 && features.coverage >= 0.6;
   const prediction = scoreFeatures(features);
-  const baselineFeatures = computeFeatures(patient, patient.events?.slice(0, 6) ?? events.slice(0, 6));
+  const thresholdAdjustment = available ? 0.08 * (1 - Math.min(features.observedCount, 6) / 6) + 0.12 * (1 - features.coverage) : 0;
+  const effectiveThreshold = Math.min(0.95, threshold + thresholdAdjustment);
+  const baselineFeatures = computeFeatures(patient, events.slice(0, 6));
   const currentVector = vector(features), baselineVector = vector(baselineFeatures);
   const contributions = FEATURE_LABELS.map((label, index) => ({
     label, index, value: currentVector[index], baseline: baselineVector[index],
@@ -60,8 +62,8 @@ export function assess(patient, events, threshold = MODEL.defaultThreshold) {
     counterfactualScore: sigmoid(prediction.linear - (currentVector[index] - baselineVector[index]) * MODEL.weights[index])
   })).sort((a, b) => b.delta - a.delta);
   return {
-    ...prediction, features, available, contributions,
-    band: !available ? 'unavailable' : prediction.score >= threshold ? 'elevated' : prediction.score >= 0.4 ? 'watch' : 'stable',
+    ...prediction, features, available, contributions, baseThreshold: threshold, effectiveThreshold, thresholdAdjustment,
+    band: !available ? 'unavailable' : prediction.score >= effectiveThreshold ? 'elevated' : prediction.score >= 0.4 ? 'watch' : 'stable',
     evidence: !available ? 'Insufficient observations' : features.observedCount < 6 ? 'Limited history' : features.coverage < 1 ? 'Partial coverage' : 'Full recent window',
     uncertainty: 'Clinical uncertainty is unquantified; this model has synthetic provenance only.'
   };

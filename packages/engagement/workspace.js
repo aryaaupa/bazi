@@ -1,6 +1,7 @@
 import { assess, validateEvent, fingerprint, MODEL, mean } from './model.js';
 import { generateCohort, SEED, START, DAY } from './cohort.js';
 
+export const ACTION_SET_VERSION = 'synthetic-engagement-actions-v1';
 export const ACTIONS = Object.freeze([
   { id: 'engagement_checkin', label: 'Supportive engagement check-in', purpose: 'Ask about scheduling, usability, fatigue, or participation barriers.' },
   { id: 'scheduling_support', label: 'Offer scheduling support', purpose: 'Offer a provider-reviewed time or reminder preference.' },
@@ -58,7 +59,7 @@ export class Workspace {
     this.state.cursors['BZ-001'] = 17; delete this.state.extraEvents['BZ-001'];
     this.state.decisions = this.state.decisions.filter(decision => decision.patientId !== 'BZ-001');
     this.state.protocolEnabled = true; this.save();
-    await this.log('guided_demo_started', { patientId: 'BZ-001', preservedCohort: true });
+    await this.log('timeline_replay_started', { patientId: 'BZ-001', preservedCohort: true });
   }
   async createPatient({ name, scenario = 'gradual' }) {
     if (!name?.trim() || name.trim().length > 80) throw new Error('Use a synthetic name between 1 and 80 characters.');
@@ -128,11 +129,12 @@ export class Workspace {
     const decision = { id: `DEC-${String(sequence).padStart(5, '0')}`, patientId: id,
       at: new Date(this.clock()).toISOString(), observationStart: this.events(id).at(-1)?.occurred_at,
       modelVersion: MODEL.version, snapshot, features: result.features, score: result.available ? result.score : null,
-      status, source, actionId: 'engagement_checkin', threshold: this.state.threshold,
+      status, source, actionId: 'engagement_checkin', threshold: this.state.threshold, effectiveThreshold: result.effectiveThreshold, policyVersion: ACTION_SET_VERSION,
       evidence: result.evidence, note: '', reviewHistory: [] };
     if (status === 'snoozed') decision.snoozedUntil = snoozedUntil;
     this.state.decisions.unshift(decision); this.save();
     await this.log('model_scored', { decisionId: decision.id, patientId: id, score: decision.score, status, modelVersion: MODEL.version, inputFingerprint: snapshot });
+    await this.log('action_policy_evaluated', { decisionId: decision.id, patientId: id, status, policyVersion: ACTION_SET_VERSION, baseThreshold: this.state.threshold, effectiveThreshold: result.effectiveThreshold, approvalRequired: true });
     return decision;
   }
   decision(id) { const decision = this.state.decisions.find(decision => decision.id === id); if (!decision) throw new Error('Decision not found.'); return decision; }
@@ -159,29 +161,88 @@ export class Workspace {
       decision.status = 'snoozed'; decision.snoozedUntil = new Date(this.clock() + 48 * 3600000).toISOString();
     } else throw new Error('Unknown review action.');
     decision.reviewHistory.push({ action, at: new Date(this.clock()).toISOString(), note, reason, actionId: decision.actionId });
-    this.save(); await this.log(`decision_${action}`, { patientId: decision.patientId, decisionId: id, actionId: decision.actionId, reason: reason ?? null, delivery: action === 'approve' ? 'sandbox-only; no outreach sent' : null }); return decision;
+    this.save(); await this.log(`decision_${action}`, { patientId: decision.patientId, decisionId: id, actionId: decision.actionId, policyVersion: decision.policyVersion ?? ACTION_SET_VERSION, reason: reason ?? null, note, delivery: action === 'approve' ? 'sandbox-only; no outreach sent' : null }); return decision;
+  }
+  async advanceDays(id, days = 7) {
+    if (!Number.isInteger(days) || days < 1 || days > 14) throw new Error('Advance between 1 and 14 days.');
+    if (this.state.extraEvents[id]?.length) throw new Error('This record has a follow-up branch. Add a new observation instead.');
+    const history = this.events(id), from = history.length ? (Date.parse(history.at(-1).occurred_at)-START)/DAY : -1;
+    const target = from + days; let ingested = 0, decision = null;
+    while (true) {
+      const patient = this.patient(id), cursor = this.state.cursors[id] ?? (patient.scenario === 'low_data' ? 3 : 24);
+      const next = patient.events[cursor];
+      if (!next || next.day > target) break;
+      decision = await this.advance(id); ingested++;
+    }
+    if (!ingested) throw new Error('No further generated events fall in this window.');
+    return { ingested, decision };
+  }
+  async prepareReferenceCases() {
+    if (this.state.referenceCasesReady) return;
+    const eligible = this.list().filter(p => p.id !== 'BZ-001' && p.assessment.band === 'elevated');
+    const cases = {};
+    for (const [index, response] of ['recovery','no_change'].entries()) {
+      const patient = eligible[index]; if (!patient) continue;
+      const decision = await this.evaluate(patient.id, 'synthetic-reference-case');
+      if (decision.status !== 'pending') continue;
+      await this.review(decision.id, 'approve', { note: 'Synthetic reference case: recorded provider review; no outreach sent.' });
+      await this.followUp(decision.id, response);
+      cases[response] = patient.id;
+    }
+    const dismissed = eligible[2];
+    if (dismissed) {
+      const decision = await this.evaluate(dismissed.id, 'synthetic-reference-case');
+      if (decision.status === 'pending') await this.review(decision.id, 'dismiss', { reason: 'Expected behavior', note: 'Synthetic reference case: provider declines engagement support.' });
+      cases.dismissed = dismissed.id;
+    }
+    const snoozed = eligible[3];
+    if (snoozed) {
+      const decision = await this.evaluate(snoozed.id, 'synthetic-reference-case');
+      if (decision.status === 'pending') await this.review(decision.id, 'snooze');
+      cases.snoozed = snoozed.id;
+    }
+    for (const scenario of ['low_data','stable','fatigue','false_positive']) {
+      const patient=this.patients.find(p=>p.scenario===scenario&&p.id!=='BZ-001');
+      if (patient) { await this.evaluate(patient.id,'synthetic-reference-case'); cases[scenario]=patient.id; }
+    }
+    for (const patient of this.list().filter(p=>p.assessment.band==='elevated')) {
+      if (!this.state.decisions.some(d=>d.patientId===patient.id)) await this.evaluate(patient.id,'current-observations');
+    }
+    this.state.referenceCases = cases; this.state.referenceCasesReady = true; this.save();
+    await this.log('reference_cases_prepared', { synthetic:true, caseCount:Object.keys(cases).length, learningEnabled:false });
   }
   async followUp(id, response = 'recovery') {
     const decision = this.decision(id);
     if (decision.status !== 'approved') throw new Error('Approve a recommendation before simulating its follow-up.');
     if (!['recovery', 'no_change'].includes(response)) throw new Error('Unknown follow-up trajectory.');
-    const patient = this.patient(decision.patientId), before = this.events(patient.id).slice(-3), start = Date.parse(this.events(patient.id).at(-1).occurred_at);
-    const observations = [2, 4, 7].map((day, index) => ({
-      id: `${decision.id}-followup-${index + 1}`, patient_id: patient.id,
-      occurred_at: new Date(start + day * DAY).toISOString(), day: (start - START) / DAY + day,
-      status: response === 'recovery' ? 'completed' : 'shortened',
-      duration_minutes: response === 'recovery' ? patient.baseline_duration - 2 + index : Math.round(patient.baseline_duration * 0.4),
-      engagement: response === 'recovery' ? patient.baseline_engagement - 5 + index * 2 : Math.round(mean(before.map(event => event.engagement))),
-      fatigue: response === 'recovery' ? 'low' : 'high', difficulty: response === 'recovery' ? 'appropriate' : 'too-hard', quality: 1,
-      source: `synthetic-followup-${response}`
+    const patient = this.patient(decision.patientId), anchor = Date.parse(decision.observationStart), end = anchor + 7 * DAY;
+    const before = this.events(patient.id).filter(e=>Date.parse(e.occurred_at)<=anchor).slice(-3);
+    const latest = Date.parse(this.events(patient.id).at(-1).occurred_at);
+    const observations = [2,4,7].filter(day=>anchor+day*DAY>latest).map((day,index)=>({
+      id: decision.id+'-followup-'+day, patient_id: patient.id,
+      occurred_at: new Date(anchor+day*DAY).toISOString(), day:(anchor-START)/DAY+day,
+      status:response==='recovery'?'completed':'shortened',
+      duration_minutes:response==='recovery'?patient.baseline_duration-2+index:Math.round(patient.baseline_duration*.4),
+      engagement:response==='recovery'?patient.baseline_engagement-5+index*2:Math.round(mean(before.map(e=>e.engagement))),
+      fatigue:response==='recovery'?'low':'high',difficulty:response==='recovery'?'appropriate':'too-hard',quality:1,
+      source:'synthetic-followup-'+response
     }));
-    this.state.extraEvents[patient.id] = [...(this.state.extraEvents[patient.id] ?? []), ...observations];
-    decision.outcome = { simulation: true, response, windowDays: 7, beforeEngagement: mean(before.map(event => event.engagement)),
-      afterEngagement: mean(observations.map(event => event.engagement)), beforeAdherence: before.filter(event => event.status !== 'skipped').length / Math.max(before.length, 1),
-      afterAdherence: observations.filter(event => event.status !== 'skipped').length / observations.length,
-      eventIds: observations.map(event => event.id), causalConclusion: false };
-    decision.status = 'followup_complete'; this.save();
-    await this.log('followup_observed', { decisionId: id, patientId: patient.id, response, observationDays: 7, synthetic: true, causalConclusion: false }); return decision;
+    for (const event of observations) {
+      validateEvent(event);
+      this.state.extraEvents[patient.id]=[...(this.state.extraEvents[patient.id]??[]),event]; this.save();
+      await this.log('event_ingested',{patientId:patient.id,eventId:event.id,occurredAt:event.occurred_at,source:event.source});
+      await this.evaluate(patient.id,'followup-observation');
+    }
+    const after=this.events(patient.id).filter(e=>Date.parse(e.occurred_at)>anchor&&Date.parse(e.occurred_at)<=end&&(e.quality??1)>=.6);
+    if (!after.length) throw new Error('No usable observations fall in the approved seven-day window.');
+    decision.outcome={simulation:true,response:observations.length?response:'recorded_history',generatedEventCount:observations.length,windowDays:7,windowStart:new Date(anchor).toISOString(),windowEnd:new Date(end).toISOString(),
+      beforeEngagement:mean(before.map(e=>e.engagement)),afterEngagement:mean(after.map(e=>e.engagement)),
+      beforeAdherence:before.filter(e=>e.status!=='skipped').length/Math.max(before.length,1),
+      afterAdherence:after.filter(e=>e.status!=='skipped').length/after.length,
+      eventIds:after.map(e=>e.id),causalConclusion:false};
+    decision.status='followup_complete';this.save();
+    await this.log('followup_observed',{decisionId:id,patientId:patient.id,response:decision.outcome.response,generatedEventCount:observations.length,observationDays:7,windowEnd:decision.outcome.windowEnd,synthetic:true,causalConclusion:false});
+    return decision;
   }
   async setProtocol(enabled) { this.state.protocolEnabled = Boolean(enabled); this.save(); await this.log('protocol_status_changed', { enabled: this.state.protocolEnabled }); }
   async setThreshold(value) {
@@ -216,5 +277,5 @@ export function parseEventCsv(text) {
 }
 
 export function draftProtocol(config) {
-  return `# Bazi design-partner validation protocol\n\nStatus: DRAFT — requires institutional review and a governed dataset.\n\nProgram: ${config.program}\nEndpoint: ${config.endpoint}\nPrediction horizon: ${config.horizon} days\nObservation window: ${config.observation} days\nAlert threshold: ${config.threshold}\nMinimum observable sessions: ${config.minimumSessions}\nPrimary endpoint: AUPRC\nSecondary endpoints: AUROC, calibration, warning lead time, false alerts per participant-week, subgroup results, and participant bootstrap confidence intervals.\n\n## Study controls\nParticipant-level splits; frozen model, feature schema, threshold and endpoint before held-out analysis; no tuning on the held-out set. Exclude already-disengaged participants at the landmark. Missing labels remain censored, not negative. Record exclusions and provenance.\n\n## Proposed progression\n1. Define one digital-care workflow and one endpoint.\n2. Retrospective validation on governed, de-identified historical data.\n3. Silent prospective validation with no influence on patient care.\n4. Provider-controlled engagement study after appropriate reviews and approvals.\n\n## Safety boundary\nEngagement support only. No diagnosis, prescription, autonomous care-plan changes, or automated patient outreach. The current artifact has synthetic provenance and no clinical validation.\n\n## Go / no-go criteria to agree with the partner\nMinimum useful warning lead time, maximum acceptable alert burden, sample size, subgroup precision, and a predefined stopping rule. Values must be jointly specified before analysis.\n\nGenerated from the Bazi Pilot Studio; this is a draft protocol, not an approved clinical study.\n`;
+  return `# Bazi design-partner validation protocol\n\nStatus: DRAFT — requires institutional review and a governed dataset.\n\nProgram: ${config.program}\nEndpoint: ${config.endpoint}\nPrediction horizon: ${config.horizon} days\nObservation window: ${config.observation} days\nAlert threshold: ${config.threshold}\nMinimum observable sessions: ${config.minimumSessions}\nPrimary endpoint: AUPRC\nSecondary endpoints: AUROC, calibration, warning lead time, false alerts per participant-week, subgroup results, and participant bootstrap confidence intervals.\n\n## Study controls\nParticipant-level splits; frozen model, feature schema, threshold and endpoint before held-out analysis; no tuning on the held-out set. Exclude already-disengaged participants at the landmark. Missing labels remain censored, not negative. Record exclusions and provenance.\n\n## Required data and mapping\nDe-identified participant identifier; timestamped engagement and expected activity; session completion state and observable duration/participation; operational disengagement endpoint and censoring information. No clinical-note ingestion or patient-facing decisions in Phase 1. The proposed day-based observation window requires partner-specific feature preparation and does not modify the frozen six-event synthetic reference artifact.\n\n## Proposed progression\n1. Define one digital-care workflow and one endpoint.\n2. Retrospective validation on governed, de-identified historical data.\n3. Silent prospective validation with no influence on patient care.\n4. Provider-controlled engagement study after appropriate reviews and approvals.\n\n## Safety boundary\nEngagement support only. No diagnosis, prescription, autonomous care-plan changes, or automated patient outreach. The current artifact has synthetic provenance and no clinical validation.\n\n## Go / no-go criteria to agree with the partner\nMinimum useful warning lead time, maximum acceptable alert burden, sample size, subgroup precision, and a predefined stopping rule. Values must be jointly specified before analysis.\n\nGenerated from Bazi Pilot Configuration; this is a draft protocol, not an approved clinical study.\n`;
 }

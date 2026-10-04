@@ -21,14 +21,15 @@ Open `http://localhost:8080/` for the website and `/app/` for the workspace. Ser
 
 ## What works
 
-- Overview, searchable and filtered patient queue, and patient detail routes.
+- Six primary sections: Overview, Patients, Interventions, Outcomes, Validation, and Governance. Study configuration, audit, and integrations are secondary.
+- Overview begins with the live review count and an attention table; patient pages center the 12-week trajectory, event chronology, and provider decision.
 - Live event-by-event simulation and validated single-event or transactional CSV ingestion.
-- Patient-relative trajectories, data-quality gating, and model-input sensitivity exploration.
+- Patient-relative behavioral changes, observed vs. unobserved timelines, measured warning windows, evidence-adjusted review thresholds, and optional baseline sensitivity exploration.
 - Provider approve, modify, dismiss-with-reason, and 48-hour snooze workflows.
 - Protocol shutoff, duplicate suppression, and an intervention observation window.
-- Seven-day generated recovery or no-change follow-up linked to its decision.
+- Approval-anchored seven-day follow-ups, computed duration/engagement/completion changes, and recorded responder, nonresponder, dismissal, snooze, and no-action cases.
 - Calculated synthetic AUROC, AUPRC, calibration, threshold trade-offs, subgroups, feature drift, and participant bootstrap intervals.
-- Pilot Studio with downloadable draft protocol and configuration.
+- Pilot Configuration with downloadable draft protocol and configuration.
 - Model fingerprint, browser-held hash-chained audit log, CSV/JSON exports, and refresh persistence.
 - Integration contracts and explicitly illustrative FHIR resource exports.
 - Service-worker fallback after an online load; relative URLs work on repository subpaths or a custom domain.
@@ -42,6 +43,7 @@ Open `http://localhost:8080/` for the website and `/app/` for the workspace. Ser
 | `packages/engagement/model.js` | Pure longitudinal feature and scoring functions |
 | `pilot/model-artifact.js` | Single frozen model artifact shared with retained legacy tooling |
 | `packages/engagement/cohort.js` | Deterministic event generator and endpoint-based evaluation |
+| `packages/engagement/interpretation.js` | Observed explanations, retrospective warning intervals, and anchored outcome metrics |
 | `packages/engagement/workspace.js` | Patient state, event ingestion, review policy, follow-up, persistence and audit |
 | `sdk/src/validation.js` | Existing SDK evaluation, subgroup, bootstrap and drift implementation |
 | `sdk/` | Retained engagement SDK, security abstractions, tests, and research evidence |
