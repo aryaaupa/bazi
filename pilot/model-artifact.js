@@ -3,7 +3,7 @@
 // This artifact exists to prevent runtime retraining during validation harness testing.
 // It is NOT clinically validated and must be replaced by a governed, externally validated artifact before clinical use.
 
-window.BAZI_FROZEN_MODEL = Object.freeze({
+globalThis.BAZI_FROZEN_MODEL = Object.freeze({
   name: 'bazi-risk-lr-synthetic-reference',
   version: 'pilot-ref-0.1.0',
   artifactClass: 'synthetic-reference-only',

@@ -1,0 +1,12 @@
+{
+  "name": "bazi-clinical-workspace",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test test/*.test.mjs sdk/test/*.test.js"
+  },
+  "engines": { "node": ">=20" }
+}

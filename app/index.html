@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bazi | Clinical workspace</title>
+  <meta name="description" content="Explore engagement trajectories, provider-controlled actions, and transparent validation in Bazi’s synthetic research workspace.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/bazi-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/workspace.css">
+  <script type="module" src="../assets/workspace-ui.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to workspace</a>
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="Workspace navigation">
+      <a class="brand" href="../"><img src="../assets/bazi-mark.svg" alt="" width="36" height="36"><span>bazi<span class="brand-dot">.</span></span></a>
+      <div class="workspace-label"><span class="workspace-symbol">B</span><div><strong>Design partner sandbox</strong><span>Behavioral health · Research alpha</span></div></div>
+      <div class="nav-group-label">WORKSPACE</div>
+      <nav id="navigation"></nav>
+      <div class="sidebar-bottom"><div class="research-card"><span class="live-dot"></span><strong>Synthetic research environment</strong><p>Every patient and event is simulated. No outreach is sent.</p><a href="#governance">Review the safety boundary <span aria-hidden="true">↗</span></a></div><div class="provider"><span class="avatar">SP</span><div><strong>Synthetic provider</strong><small>Sandbox role · no clinical access</small></div></div></div>
+    </aside>
+    <div class="main-shell">
+      <header class="topbar"><button id="menu-toggle" class="icon-button mobile-menu" aria-label="Toggle navigation" aria-expanded="false">☰</button><div id="breadcrumb" class="breadcrumb">Workspace / Overview</div><div class="topbar-actions"><span id="protocol-badge" class="pill green">Provider review required</span><button class="button small subtle" data-action="start-demo">Start guided demo <span aria-hidden="true">↗</span></button></div></header>
+      <div class="synthetic-strip"><span class="live-dot"></span><strong>SYNTHETIC DATA</strong><span>Working product demonstration · scores are research signals, not clinical probabilities.</span><a href="#governance">Model &amp; provenance</a></div>
+      <main id="main" tabindex="-1"><div class="loading"><div class="loader"></div><h1>Preparing your workspace</h1><p>Generating deterministic patient trajectories and loading the Bazi reference model.</p></div></main>
+      <footer class="app-footer"><span>Bazi · Adaptive engagement intelligence</span><span>Research alpha <span aria-hidden="true">·</span> Synthetic cohort v1 <span aria-hidden="true">·</span> Provider-controlled</span></footer>
+    </div>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p>This interactive workspace requires JavaScript. <a href="../">Read about Bazi</a>.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,13 @@
+import { Workspace } from '../packages/engagement/workspace.js';
+import { assess } from '../packages/engagement/model.js';
+const workspace = new Workspace();
+const patient = workspace.patient('BZ-001');
+const events = patient.events.slice(0, 24);
+const result = assess(patient, events);
+document.getElementById('preview-score').innerHTML = `${Math.round(result.score * 100)}<small>/100</small>`;
+document.getElementById('preview-events').textContent = events.length;
+document.getElementById('preview-band').textContent = result.band === 'elevated' ? 'Elevated · provider review' : 'Computed from observed events';
+const points = values => values.map((value, index) => `${32 + index * 17},${154 - value * 1.13}`).join(' ');
+const risk = events.map((_, index) => assess(patient, events.slice(0, index + 1)));
+document.getElementById('preview-chart').innerHTML = `<svg viewBox="0 0 460 180" role="img" aria-label="Leila’s generated engagement and computed risk signal"><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e9f1df"/><stop offset="100%" stop-color="#ffffff"/></linearGradient></defs>${[30,70,110,150].map(y => `<line x1="32" x2="440" y1="${y}" y2="${y}" stroke="#eef1e6"/>`).join('')}<polygon points="32,154 ${points(events.map(event => event.engagement))} 423,154" fill="url(#fill)"/><polyline points="${points(events.map(event => event.engagement))}" fill="none" stroke="#729765" stroke-width="2"/><polyline points="${points(risk.map(result => result.available ? result.score * 100 : 0))}" fill="none" stroke="#c89c60" stroke-width="1.8" stroke-dasharray="4 3"/>${[0,3,6,9,12,15,18,21].map((i,index) => `<text x="${32 + i * 17}" y="175" fill="#a0aa93" font-size="7" font-family="Arial">W${index+1}</text>`).join('')}</svg>`;
+if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(() => {});
