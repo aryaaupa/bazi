@@ -1,41 +1,82 @@
-# Publication and the Bazi domain
+# Publishing Bazi and connecting bazi.com
 
-## Launch independently of a domain purchase
+The connected public site is https://aryaaupa.github.io/bazi/ and its workspace is https://aryaaupa.github.io/bazi/app/. Both are built from this repository. The demo works without a custom domain.
 
-The project builds a static website in `dist/`. Public entry points are `/` and `/app/`; all old app/demo/marketing URLs redirect to the connected experience. Every website URL is relative, so the exact same build works at an apex domain or a GitHub Pages repository prefix.
+## First, confirm the registrar account
 
-The repository's GitHub Actions workflow checks the implementation, runs the SDK and workflow tests, builds the deployment allowlist, and deploys `dist/` to GitHub Pages on a push to `main`.
+The cofounder may already own bazi.com. Find it in their registrar account and confirm that the domain registration or transfer has completed. A public registration record alone cannot tell us whether this team currently controls the domain.
 
-Expected default GitHub Pages address: `https://aryaaupa.github.io/bazi/`. Confirm the actual URL returned by the **Deploy Bazi to GitHub Pages** workflow. If Pages is not already enabled, set repository **Settings → Pages → Source → GitHub Actions**.
+The important distinction: buying a domain gives you control of its name and DNS. It does not connect that name to this website automatically. If the domain is already in your account, the remaining work is DNS and GitHub Pages configuration.
 
-## bazi.com
+If it is absent from the registrar account, ask for the purchase or transfer confirmation before making any domain-specific changes. Do not buy a replacement domain solely because the current routing is broken.
 
-Checked October 4, 2026: `bazi.com` is already registered. The retrieved RDAP record lists registration in 1998, registrar Network Solutions, and expiration August 17, 2027. It cannot be obtained as an ordinary unregistered-domain purchase. An acquisition requires agreement with its owner; availability and price are not established.
+## One public host
 
-Do not make the demo depend on that acquisition. Launch at the working host address. If the exact name is essential, make an owner/broker inquiry separately and use a trusted transfer process. No inquiry, offer, or purchase has been made by this implementation.
+Use the existing GitHub Pages deployment as the public host. This keeps the homepage and application together:
 
-Source: https://www.who.is/rdap/bazi.com
+| Entry | Default host | After the custom domain is connected |
+| --- | --- | --- |
+| Homepage | https://aryaaupa.github.io/bazi/ | https://bazi.com/ |
+| Workspace | https://aryaaupa.github.io/bazi/app/ | https://bazi.com/app/ |
+| Guided demo | https://aryaaupa.github.io/bazi/app/#patient/BZ-001?guided=1 | https://bazi.com/app/#patient/BZ-001?guided=1 |
 
-Alternative names such as `usebazi.com` or `bazihealth.com` may suit the brand, but their current availability and prices have not been verified. Check at a registrar before choosing one.
+All website URLs and service-worker paths are relative. The same build works under the repository prefix or at the domain root. Legacy app and demo links redirect to the connected application.
 
-## Connect an acquired domain to GitHub Pages
+The private ChatGPT Sites publication is a review copy of this build. Use the public GitHub Pages URL for external demos.
 
-1. Own or control the domain and verify it with GitHub as described in the official documentation.
-2. In repository **Settings → Pages → Custom domain**, enter the intended canonical domain. With a custom Actions deployment, set the custom domain there; a source `CNAME` file is not required by GitHub's custom workflow routing.
-3. At the DNS provider, configure the apex records or `www` CNAME using GitHub's current published values. Preserve unrelated email records. Do not guess IP addresses or mix old hosting records with the new apex records.
-4. Wait for DNS verification and certificate issuance, then enable **Enforce HTTPS** in Pages.
-5. Confirm that both the apex and `www` resolve to the chosen canonical host and that `/app/`, a patient deep link, and legacy `/demo.html` work.
+## Configure GitHub before changing DNS
 
-Current documentation: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+1. Sign in to GitHub with an account that can administer aryaaupa/bazi.
+2. Open https://github.com/aryaaupa/bazi/settings/pages.
+3. Confirm **Build and deployment → Source → GitHub Actions**. The workflow publishes dist/ from main.
+4. Verify the owned domain under GitHub account **Settings → Pages** using the exact TXT verification record GitHub provides. Keep that record in DNS.
+5. In the repository's Pages settings, enter **bazi.com** under **Custom domain** and save.
+6. Configure the website DNS records below in the registrar or DNS provider account.
 
-## Alternative: Cloudflare Pages
+With this repository's custom Actions workflow, the custom domain is configured in Pages settings. A CNAME file in source is not required or honored for that custom workflow.
 
-Connect `aryaaupa/bazi` to a Cloudflare Pages project. Use production branch `main`, build command `npm run build`, and output directory `dist`. No application environment variables are needed for the synthetic website. Node 24 is used by the GitHub workflow; use a supported modern Node version in Cloudflare as well.
+## Exact DNS records for this repository
 
-Add the domain under the project's **Custom domains** before editing DNS. Cloudflare requires an apex domain to be a zone in the same account with Cloudflare nameservers. A subdomain can use a CNAME from an external DNS provider. Use the exact target returned by Cloudflare; simply pointing DNS at a Pages address without attaching the hostname can fail.
+Use these records for bazi.com. The host field may be called “Name” or “Record name”; most providers use @ for the domain root.
 
-Documentation: https://developers.cloudflare.com/pages/configuration/custom-domains/
+| Type | Name | Value |
+| --- | --- | --- |
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | aryaaupa.github.io |
 
-## A separate real-data environment
+Use your provider's automatic or default TTL. Replace conflicting website A/AAAA/CNAME/URL-forwarding records for @ and www. Preserve email MX records, SPF/DKIM/DMARC TXT records, and other services. Do not change nameservers unless DNS is deliberately being moved to another provider.
 
-This public build excludes Supabase configuration, SQL, partner data, and runtime secrets. The existing authenticated backend scaffold remains in source control, separate from the public demo. Connecting real participants, authenticated providers, or production integrations needs its own reviewed environment and validation pathway.
+If the provider requires IPv6 records, GitHub's published AAAA values are:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| AAAA | @ | 2606:50c0:8000::153 |
+| AAAA | @ | 2606:50c0:8001::153 |
+| AAAA | @ | 2606:50c0:8002::153 |
+| AAAA | @ | 2606:50c0:8003::153 |
+
+The www CNAME target has no https:// prefix and no /bazi/ suffix. It points to the GitHub account host, not a repository URL.
+
+## Verify and enable HTTPS
+
+1. Wait for GitHub's DNS check to pass. DNS updates can take time to propagate.
+2. Enable **Enforce HTTPS** when the certificate is available. GitHub documents that this option can take up to 24 hours to become available.
+3. Test https://bazi.com/ and https://www.bazi.com/. With bazi.com selected as the custom domain and both DNS variants configured, www redirects to the apex.
+4. Test /app/, /app/#patient/BZ-001?guided=1, and /demo.html.
+5. Keep the working GitHub URL handy until the domain and HTTPS are verified.
+
+Public DNS queries on October 4, 2026 returned SERVFAIL for bazi.com A, AAAA, NS, and www CNAME through Google's resolver. That result does not establish domain ownership or the cause of the DNS failure. The registrar account and its nameserver configuration need to be checked before diagnosing it.
+
+No registrar-account or DNS change was made by this implementation. No domain purchase, offer, or transfer was made.
+
+Official sources:
+- https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages
+- https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+- https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+
+## Separate real-data environment
+
+The public build excludes Supabase configuration, SQL, partner data, and runtime secrets. Existing backend scaffolding remains in source control. Connecting real participants, authenticated providers, or production integrations requires a separately reviewed environment and validation pathway.

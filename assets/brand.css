@@ -1,1 +1,2 @@
-:root{--sans:Inter,"Aptos","Segoe UI",Arial,sans-serif;--serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+@font-face{font-family:"Hanken Grotesk";src:url('./fonts/HankenGrotesk.woff') format('woff');font-style:normal;font-weight:100 900;font-display:swap}
+:root{--sans:"Hanken Grotesk","Aptos","Segoe UI",Arial,sans-serif;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--brand-ink:#0f212f;--brand-green:#51df86;--brand-paper:#f8faf7}

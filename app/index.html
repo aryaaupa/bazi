@@ -5,7 +5,8 @@
   <title>Bazi | Clinical workspace</title>
   <meta name="description" content="Explore engagement trajectories, provider-controlled actions, and transparent validation in Bazi’s synthetic research workspace.">
   <meta name="robots" content="noindex">
-  <link rel="icon" href="../assets/bazi-mark.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/bazi-logo.png" type="image/png">
+  <link rel="preload" href="../assets/fonts/HankenGrotesk.woff" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="../assets/workspace.css">
   <script type="module" src="../assets/workspace-ui.js"></script>
 </head>
@@ -13,10 +14,10 @@
   <a class="skip-link" href="#main">Skip to workspace</a>
   <div class="app-layout">
     <aside class="sidebar" aria-label="Workspace navigation">
-      <a class="brand" href="../"><img src="../assets/bazi-mark.svg" alt="" width="36" height="36"><span>bazi<span class="brand-dot">.</span></span></a>
-      <div class="workspace-label"><span class="workspace-symbol">B</span><div><strong>Design partner sandbox</strong><span>Behavioral health · Research alpha</span></div></div>
+      <a class="brand" href="../"><img src="../assets/bazi-logo.png" alt="" width="36" height="36"><span>bazi</span></a>
+      <div class="workspace-label"><span class="workspace-symbol" aria-hidden="true">↗</span><div><strong>Engagement workspace</strong><span>Behavioral health · Research alpha</span></div></div>
       <div class="nav-group-label">WORKSPACE</div>
-      <nav id="navigation"></nav>
+      <nav id="navigation" aria-label="Workspace sections"></nav>
       <div class="sidebar-bottom"><div class="research-card"><span class="live-dot"></span><strong>Synthetic research environment</strong><p>Every patient and event is simulated. No outreach is sent.</p><a href="#governance">Review the safety boundary <span aria-hidden="true">↗</span></a></div><div class="provider"><span class="avatar">SP</span><div><strong>Synthetic provider</strong><small>Sandbox role · no clinical access</small></div></div></div>
     </aside>
     <div class="main-shell">

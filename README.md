@@ -74,4 +74,4 @@ Before any external evaluation, freeze the endpoint, prediction horizon, observa
 - [Security and governance scaffold](docs/SECURITY_AND_GOVERNANCE.md)
 - [SDK documentation](sdk/README.md)
 
-The GitHub Pages workflow publishes `dist/` from `main`. Domain acquisition and DNS ownership are separate from publishing; `bazi.com` was already registered when checked on October 4, 2026.
+The GitHub Pages workflow publishes `dist/` from `main`. If the cofounder already owns `bazi.com`, connect it using the exact DNS records and GitHub Pages steps in the publishing guide. Domain-account access is still needed to configure and verify it.
