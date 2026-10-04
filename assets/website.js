@@ -1,71 +1,108 @@
 import { Workspace } from '../packages/engagement/workspace.js';
-import { assess, MODEL } from '../packages/engagement/model.js';
+import { MODEL } from '../packages/engagement/model.js';
+import { explainPatient } from '../packages/engagement/interpretation.js';
 
-const workspace = new Workspace();
-const patient = workspace.patient('BZ-001');
-const events = patient.events.slice(0, 24);
-const result = assess(patient, events);
-const last = events.at(-1);
-const percentage = value => Math.round(value * 100) + '%';
-const setText = (id, text) => { document.getElementById(id).textContent = text; };
+const workspace=new Workspace();
+const patient=workspace.patient('BZ-001');
+const events=patient.events.slice(0,24);
+const explanation=explainPatient(patient,events,MODEL.defaultThreshold);
+const result=explanation.result;
+const setText=(id,value)=>{const element=document.getElementById(id);if(element)element.textContent=value;};
+const signed=value=>(value>0?'+':'')+Math.round(value);
+const warning=explanation.warning?.leadDays;
 
-setText('preview-score', result.score.toFixed(3));
-setText('preview-events', events.length);
-setText('preview-engagement', last.engagement);
-setText('preview-duration', last.duration_minutes.toFixed(1));
-setText('preview-band', result.band === 'elevated' ? 'Needs provider review' : result.band === 'watch' ? 'Watch the pattern' : 'Continue monitoring');
-setText('preview-duration-ratio', percentage(result.features.durationRatio));
-setText('preview-missed', percentage(result.features.missedRate));
+setText('hero-warning',warning===undefined?'—':warning.toFixed(0));
+setText('hero-review-state',result.band==='elevated'?'Review required':'Monitoring');
+setText('preview-warning',warning===undefined?'—':warning.toFixed(0));
+setText('preview-events',events.length);
+setText('pattern-event-count',events.length);
+setText('preview-score',result.score.toFixed(3));
+setText('preview-band',result.band==='elevated'?'Elevated · review required':result.band==='watch'?'Watch the pattern':'Continue monitoring');
+setText('story-explanation',explanation.narrative);
+setText('cohort-count',workspace.cohort.length.toLocaleString('en-US'));
+setText('event-count',workspace.cohort.reduce((sum,p)=>sum+p.events.length,0).toLocaleString('en-US'));
 
-function trajectory(dark = false) {
-  const start = events[0].day, end = last.day;
-  const x = day => 30 + (day - start) / (end - start) * 470;
-  const y = value => 181 - value * 1.48;
-  const line = rows => rows.map(([day, value]) => x(day).toFixed(2) + ',' + y(value).toFixed(2)).join(' ');
-  const observed = events.map(event => [event.day, event.engagement]);
-  const signals = events.map((event, index) => ({ day: event.day, result: assess(patient, events.slice(0, index + 1)) })).filter(item => item.result.available);
-  const grid = dark ? '#29443b' : '#e4eae4', label = dark ? '#97b6a3' : '#849588';
-  const engagement = dark ? '#51df86' : '#228b51', risk = dark ? '#e4b26b' : '#c48a3b';
-  let svg = '<svg viewBox="0 0 520 221" role="img" aria-label="Observed engagement and computed model signal for Maya’s first 24 synthetic sessions">';
-  svg += [0, 25, 50, 75, 100].map(value => '<line x1="30" x2="500" y1="' + y(value) + '" y2="' + y(value) + '" stroke="' + grid + '"/><text x="3" y="' + (y(value) + 3) + '" fill="' + label + '" font-size="8" font-family="Arial">' + value + '</text>').join('');
-  svg += '<polygon points="30,181 ' + line(observed) + ' 500,181" fill="' + (dark ? '#183e2d' : '#e8f5eb') + '"/>';
-  svg += '<polyline points="' + line(observed) + '" fill="none" stroke="' + engagement + '" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>';
-  svg += '<line x1="30" x2="500" y1="' + y(MODEL.defaultThreshold * 100) + '" y2="' + y(MODEL.defaultThreshold * 100) + '" stroke="' + risk + '" stroke-opacity=".4" stroke-dasharray="3 5"/>';
-  svg += '<polyline points="' + line(signals.map(item => [item.day, item.result.score * 100])) + '" fill="none" stroke="' + risk + '" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>';
-  svg += '<circle cx="500" cy="' + y(last.engagement) + '" r="4" fill="' + engagement + '"/>';
-  svg += '<circle cx="500" cy="' + y(result.score * 100) + '" r="4" fill="' + risk + '"/>';
-  svg += [0, 1, 2, 3, 4].map(index => { const day = start + (end - start) * index / 4; return '<text x="' + (x(day) - (index === 4 ? 21 : 4)) + '" y="204" fill="' + label + '" font-size="8" font-family="Arial">Day ' + (Math.round(day) + 1) + '</text>'; }).join('');
-  return svg + '</svg>';
+function sparkline({pattern=false}={}) {
+  const width=pattern?390:230,height=pattern?190:62,left=pattern?0:3,right=pattern?390:227;
+  const x=day=>left+day/events.at(-1).day*(right-left);
+  const y=value=>(height-8)-(value/100)*(height-18);
+  const points=items=>items.map(([day,value])=>x(day).toFixed(1)+','+y(value).toFixed(1)).join(' ');
+  const observed=events.map(e=>[e.day,e.engagement]);
+  const signal=explanation.history.filter(v=>v.result.available).map(v=>[v.day,v.result.score*100]);
+  return '<svg viewBox="0 0 '+width+' '+height+'" role="img" aria-label="Observed synthetic engagement and reference model signal across Maya’s first 24 events">'+
+    (pattern?[25,50,75].map(value=>'<line x1="0" x2="'+width+'" y1="'+y(value)+'" y2="'+y(value)+'" stroke="#f7f0db" stroke-opacity=".12"/>').join(''):'')+
+    '<polyline points="'+points(observed)+'" fill="none" stroke="'+(pattern?'#edead1':'#788f63')+'" stroke-width="'+(pattern?'2.8':'1.8')+'" stroke-linejoin="round"/>'+
+    '<polyline points="'+points(signal)+'" fill="none" stroke="'+(pattern?'#d5c396':'#b8a065')+'" stroke-width="'+(pattern?'2':'1.3')+'" stroke-dasharray="4 5" stroke-linejoin="round"/>'+
+    (pattern?events.filter((_,i)=>i%3===0).map(e=>'<circle cx="'+x(e.day)+'" cy="'+y(e.engagement)+'" r="3" fill="#65735b" stroke="#edead1" stroke-width="1.4"/>').join(''):'')+'</svg>';
 }
-document.getElementById('preview-chart').innerHTML = trajectory();
-document.getElementById('story-chart').innerHTML = trajectory(true);
-document.getElementById('story-evidence').innerHTML = [
-  ['Session duration vs. baseline', result.features.durationRatio],
-  ['Recent missed-session rate', result.features.missedRate],
-  ['Reported high fatigue', result.features.fatigueHighRate]
-].map(([label, value]) => '<div class="evidence-row"><span>' + label + '</span><strong>' + percentage(value) + '</strong><div class="evidence-bar"><span style="width:' + Math.min(100, Math.round(value * 100)) + '%"></span></div></div>').join('');
-document.getElementById('cohort-pattern').innerHTML = '<span></span>'.repeat(workspace.cohort.length);
+document.getElementById('hero-sparkline').innerHTML=sparkline();
+document.getElementById('pattern-chart').innerHTML=sparkline({pattern:true});
 
-const tabs = [...document.querySelectorAll('[data-story]')];
-function selectStory(index, focus = false) {
-  tabs.forEach((tab, i) => {
-    const selected = i === index;
-    tab.classList.toggle('active', selected);
-    tab.setAttribute('aria-selected', String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-    document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+function trajectory() {
+  const x=day=>36+day/84*540,y=value=>192-value*1.5;
+  const line=items=>items.map(([day,value])=>x(day).toFixed(1)+','+y(value).toFixed(1)).join(' ');
+  const observed=events.map(e=>[e.day,e.engagement]);
+  const future=patient.events.slice(events.length-1).map(e=>[e.day,e.engagement]);
+  const scores=explanation.history.filter(v=>v.result.available).map(v=>[v.day,v.result.score*100]);
+  const w=explanation.warning;
+  let svg='<svg viewBox="0 0 600 227" role="img" aria-label="Maya’s 12-week synthetic journey: observed engagement, computed signal, and the retrospective warning window. Dashed gray events are unobserved and excluded from current scoring.">';
+  svg+=[0,50,100].map(value=>'<line x1="36" x2="578" y1="'+y(value)+'" y2="'+y(value)+'" stroke="#e9edde"/><text x="7" y="'+(y(value)+3)+'" fill="#879779" font-size="8" font-family="Arial">'+value+'</text>').join('');
+  if(w)svg+='<rect x="'+x(w.detectedDay)+'" y="35" width="'+(x(w.endpointDay)-x(w.detectedDay))+'" height="157" fill="#f0e3c0"/><path d="M'+x(w.detectedDay)+',26 v-7 H'+x(w.endpointDay)+' v7" fill="none" stroke="#b19b65"/><text x="'+(x(w.detectedDay)-27)+'" y="11" fill="#8d7b49" font-size="8" font-family="Arial">'+w.leadDays.toFixed(0)+'-day warning window</text>';
+  svg+='<line x1="36" x2="578" y1="'+y(MODEL.defaultThreshold*100)+'" y2="'+y(MODEL.defaultThreshold*100)+'" stroke="#bfa970" stroke-opacity=".42" stroke-dasharray="3 5"/>';
+  svg+='<polyline points="'+line(future)+'" fill="none" stroke="#b9c0b0" stroke-width="1.7" stroke-dasharray="3 5"/>';
+  svg+='<polyline points="'+line(observed)+'" fill="none" stroke="#577a57" stroke-width="2.5" stroke-linejoin="round"/>';
+  svg+='<polyline points="'+line(scores)+'" fill="none" stroke="#b99c5e" stroke-width="1.7" stroke-dasharray="4 4" stroke-linejoin="round"/>';
+  svg+=events.filter((_,i)=>i%3===0).map(e=>'<circle cx="'+x(e.day)+'" cy="'+y(e.engagement)+'" r="2.5" fill="#fffdf7" stroke="#577a57" stroke-width="1.3"/>').join('');
+  if(explanation.alert){const a=explanation.alert;svg+='<path d="M'+x(a.day)+','+(y(a.result.score*100)-5)+' l5,5 -5,5 -5,-5 z" fill="#b99c5e"><title>First observed review threshold crossing</title></path>';}
+  svg+=[[0,'Week 1'],[21,'Week 4'],[49,'Week 8'],[77,'Week 12']].map(([day,label])=>'<text x="'+(x(day)-9)+'" y="216" fill="#879779" font-size="8" font-family="Arial">'+label+'</text>').join('');
+  return svg+'</svg>';
+}
+document.getElementById('preview-chart').innerHTML=trajectory();
+document.getElementById('story-evidence').innerHTML=[
+  ['Session duration vs. baseline',signed(explanation.durationChange*100)+'%'],
+  ['Recent missed sessions',String(explanation.missed)],
+  ['Late sessions in the recent window',String(explanation.late)],
+  ['Engagement vs. observed baseline',signed(explanation.engagementChange)+' points']
+].map(([label,value])=>'<div class="evidence-row"><span>'+label+'</span><strong>'+value+'</strong></div>').join('');
+
+const tabs=[...document.querySelectorAll('[data-story]')];
+function selectStory(index,focus=false) {
+  tabs.forEach((tab,i)=>{
+    const selected=i===index;
+    tab.classList.toggle('active',selected);
+    tab.setAttribute('aria-selected',String(selected));
+    tab.tabIndex=selected?0:-1;
+    tab.querySelector('.tab-plus').textContent=selected?'−':'+';
+    document.getElementById(tab.getAttribute('aria-controls')).hidden=!selected;
   });
-  if (focus) tabs[index].focus();
+  if(focus)tabs[index].focus();
 }
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => selectStory(index));
-  tab.addEventListener('keydown', event => {
+tabs.forEach((tab,index)=>{
+  tab.addEventListener('click',()=>selectStory(index));
+  tab.addEventListener('keydown',event=>{
     let next;
-    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % tabs.length;
-    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = tabs.length - 1;
-    if (next !== undefined) { event.preventDefault(); selectStory(next, true); }
+    if(event.key==='ArrowDown'||event.key==='ArrowRight')next=(index+1)%tabs.length;
+    else if(event.key==='ArrowUp'||event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;
+    else if(event.key==='Home')next=0;
+    else if(event.key==='End')next=tabs.length-1;
+    if(next!==undefined){event.preventDefault();selectStory(next,true);}
   });
 });
-if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(() => {});
+
+const menuButton=document.getElementById('site-menu-toggle');
+const menu=document.getElementById('main-navigation');
+function closeMenu({focus=false}={}) {
+  menu.classList.remove('open');
+  menuButton.setAttribute('aria-expanded','false');
+  menuButton.setAttribute('aria-label','Open navigation');
+  if(focus)menuButton.focus();
+}
+menuButton.addEventListener('click',()=>{
+  const open=menu.classList.toggle('open');
+  menuButton.setAttribute('aria-expanded',String(open));
+  menuButton.setAttribute('aria-label',open?'Close navigation':'Open navigation');
+});
+menu.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&menu.classList.contains('open'))closeMenu({focus:true});});
+document.addEventListener('click',event=>{if(!event.target.closest('.site-header'))closeMenu();});
+if('serviceWorker' in navigator)navigator.serviceWorker.register(new URL('../sw.js',import.meta.url)).catch(()=>{});
