@@ -1,133 +1,77 @@
-# Bazi
+# Bazi — Adaptive Engagement Intelligence
 
-**Adaptive engagement intelligence for software-based care.**
+One connected website and working clinical research workspace for digital-care engagement. **Research alpha · synthetic demonstration · provider-controlled.**
 
-Bazi is an early-stage research and product platform designed to detect deterioration in patient engagement before full disengagement or dropout, then route a bounded, provider-approved response through an auditable decision layer.
+The product loop is:
 
-> **Current status:** research/product alpha. The current demonstration model is based on synthetic trajectories and is **not clinically validated**. Use synthetic or properly de-identified data only. Do not represent this repository as HIPAA compliant, a medical device, or ready for autonomous treatment decisions.
+`observed session events → longitudinal features → frozen risk model → action policy → provider review → recorded follow-up`
 
-## The problem
+The public demo works without backend credentials, external fonts, or a login flow. It generates a reproducible cohort of **500 synthetic participants, 18,000 events, nine behavioral archetypes, and 12-week trajectories**. Model scores and dashboard metrics are computed from those events.
 
-Digital care programs often recognize disengagement only after missed sessions, declining adherence, or dropout. Bazi treats disengagement as a longitudinal trajectory rather than a single endpoint.
+## Run and verify
 
-The research question is:
+```sh
+npm run check
+npm test
+npm run build
+python3 -m http.server 8080 --directory dist
+```
 
-> Can observable behavioral signals predict a pre-specified disengagement event with enough lead time and acceptable false-alert burden to support a clinically appropriate intervention?
+Open `http://localhost:8080/` for the website and `/app/` for the workspace. Serve over HTTP rather than opening HTML as a file. The build needs Node 20 or later, with no npm dependencies.
 
-## Product loop
+## What works
 
-`patient/app events → feature computation → disengagement-risk model → policy layer → provider-approved action → auditable outcome record`
+- Overview, searchable and filtered patient queue, and patient detail routes.
+- Live event-by-event simulation and validated single-event or transactional CSV ingestion.
+- Patient-relative trajectories, data-quality gating, and model-input sensitivity exploration.
+- Provider approve, modify, dismiss-with-reason, and 48-hour snooze workflows.
+- Protocol shutoff, duplicate suppression, and an intervention observation window.
+- Seven-day generated recovery or no-change follow-up linked to its decision.
+- Calculated synthetic AUROC, AUPRC, calibration, threshold trade-offs, subgroups, feature drift, and participant bootstrap intervals.
+- Pilot Studio with downloadable draft protocol and configuration.
+- Model fingerprint, browser-held hash-chained audit log, CSV/JSON exports, and refresh persistence.
+- Integration contracts and explicitly illustrative FHIR resource exports.
+- Service-worker fallback after an online load; relative URLs work on repository subpaths or a custom domain.
 
-The current alpha supports:
+## Canonical application architecture
 
-- multi-patient longitudinal event streams
-- patient-relative feature computation
-- risk scoring from current patient state
-- organization-specific intervention policies
-- provider approval / dismissal gates
-- decision and audit persistence
-- Supabase Auth + Postgres + row-level security integration
-- a deterministic, state-grounded Copilot interface
-- local sandbox mode for demos using synthetic data
+| Path | Role |
+| --- | --- |
+| `index.html`, `assets/website.*` | Public website and computed product preview |
+| `app/index.html`, `assets/workspace-ui.js`, `assets/workspace.css` | Unified clinical workspace |
+| `packages/engagement/model.js` | Pure longitudinal feature and scoring functions |
+| `pilot/model-artifact.js` | Single frozen model artifact shared with retained legacy tooling |
+| `packages/engagement/cohort.js` | Deterministic event generator and endpoint-based evaluation |
+| `packages/engagement/workspace.js` | Patient state, event ingestion, review policy, follow-up, persistence and audit |
+| `sdk/src/validation.js` | Existing SDK evaluation, subgroup, bootstrap and drift implementation |
+| `sdk/` | Retained engagement SDK, security abstractions, tests, and research evidence |
+| `scripts/build.mjs` | Allowlisted deployment packaging; excludes backend configuration and SQL |
+| `.github/workflows/pages.yml` | Checks, tests, build and GitHub Pages deployment |
 
-## Safety boundary
+The former standalone app, demo, and marketing entry points now redirect to this experience. Older `bazi-engine.js`, `bazi-platform.js`, and styles remain historical compatibility source; the published website uses the canonical modules above.
 
-Bazi is intentionally constrained to engagement decision support.
+## Evidence and safety boundary
 
-It does **not**:
+The frozen model has **synthetic provenance and no clinical validation**. Scores are not calibrated clinical dropout probabilities. Generated outcomes do not demonstrate intervention effectiveness, fairness, or patient benefit.
 
-- diagnose a patient
-- prescribe treatment
-- autonomously change a treatment plan
-- replace a clinician
-- claim that the current risk score is a clinically validated probability
+The workspace has no real clinician authentication or external patient outreach. The synthetic provider role, local browser persistence, and hash chain are demonstration controls, not production access control or an immutable audit service. FHIR exports are mapping examples; no EHR connection or public webhook API is deployed.
 
-Moderate/high-risk actions should be limited to a pre-approved action library and routed through human review when required.
+No diagnosis, prescription, autonomous treatment change, HIPAA-compliance claim, or production clinical readiness is implied. Use synthetic data only in the public workspace.
 
-## Pilot v1 strategy
+The existing authenticated Supabase schema and SDK consent, encryption, authorization, retention and signed-package scaffolds are retained for separate governed development. The public demo does not initialize that backend or expose its configuration.
 
-The next milestone is not a patient-facing deployment. It is a **retrospective, de-identified validation pilot**.
+## Validation pathway
 
-A pilot partner should be able to provide a governed historical cohort containing observable engagement events and a pre-defined outcome label. Bazi should then be evaluated on held-out participants using a frozen model artifact and a locked protocol.
+Synthetic demonstration → governed retrospective validation → silent prospective validation → controlled provider-reviewed engagement study → independently reviewed production deployment.
 
-Primary evaluation targets:
+Before any external evaluation, freeze the endpoint, prediction horizon, observation window, feature preparation, threshold, model, participant splits, allowed actions and stopping rules. No tuning on the held-out cohort. Real datasets, secrets, or proprietary artifacts do not belong in this public repository.
 
-- AUROC
-- AUPRC
-- calibration
-- sensitivity / specificity at a locked threshold
-- prediction lead time
-- false alerts / interventions per patient-week
-- subgroup performance and confidence intervals
+## Demo and publication
 
-See [`docs/PILOT_PROTOCOL.md`](docs/PILOT_PROTOCOL.md) and [`pilot/README.md`](pilot/README.md).
+- [Six-minute demo runbook](docs/DEMO_RUNBOOK.md)
+- [Publishing and custom-domain setup](docs/PUBLISHING_AND_DOMAIN.md)
+- [Retrospective pilot protocol](docs/PILOT_PROTOCOL.md)
+- [Security and governance scaffold](docs/SECURITY_AND_GOVERNANCE.md)
+- [SDK documentation](sdk/README.md)
 
-## Pilot endpoint must be frozen before analysis
-
-Before accepting partner data, define:
-
-1. **Disengagement event** — e.g. no activity for N days, failure to complete Y of Z expected sessions, or a program-specific operational endpoint.
-2. **Prediction horizon** — e.g. 3, 7, or 14 days before the event.
-3. **Observation window** — which prior events are available to the model.
-4. **Alert threshold** — frozen before evaluation on the held-out cohort.
-5. **Permitted actions** — provider-reviewed, versioned, and bounded.
-
-## Data principles
-
-For the first external validation:
-
-- prefer de-identified or aggregated retrospective data
-- avoid PHI in this public repository
-- do not place partner datasets, secrets, production credentials, or proprietary model artifacts in GitHub
-- separate identifiers from model features whenever possible
-- record data provenance, schema version, cohort definition, exclusions, and preprocessing
-
-## Repository architecture
-
-- `app.html` — provider-facing alpha workspace
-- `bazi-platform.js` — current product state, storage, risk and policy flow
-- `supabase-schema.sql` — organization / patient / event / decision data model and RLS
-- `SUPABASE_SETUP.md` — authenticated development backend setup
-- `pilot/` — retrospective validation harness and frozen reference model
-- `docs/PILOT_PROTOCOL.md` — clinical/research validation protocol template
-- `docs/SECURITY_AND_GOVERNANCE.md` — pilot security and governance checklist
-
-## Local demo
-
-Open `app.html` from a static server or GitHub Pages. Local mode uses synthetic patients and browser storage.
-
-For authenticated development mode, configure a dedicated Supabase project using [`SUPABASE_SETUP.md`](SUPABASE_SETUP.md). Never expose a Supabase `service_role` key client-side.
-
-## What is real vs. what is not
-
-### Real in the current alpha
-
-- working multi-patient product flow
-- event ingestion
-- computed longitudinal features
-- policy-gated recommendations
-- provider approval state
-- persisted decision records
-- Supabase integration path
-
-### Not yet established
-
-- clinical validity
-- generalization to a real patient population
-- calibrated clinical probability estimates
-- prospective utility
-- reduction in disengagement
-- safety of intervention policies in a real care workflow
-- HIPAA compliance or production security certification
-
-## Recommended deployment progression
-
-1. **Demo / customer discovery** — synthetic data only.
-2. **Retrospective validation** — de-identified historical cohort; no clinical action.
-3. **Silent prospective validation** — predictions generated without affecting care.
-4. **Controlled intervention study** — only after governance, clinical review, and an approved protocol.
-5. **Production deployment** — only after security/privacy, regulatory, clinical, and contractual requirements are independently addressed.
-
-## Public-repository rule
-
-This repository is suitable for a sanitized demo and research scaffold. Any partner-specific integration, proprietary dataset, production infrastructure, PHI, secrets, or non-public model artifact should live in an appropriately controlled private environment.
+The GitHub Pages workflow publishes `dist/` from `main`. Domain acquisition and DNS ownership are separate from publishing; `bazi.com` was already registered when checked on October 4, 2026.
