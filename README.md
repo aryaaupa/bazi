@@ -70,6 +70,7 @@ Before any external evaluation, freeze the endpoint, prediction horizon, observa
 
 ## Demo and publication
 
+- [Visual direction, image assets, and font provenance](docs/VISUAL_DIRECTION.md)
 - [Six-minute demo runbook](docs/DEMO_RUNBOOK.md)
 - [Publishing and custom-domain setup](docs/PUBLISHING_AND_DOMAIN.md)
 - [Retrospective pilot protocol](docs/PILOT_PROTOCOL.md)
