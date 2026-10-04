@@ -51,7 +51,7 @@ test('snooze survives new events and reopens after its original review time',asy
 test('approval creates a follow-up gate and recovery uses recorded generated observations',async()=>{
   const w=await elevated(),a=await w.evaluate('BZ-001');await w.review(a.id,'approve');assert.equal(a.status,'approved');
   const b=await w.advance('BZ-001');assert.equal(b.status,'recovery_window');
-  const before=w.events('BZ-001').length;await w.followUp(a.id);assert.equal(w.events('BZ-001').length,before+3);assert.equal(a.status,'followup_complete');assert.equal(a.outcome.causalConclusion,false);
+  const before=w.events('BZ-001').length;await w.followUp(a.id);assert.equal(w.events('BZ-001').length,before+2);assert.equal(Date.parse(a.outcome.windowEnd)-Date.parse(a.observationStart),7*DAY);assert.ok(w.events('BZ-001').every(event=>Date.parse(event.occurred_at)<=Date.parse(a.outcome.windowEnd)));assert.equal(a.status,'followup_complete');assert.equal(a.outcome.causalConclusion,false);
   assert.ok(a.outcome.afterEngagement>a.outcome.beforeEngagement);await assert.rejects(w.followUp(a.id),/Approve/);
 });
 test('follow-up cannot occur before a provider approval',async()=>{

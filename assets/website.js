@@ -9,7 +9,7 @@ const last = events.at(-1);
 const percentage = value => Math.round(value * 100) + '%';
 const setText = (id, text) => { document.getElementById(id).textContent = text; };
 
-document.getElementById('preview-score').innerHTML = Math.round(result.score * 100) + '<small>/100</small>';
+setText('preview-score', result.score.toFixed(3));
 setText('preview-events', events.length);
 setText('preview-engagement', last.engagement);
 setText('preview-duration', last.duration_minutes.toFixed(1));
@@ -26,7 +26,7 @@ function trajectory(dark = false) {
   const signals = events.map((event, index) => ({ day: event.day, result: assess(patient, events.slice(0, index + 1)) })).filter(item => item.result.available);
   const grid = dark ? '#29443b' : '#e4eae4', label = dark ? '#97b6a3' : '#849588';
   const engagement = dark ? '#51df86' : '#228b51', risk = dark ? '#e4b26b' : '#c48a3b';
-  let svg = '<svg viewBox="0 0 520 221" role="img" aria-label="Observed engagement and computed model signal for Leila’s first 24 synthetic sessions">';
+  let svg = '<svg viewBox="0 0 520 221" role="img" aria-label="Observed engagement and computed model signal for Maya’s first 24 synthetic sessions">';
   svg += [0, 25, 50, 75, 100].map(value => '<line x1="30" x2="500" y1="' + y(value) + '" y2="' + y(value) + '" stroke="' + grid + '"/><text x="3" y="' + (y(value) + 3) + '" fill="' + label + '" font-size="8" font-family="Arial">' + value + '</text>').join('');
   svg += '<polygon points="30,181 ' + line(observed) + ' 500,181" fill="' + (dark ? '#183e2d' : '#e8f5eb') + '"/>';
   svg += '<polyline points="' + line(observed) + '" fill="none" stroke="' + engagement + '" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>';

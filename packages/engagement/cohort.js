@@ -24,7 +24,7 @@ export function generateCohort(count = 500, seed = SEED) {
     const scenario = index === 0 ? 'gradual' : r < 0.36 ? 'stable' : r < 0.54 ? 'gradual' : r < 0.62 ? 'sudden' : r < 0.72 ? 'intermittent' : r < 0.81 ? 'recovering' : r < 0.88 ? 'fatigue' : r < 0.93 ? 'false_positive' : r < 0.97 ? 'schedule' : 'low_data';
     const patient = {
       id: `BZ-${String(index + 1).padStart(3, '0')}`,
-      name: index === 0 ? 'Leila Patel' : `${FIRST[index % FIRST.length]} ${LAST[Math.floor(index / FIRST.length) % LAST.length]}`,
+      name: index === 0 ? 'Maya Chen' : `${FIRST[index % FIRST.length]} ${LAST[Math.floor(index / FIRST.length) % LAST.length]}`,
       program: 'Digital behavioral health', ageGroup: ['18–34', '35–54', '55+'][Math.floor(random() * 3)],
       baseline_duration: 22 + Math.round(random() * 12), baseline_engagement: 80 + Math.round(random() * 12),
       scenario, events: []
@@ -84,7 +84,11 @@ export function validationSummary(patients, rows, threshold) {
   for (const row of rows.filter(row => row.label === 1)) {
     const patient = patients.find(patient => patient.id === row.participantId);
     const observed = patient.events.filter(event => event.day <= LANDMARK_DAY);
-    const first = observed.find((event, index) => event.day >= LANDMARK_DAY - 14 && assess(patient, observed.slice(0, index + 1)).score >= threshold);
+    const first = observed.find((event, index) => {
+      if (event.day < LANDMARK_DAY - 14) return false;
+      const signal = assess(patient, observed.slice(0, index + 1), threshold);
+      return signal.available && signal.band === 'elevated';
+    });
     if (first && row.endpointDay > first.day) leads.push(row.endpointDay - first.day);
   }
   leads.sort((a, b) => a - b);
@@ -94,7 +98,8 @@ export function validationSummary(patients, rows, threshold) {
   return {
     ...metrics, excluded: patients.length - rows.length,
     falseAlertsPerParticipantWeek: metrics.confusion.fp / rows.length,
-    medianLeadDays: leads.length ? leads[Math.floor(leads.length / 2)] : null,
+    medianLeadDays: leads.length ? leads[Math.floor(leads.length / 2)] : null, leadDays: leads,
+    flagsPerParticipantWeek: (metrics.confusion.tp + metrics.confusion.fp) / rows.length,
     alertedPositiveCount: leads.length,
     subgroups: subgroupReport(rows, 'ageGroup', { threshold }), drift
   };
