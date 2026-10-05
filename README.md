@@ -52,9 +52,13 @@ Open `http://localhost:8080/` for the website and `/app/` for the workspace. Ser
 
 The public product has one canonical implementation: `assets/website.css`, `assets/website.js`, `assets/workspace.css`, `assets/workspace-ui.js`, `packages/engagement/`, `sdk/src/validation.js`, and `docs/`.
 
-## Public demo / private core boundary
+## Reference boundary status
 
-This repository is the public demo surface. It should remain polished, deterministic, synthetic, and safe to inspect. Proprietary production work belongs behind a narrow interface in a separate private core, including production risk/model implementations, feature engineering, policy-learning mechanisms, benchmark-generation internals used for final research claims, partner-specific configurations, signed production artifacts, production API/backend, tenant/auth/security infrastructure, audit infrastructure, partner data adapters, deployment tooling, and partner integrations.
+**Phase 1: boundary definition. The public/private repository split is not complete.**
+
+This repository currently implements Bazi’s public synthetic reference environment. Its feature computation, frozen synthetic reference weights, deterministic cohort generator, benchmark mechanics, and provider workflow are intentionally inspectable reference implementations. They must not be described as the canonical production Bazi engine.
+
+Future production-worthy feature engineering, trained or fitted model artifacts, policy learning, benchmark-hardening internals, partner-specific endpoint definitions, training pipelines, production evaluation, partner adapters, security infrastructure, and deployment configuration should be developed in a separate private core behind a versioned contract. Until that private repository exists and becomes canonical, documentation must not claim that production systems are already maintained separately.
 
 Moving implementation private does not erase prior public disclosure. Repository history is preserved intentionally; do not rewrite history to imply earlier material was never public. Patent-sensitive scope should be reviewed with counsel before further disclosure.
 
