@@ -50,7 +50,7 @@ Open `http://localhost:8080/` for the website and `/app/` for the workspace. Ser
 | `scripts/build.mjs` | Allowlisted deployment packaging; excludes backend configuration and SQL |
 | `.github/workflows/pages.yml` | Checks, tests, build and GitHub Pages deployment |
 
-The former standalone app, demo, and marketing entry points now redirect to this experience. Older `bazi-engine.js`, `bazi-platform.js`, and styles remain historical compatibility source; the published website uses the canonical modules above.
+The public product has one canonical implementation: `assets/website.css`, `assets/website.js`, `assets/workspace.css`, `assets/workspace-ui.js`, `packages/`, `sdk/`, and `docs/`.
 
 ## Evidence and safety boundary
 

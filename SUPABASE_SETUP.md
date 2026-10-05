@@ -56,7 +56,7 @@ After deployment, `app.html` shows a provider sign-in gate. Auth sessions persis
 
 ## 5. Model behavior
 
-The provider app now loads `pilot/model-artifact.js` before `bazi-platform.js`. That means the working UI uses the **frozen synthetic reference artifact** rather than retraining a model on every page load.
+The provider app loads `pilot/model-artifact.js` through the canonical workspace modules. That means the working UI uses the **frozen synthetic reference artifact** rather than retraining a model on every page load.
 
 The frozen artifact remains a software-plumbing/reference model only. It is not clinically validated and must be replaced by a governed model artifact before any external performance claim.
 

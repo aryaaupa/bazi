@@ -1,6 +1,6 @@
 # Bazi Dell Med conversation runbook
 
-The website and workspace are one connected product. Start at `/app/`; open **Index patient** for Maya Chen. Every participant, event, review, and outcome is synthetic. The console records local provider decisions and performs no external patient outreach.
+The website and workspace are one connected product. Start at `/app/`; open **Maya Chen**. Every participant, event, review, and outcome is synthetic. The console records local provider decisions and performs no external patient outreach.
 
 ## Six-minute walkthrough
 
