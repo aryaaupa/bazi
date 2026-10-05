@@ -11,7 +11,7 @@ const decimal = (value, digits = 2) => Number.isFinite(value) ? value.toFixed(di
 const percent = (value, digits = 0) => Number.isFinite(value) ? `${(value * 100).toFixed(digits)}%` : '—';
 const signed = (value, digits = 1) => Number.isFinite(value) ? `${value > 0 ? '+' : ''}${value.toFixed(digits)}` : '—';
 const date = value => new Date(value).toLocaleDateString('en-US', { month:'short', day:'numeric', timeZone:'UTC' });
-const time = value => new Date(value).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', timeZone:'UTC' });
+const time = value => new Date(value).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', second:'2-digit', timeZone:'UTC' });
 const initials = name => name.split(' ').map(part => part[0]).slice(0,2).join('');
 const paths = {
   overview:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
@@ -245,13 +245,32 @@ const auditLabels={
   decision_dismiss:'Provider dismissed the recommendation',decision_snooze:'Provider deferred review',
   followup_observed:'Seven-day follow-up recorded',protocol_status_changed:'Recommendation engine state changed',
   timeline_replay_started:'Patient timeline replayed',demo_threshold_changed:'Exploratory threshold changed',
+  synthetic_patient_created:'Synthetic patient created',
   pilot_protocol_drafted:'Study protocol drafted',snoozed_review_reopened:'Deferred review reopened'
 };
+function auditEvidenceTime(record) {
+  const detail=record.detail ?? {};
+  if(detail.occurredAt) return detail.occurredAt;
+  if(detail.windowEnd) return detail.windowEnd;
+  const decision=detail.decisionId ? workspace.state.decisions.find(item=>item.id===detail.decisionId) : null;
+  return decision?.observationStart ?? record.at;
+}
+function auditSummary(record) {
+  const d=record.detail ?? {};
+  const reference=d.decisionId ?? d.modelVersion ?? d.policyVersion ?? 'Synthetic workspace';
+  const score=d.score!==undefined ? ` · score ${decimal(d.score,3)}` : '';
+  const reason=d.reason ? ` · ${esc(d.reason)}` : '';
+  const patient=d.patientId ? `<a href="${patientLink(d.patientId)}">${d.patientId}</a> · ` : '';
+  return `${patient}${esc(reference)}${score}${reason}`;
+}
 function audit() {
+  const records=workspace.state.audit.slice().reverse();
+  const patients=new Set(workspace.state.audit.map(record=>record.detail?.patientId).filter(Boolean));
+  const latest=records[0];
   return heading('RECORDED WORKFLOW','Audit timeline','Observations, model snapshots, policy gates, and provider decisions remain connected.',button('Export audit record','export-audit',{class:'small'}))+
-    `<p class="technical-note">${workspace.state.audit.length} browser-held records linked by SHA-256. Local timestamps below record workspace activity; program dates are stored separately in event evidence. The chain is not externally anchored.</p><ol class="audit-timeline">${workspace.state.audit.slice().reverse().map(record=>{
-      const d=record.detail;
-      return `<li><div class="audit-time"><strong>${time(record.at)}</strong><span>${date(record.at)} · UTC · #${record.sequence}</span></div><div class="audit-entry"><h3>${esc(auditLabels[record.type]??record.type.replaceAll('_',' '))}</h3><p>${d.patientId?`<a href="${patientLink(d.patientId)}">${d.patientId}</a> · `:''}${esc(d.decisionId??d.modelVersion??d.policyVersion??'Synthetic workspace')}${d.score!==undefined?` · score ${decimal(d.score,3)}`:''}${d.reason?' · '+esc(d.reason):''}</p><details><summary>Evidence and integrity</summary><pre class="code-block">${esc(JSON.stringify(d,null,2))}</pre><span class="hash">${record.hash}</span><small class="muted">Actor: ${esc(record.actor)}</small></details></div></li>`;
+    `<section class="audit-summary" aria-label="Audit record summary"><div><span>Ledger records</span><strong>${workspace.state.audit.length}</strong><small>Locally chained</small></div><div><span>People represented</span><strong>${patients.size}</strong><small>Synthetic only</small></div><div><span>Latest evidence</span><strong>${latest?date(auditEvidenceTime(latest)):'—'}</strong><small>${latest?time(auditEvidenceTime(latest))+' UTC':'No records yet'}</small></div></section><p class="technical-note">Each entry distinguishes the <strong>synthetic program evidence time</strong> from the <strong>browser recording time</strong>. This local SHA-256 chain is inspectable and exportable, but it is not externally anchored or an audit system for clinical use.</p><ol class="audit-timeline">${records.map(record=>{
+      const evidenceAt=auditEvidenceTime(record);
+      return `<li><div class="audit-time"><span class="audit-time-label">Evidence time</span><strong>${time(evidenceAt)}</strong><span>${date(evidenceAt)} · UTC</span><small>Recorded ${time(record.at)} · #${record.sequence}</small></div><div class="audit-entry"><span class="audit-kind">${esc(record.type.replaceAll('_',' '))}</span><h3>${esc(auditLabels[record.type]??record.type.replaceAll('_',' '))}</h3><p>${auditSummary(record)}</p><details><summary>Evidence, provenance, and integrity</summary><pre class="code-block">${esc(JSON.stringify({recordedAt:record.at,evidenceAt,actor:record.actor,detail:record.detail},null,2))}</pre><span class="hash">${record.hash}</span><small class="muted">Previous hash: ${record.previousHash}</small></details></div></li>`;
     }).join('')}</ol>`;
 }
 function integrations() {
