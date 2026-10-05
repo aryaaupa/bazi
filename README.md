@@ -1,6 +1,6 @@
-# Bazi — Adaptive Engagement Intelligence
+# Bazi — Engagement Intelligence
 
-One connected website and working clinical research workspace for digital-care engagement. **Research alpha · synthetic demonstration · provider-controlled.**
+Bazi is a research-alpha engagement intelligence product for digital-care teams. The public repository contains a deterministic synthetic demo, provider-controlled review workflow, benchmark environment, public interfaces, and documentation. It does **not** contain a production clinical system or establish clinical validity.
 
 The product loop is:
 
@@ -50,7 +50,13 @@ Open `http://localhost:8080/` for the website and `/app/` for the workspace. Ser
 | `scripts/build.mjs` | Allowlisted deployment packaging; excludes backend configuration and SQL |
 | `.github/workflows/pages.yml` | Checks, tests, build and GitHub Pages deployment |
 
-The public product has one canonical implementation: `assets/website.css`, `assets/website.js`, `assets/workspace.css`, `assets/workspace-ui.js`, `packages/`, `sdk/`, and `docs/`.
+The public product has one canonical implementation: `assets/website.css`, `assets/website.js`, `assets/workspace.css`, `assets/workspace-ui.js`, `packages/engagement/`, `sdk/src/validation.js`, and `docs/`.
+
+## Public demo / private core boundary
+
+This repository is the public demo surface. It should remain polished, deterministic, synthetic, and safe to inspect. Proprietary production work belongs behind a narrow interface in a separate private core, including production risk/model implementations, feature engineering, policy-learning mechanisms, benchmark-generation internals used for final research claims, partner-specific configurations, signed production artifacts, production API/backend, tenant/auth/security infrastructure, audit infrastructure, partner data adapters, deployment tooling, and partner integrations.
+
+Moving implementation private does not erase prior public disclosure. Repository history is preserved intentionally; do not rewrite history to imply earlier material was never public. Patent-sensitive scope should be reviewed with counsel before further disclosure.
 
 ## Evidence and safety boundary
 
