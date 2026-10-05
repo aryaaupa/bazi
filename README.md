@@ -85,6 +85,7 @@ Before any external evaluation, freeze the endpoint, prediction horizon, observa
 - [Publishing and custom-domain setup](docs/PUBLISHING_AND_DOMAIN.md)
 - [Retrospective pilot protocol](docs/PILOT_PROTOCOL.md)
 - [Security and governance scaffold](docs/SECURITY_AND_GOVERNANCE.md)
+- [Public/core contract and split status](docs/PUBLIC_CORE_CONTRACT.md)
 - [SDK documentation](sdk/README.md)
 
 The GitHub Pages workflow publishes `dist/` from `main`. If the cofounder already owns `bazi.com`, connect it using the exact DNS records and GitHub Pages steps in the publishing guide. Domain-account access is still needed to configure and verify it.
