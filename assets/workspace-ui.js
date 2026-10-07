@@ -323,7 +323,7 @@ function integrations() {
     <section class="subgroup-section"><h2>Illustrative FHIR mapping</h2><div class="table-wrap"><table><thead><tr><th>Bazi record</th><th>Potential resource</th><th>Mapping meaning</th></tr></thead><tbody>${[['Participant','Patient','Governed pseudonymous subject identifier'],['Engagement event','Observation','Measurement provenance and event timing'],['Reviewed engagement support','Task','Provider-controlled workflow'],['Participant check-in','QuestionnaireResponse','Partner-approved questions and response handling'],['Program context','CarePlan','Reference an existing plan; no treatment modification']].map(row=>`<tr>${row.map(cell=>`<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div><p class="technical-note">Mapping examples require terminology, profile, security, and interoperability review before any real integration.</p></section>`;
 }
 function comparisonView() {
-  const patients=compareIds.slice(0,4).map(id=>workspace.patient(id)), r=report();
+  const patients=compareIds.slice(0,4).map(id=>{const patient=workspace.patient(id);return {...patient,assessment:workspace.assessment(id)};}), r=report();
   if(patients.length<2) return heading('PATIENT COMPARISON','Compare patients','Select at least two patients from the patient list.')+'<a class="button" href="#queue">Choose patients</a>';
   const rows=[
     ['Current engagement signal',p=>p.assessment.available?decimal(p.assessment.score,3):'—'],
