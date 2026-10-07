@@ -350,3 +350,37 @@ dialog::backdrop{background:#262d1d55;backdrop-filter:blur(3px)}
 .case-snapshot small{display:block;font-size:9px;color:#747a70;line-height:1.5}
 @media(max-width:1100px){.command-pulse{grid-template-columns:1fr 1fr}.review-next{grid-column:1/-1;min-height:105px}.case-snapshot{grid-template-columns:1fr 1fr}.case-snapshot>div:nth-child(2){border-right:0}.case-snapshot>div{border-bottom:1px solid var(--line)}}
 @media(max-width:700px){.command-pulse{grid-template-columns:1fr}.pulse-copy{border-right:0;border-bottom:1px solid #dfe5da}.pulse-stats{grid-template-columns:repeat(3,1fr)}.review-next{grid-column:auto}.case-snapshot{grid-template-columns:1fr 1fr}.pulse-stats>div{padding:15px 12px}.pulse-stats strong{font-size:22px}}
+
+/* Clinical-readiness presentation layer: explicit intended use, evidence sufficiency,
+   human authority, and deployment gates without implying clinical validation. */
+.clinical-boundary{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:10px;line-height:1.7}
+.clinical-boundary strong{font-weight:550;color:var(--ink)}
+.clinical-boundary span{color:#6f746a}
+.review-scope{padding:12px 0 16px!important;margin:0 0 16px!important;border-bottom:1px solid var(--line);font-size:10px!important;line-height:1.7!important}
+.boundary-hero{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:6px 0 28px;border-block:1px solid var(--line)}
+.boundary-hero>div{padding:30px 32px 32px 0}
+.boundary-hero>div+div{padding-left:32px;border-left:1px solid var(--line)}
+.boundary-hero span{font-size:8px;letter-spacing:.1em;color:#6f746a}
+.boundary-hero h2{font-size:27px;line-height:1.15;letter-spacing:-.6px;margin-top:10px}
+.boundary-hero p{font-size:11px;line-height:1.8;color:#6f746a;margin-top:12px;max-width:520px}
+.boundary-callout{display:grid;grid-template-columns:160px 1fr;gap:28px;padding:21px 24px;background:#f5f6f1;border-left:3px solid #a88943;margin-bottom:38px}
+.boundary-callout strong{font-size:11px;font-weight:550}
+.boundary-callout p{font-size:11px;line-height:1.8;color:#626d64;max-width:900px}
+.readiness-section{margin:0 0 38px}
+.readiness-table{border-top:1px solid var(--line)}
+.readiness-row{display:grid;grid-template-columns:190px 145px minmax(0,1fr);gap:22px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
+.readiness-row>strong{font-size:11px;font-weight:520}
+.readiness-row>span{padding-top:0}
+.readiness-row>p{font-size:10px;line-height:1.7;color:#6f746a}
+.deployment-gates{margin-top:38px;padding:28px 0;border-block:1px solid var(--line)}
+.deployment-gates h2{font-size:19px;margin-bottom:13px}
+.deployment-gates p{max-width:1000px;font-size:11px;line-height:1.85;color:#6f746a}
+.deployment-gates p+p{margin-top:10px;font-weight:500;color:#556157}
+@media(max-width:720px){
+  .clinical-boundary,.boundary-callout{grid-template-columns:1fr;gap:7px}
+  .boundary-hero{grid-template-columns:1fr}
+  .boundary-hero>div{padding:24px 0}
+  .boundary-hero>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+  .readiness-row{grid-template-columns:1fr auto;gap:8px 14px}
+  .readiness-row>p{grid-column:1/-1}
+}
