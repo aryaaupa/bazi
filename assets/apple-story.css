@@ -210,3 +210,52 @@
  .faq-editorial article{grid-template-columns:30px 1fr;gap:8px 14px;padding:24px 0}
  .faq-editorial article p{grid-column:2}
 }
+
+/* antislop pass: reduce template rhythm, preserve Bazi identity. */
+.antislop-intro{min-height:760px;padding-top:96px;padding-bottom:96px}
+.antislop-product{padding-top:110px;padding-bottom:120px}
+.antislop-product .launch-centered-copy,
+.antislop-workspace .launch-centered-copy,
+.antislop-science .launch-centered-copy{margin-left:0;text-align:left;max-width:780px}
+.antislop-product .launch-centered-copy h2,
+.antislop-workspace .launch-centered-copy h2,
+.antislop-science .launch-centered-copy h2{margin-inline:0;font-size:clamp(48px,5.4vw,78px);line-height:.98;max-width:780px}
+.antislop-product .launch-centered-copy>p,
+.antislop-workspace .launch-centered-copy>p,
+.antislop-science .launch-centered-copy>p{margin-left:0;margin-right:0;max-width:610px}
+.antislop-workspace{padding-top:112px;padding-bottom:120px;background:#fafbf8}
+.antislop-workspace .launch-workspace-shell{margin-top:52px;padding:0;background:transparent}
+.antislop-workspace .launch-workspace-preview{border-top:1px solid #d8ded8;border-bottom:1px solid #d8ded8;border-left:0;border-right:0}
+.antislop-science{padding-top:112px;padding-bottom:90px}
+.antislop-science .launch-benchmark{margin-left:0;margin-right:0;max-width:1000px}
+.antislop-science .launch-benchmark>div:first-child{grid-template-columns:150px minmax(0,1fr)}
+.antislop-science .launch-benchmark-measures{padding-left:190px}
+.antislop-science .launch-benchmark>.text-link{margin-left:190px}
+.antislop-faq{background:#fff;padding-top:96px;padding-bottom:110px}
+.antislop-faq .faq-intro{position:static}
+.antislop-faq .faq-editorial article{grid-template-columns:minmax(200px,.8fr) minmax(280px,1.2fr);gap:36px}
+.antislop-faq .faq-editorial article>span{display:none}
+.antislop-faq .faq-editorial h3{font-size:17px;line-height:1.3}
+.antislop-faq .faq-editorial p{font-size:12px;line-height:1.75}
+.launch-care-copy{max-width:760px}
+.launch-care-copy h2{font-size:clamp(58px,6.4vw,96px)}
+.launch-care-copy>p:not(.eyebrow){max-width:560px}
+.launch-pilot-scene{padding-top:110px;padding-bottom:110px}
+.launch-pilot-scene h2{font-size:clamp(48px,5.3vw,76px)}
+.launch-footer .footer-workspace{font-size:26px;max-width:360px}
+@media(max-width:1050px){
+  .antislop-product .launch-centered-copy,
+  .antislop-workspace .launch-centered-copy,
+  .antislop-science .launch-centered-copy{max-width:720px}
+}
+@media(max-width:720px){
+  .antislop-intro,.antislop-product,.antislop-workspace,.antislop-science,.antislop-faq{padding-top:72px;padding-bottom:76px}
+  .antislop-product .launch-centered-copy h2,
+  .antislop-workspace .launch-centered-copy h2,
+  .antislop-science .launch-centered-copy h2{font-size:44px}
+  .antislop-workspace .launch-workspace-shell{margin-top:38px}
+  .antislop-science .launch-benchmark-measures{padding-left:0}
+  .antislop-science .launch-benchmark>.text-link{margin-left:0}
+  .antislop-faq .faq-editorial article{grid-template-columns:1fr;gap:8px}
+  .launch-pilot-scene h2{font-size:44px}
+}
