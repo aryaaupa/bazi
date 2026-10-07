@@ -61,12 +61,15 @@ function trajectory() {
   return svg+'</svg>';
 }
 document.getElementById('preview-chart').innerHTML=trajectory();
-document.getElementById('story-evidence').innerHTML=[
+const evidenceMarkup=[
   ['Session duration vs. baseline',signed(explanation.durationChange*100)+'%'],
   ['Recent missed sessions',String(explanation.missed)],
   ['Late sessions in the recent window',String(explanation.late)],
   ['Engagement vs. observed baseline',signed(explanation.engagementChange)+' points']
 ].map(([label,value])=>'<div class="evidence-row"><span>'+label+'</span><strong>'+value+'</strong></div>').join('');
+document.getElementById('story-evidence').innerHTML=evidenceMarkup;
+const evidenceMirror=document.getElementById('story-evidence-mirror');
+if(evidenceMirror)evidenceMirror.innerHTML=evidenceMarkup;
 
 const tabs=[...document.querySelectorAll('[data-story]')];
 function selectStory(index,focus=false) {
