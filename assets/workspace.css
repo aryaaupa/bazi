@@ -350,3 +350,67 @@ dialog::backdrop{background:#262d1d55;backdrop-filter:blur(3px)}
 .case-snapshot small{display:block;font-size:9px;color:#747a70;line-height:1.5}
 @media(max-width:1100px){.command-pulse{grid-template-columns:1fr 1fr}.review-next{grid-column:1/-1;min-height:105px}.case-snapshot{grid-template-columns:1fr 1fr}.case-snapshot>div:nth-child(2){border-right:0}.case-snapshot>div{border-bottom:1px solid var(--line)}}
 @media(max-width:700px){.command-pulse{grid-template-columns:1fr}.pulse-copy{border-right:0;border-bottom:1px solid #dfe5da}.pulse-stats{grid-template-columns:repeat(3,1fr)}.review-next{grid-column:auto}.case-snapshot{grid-template-columns:1fr 1fr}.pulse-stats>div{padding:15px 12px}.pulse-stats strong{font-size:22px}}
+
+/* Clinical-readiness presentation layer: explicit intended use, evidence sufficiency,
+   human authority, and deployment gates without implying clinical validation. */
+.clinical-boundary{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;margin-top:18px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:10px;line-height:1.7}
+.clinical-boundary strong{font-weight:550;color:var(--ink)}
+.clinical-boundary span{color:#6f746a}
+.review-scope{padding:12px 0 16px!important;margin:0 0 16px!important;border-bottom:1px solid var(--line);font-size:10px!important;line-height:1.7!important}
+.boundary-hero{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:6px 0 28px;border-block:1px solid var(--line)}
+.boundary-hero>div{padding:30px 32px 32px 0}
+.boundary-hero>div+div{padding-left:32px;border-left:1px solid var(--line)}
+.boundary-hero span{font-size:8px;letter-spacing:.1em;color:#6f746a}
+.boundary-hero h2{font-size:27px;line-height:1.15;letter-spacing:-.6px;margin-top:10px}
+.boundary-hero p{font-size:11px;line-height:1.8;color:#6f746a;margin-top:12px;max-width:520px}
+.boundary-callout{display:grid;grid-template-columns:160px 1fr;gap:28px;padding:21px 24px;background:#f5f6f1;border-left:3px solid #a88943;margin-bottom:38px}
+.boundary-callout strong{font-size:11px;font-weight:550}
+.boundary-callout p{font-size:11px;line-height:1.8;color:#626d64;max-width:900px}
+.readiness-section{margin:0 0 38px}
+.readiness-table{border-top:1px solid var(--line)}
+.readiness-row{display:grid;grid-template-columns:190px 145px minmax(0,1fr);gap:22px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
+.readiness-row>strong{font-size:11px;font-weight:520}
+.readiness-row>span{padding-top:0}
+.readiness-row>p{font-size:10px;line-height:1.7;color:#6f746a}
+.deployment-gates{margin-top:38px;padding:28px 0;border-block:1px solid var(--line)}
+.deployment-gates h2{font-size:19px;margin-bottom:13px}
+.deployment-gates p{max-width:1000px;font-size:11px;line-height:1.85;color:#6f746a}
+.deployment-gates p+p{margin-top:10px;font-weight:500;color:#556157}
+@media(max-width:720px){
+  .clinical-boundary,.boundary-callout{grid-template-columns:1fr;gap:7px}
+  .boundary-hero{grid-template-columns:1fr}
+  .boundary-hero>div{padding:24px 0}
+  .boundary-hero>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+  .readiness-row{grid-template-columns:1fr auto;gap:8px 14px}
+  .readiness-row>p{grid-column:1/-1}
+}
+
+/* Partner-readiness surface: product-company posture without overstating evidence. */
+.partner-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:48px;align-items:end;padding:34px 0 38px;border-block:1px solid var(--line);margin-bottom:34px}
+.partner-hero span,.partner-question>span,.partner-roles span{font-size:8px;letter-spacing:.11em;color:#6f746a}
+.partner-hero h2{font-size:34px;line-height:1.08;letter-spacing:-.8px;margin:10px 0 14px;max-width:650px}
+.partner-hero>div p{font-size:12px;line-height:1.75;color:#68736b;max-width:700px}
+.partner-hero aside{padding:24px;border-left:3px solid var(--green);background:#f4f6f2}
+.partner-hero aside strong{display:block;font-size:21px;line-height:1.2;margin:9px 0}
+.partner-hero aside p{font-size:10px;line-height:1.7;color:#69736b}
+.partner-question{padding:40px 0 46px;max-width:1000px}
+.partner-question h2{font-size:36px;line-height:1.15;letter-spacing:-.8px;margin-top:10px;font-weight:520}
+.partner-path{margin-bottom:38px}
+.partner-path ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.partner-path li{display:grid;grid-template-columns:44px minmax(0,1fr) 110px;gap:18px;padding:17px 0;border-bottom:1px solid var(--line);align-items:start}
+.partner-step{font-size:9px;color:#879087;padding-top:2px}
+.partner-path li strong{font-size:12px;font-weight:550}
+.partner-path li p{font-size:10px;line-height:1.65;color:#6f746a;margin-top:4px}
+.partner-path li em{font-style:normal;text-align:right;font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:#4d6658}
+.partner-roles{display:grid;grid-template-columns:1fr 1fr;border-block:1px solid var(--line);margin:40px 0}
+.partner-roles>div{padding:30px 34px 30px 0}
+.partner-roles>div+div{padding-left:34px;border-left:1px solid var(--line)}
+.partner-roles strong{display:block;font-size:19px;line-height:1.3;margin:10px 0}
+.partner-roles p{font-size:10px;line-height:1.75;color:#6f746a}
+@media(max-width:760px){
+ .partner-hero,.partner-roles{grid-template-columns:1fr;gap:22px}
+ .partner-hero aside{border-left:0;border-top:3px solid var(--green)}
+ .partner-question h2{font-size:29px}
+ .partner-path li{grid-template-columns:34px 1fr}.partner-path li em{grid-column:2;text-align:left}
+ .partner-roles>div{padding:24px 0}.partner-roles>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}
+}
