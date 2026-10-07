@@ -179,3 +179,7 @@
   .launch-faq{grid-template-columns:1fr;gap:45px;padding:85px 25px 95px}.launch-faq .faq-list summary{font-size:16px}
   .launch-footer .footer-top{display:block}.launch-footer .footer-workspace{display:block;margin-top:42px;text-align:left;font-size:30px;max-width:330px}
 }
+
+@media(max-width:720px){
+  .launch-home .site-header nav{border-radius:0;box-shadow:none;background:#f5f6f2;border:1px solid #d5ddd7}
+}
