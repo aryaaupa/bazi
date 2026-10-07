@@ -82,3 +82,54 @@ body{background:#f7f8f5;color:#17231d}
  .journey-photo{min-height:440px}
  .care-image-band,.care-image-band>div{min-height:430px}
 }
+
+/* Mobile composition pass — deliberately authored for a phone viewport. */
+.benchmark-visual{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:28px 0 26px}
+.benchmark-visual>div{border-top:1px solid rgba(255,255,255,.35);padding-top:12px}
+.benchmark-visual span{display:block!important;font-size:11px!important;color:#c6d0c9!important;margin-bottom:14px}
+.benchmark-visual b{display:block;height:8px;background:#e6ece7;width:78%}
+.benchmark-visual>div:last-child b{width:48%}
+@media(max-width:760px){
+ .section{padding-left:28px!important;padding-right:28px!important}
+ .journey-section{padding-top:72px!important;padding-bottom:48px!important}
+ .journey-intro .display-title{font-size:48px!important;line-height:.98!important;letter-spacing:-.045em!important}
+ .journey-intro>p:last-child{font-size:17px!important;line-height:1.6!important;margin-top:24px!important}
+ .journey-card.photograph{height:500px!important;margin:0!important}
+ .journey-card.photograph .journey-caption{padding:100px 28px 28px!important}
+ .journey-card.photograph .journey-caption h3{font-family:var(--sans)!important;font-size:38px!important;font-weight:540!important;letter-spacing:-.035em!important;line-height:1!important}
+ .journey-card.photograph .journey-caption span{font-size:14px!important;max-width:260px}
+ .human-section{padding-top:76px!important;padding-bottom:76px!important;display:block!important}
+ .human-copy .display-title{font-size:52px!important;line-height:.98!important}
+ .human-copy>p:not(.eyebrow){font-size:17px!important;line-height:1.6!important;margin:24px 0 28px!important}
+ .authority-card{margin-top:52px!important;padding:0 22px!important}
+ .authority-card>div{display:block!important;padding:24px 0!important;min-height:0!important}
+ .authority-card h3{font-family:var(--sans)!important;font-size:21px!important;line-height:1.15!important;font-weight:650!important;letter-spacing:-.02em!important;margin:0 0 8px!important;width:auto!important}
+ .authority-card p{font-size:15px!important;line-height:1.5!important;margin:0!important;max-width:none!important}
+ .authority-boundary{padding:24px 0!important;font-size:14px!important;line-height:1.45!important}
+ .science-section{padding-top:76px!important;padding-bottom:64px!important}
+ .science-top{display:block!important}
+ .science-title,.science-top .display-title{font-size:50px!important;line-height:.98!important}
+ .science-copy{margin-top:28px!important}
+ .science-copy p{font-size:16px!important;line-height:1.55!important}
+ .benchmark-question{margin-top:54px!important;padding:28px 0!important}
+ .benchmark-question>p{font-size:32px!important;line-height:1.08!important;letter-spacing:-.035em!important;margin:16px 0 24px!important}
+ .benchmark-question>span{font-size:11px!important;line-height:1.55!important}
+ .benchmark-visual{gap:18px;margin:24px 0}
+ .science-boundary{margin-top:38px!important;padding-top:24px!important;font-size:12px!important;line-height:1.55!important}
+ .partnership-section{padding-top:76px!important;padding-bottom:76px!important}
+ .partnership-copy .display-title{font-size:50px!important;line-height:.98!important}
+ .pilot-steps{margin-top:48px!important}
+ .faq-section{padding-top:76px!important;padding-bottom:76px!important}
+ .faq-section .display-title{font-size:48px!important;line-height:1!important}
+ .faq-list{margin-top:44px!important}
+ .faq-list details{padding:24px 0!important}
+ .faq-list summary{font-size:17px!important;line-height:1.35!important;gap:20px}
+ .site-footer{padding:58px 28px 42px!important}
+ .footer-top{display:block!important}
+ .footer-brand img{width:40px!important;height:40px!important}
+ .footer-brand span{font-size:42px!important}
+ .footer-top p{font-size:14px!important;line-height:1.5!important;margin-top:18px!important}
+ .footer-workspace{display:block!important;font-size:34px!important;line-height:1.04!important;margin-top:48px!important;max-width:330px}
+ .footer-bottom{display:grid!important;grid-template-columns:1fr!important;gap:22px!important;margin-top:48px!important;padding-top:24px!important}
+ .footer-bottom nav{display:flex!important;gap:24px!important;flex-wrap:wrap}
+}
