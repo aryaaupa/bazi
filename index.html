@@ -3,137 +3,178 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bazi — Stay connected to every care journey</title>
-  <meta name="description" content="A more human view of engagement. Bazi helps digital-care teams see changing participation, understand the pattern, and choose a thoughtful next step.">
-  <meta name="theme-color" content="#f5f2ea">
-  <meta property="og:title" content="Bazi — Stay connected to every care journey">
-  <meta property="og:description" content="Engagement intelligence for software-based care. Explore the working synthetic research workspace.">
+  <title>Bazi — Engagement intelligence for digital care</title>
+  <meta name="description" content="Bazi helps digital-care teams see changing participation, understand the evidence, and keep engagement decisions with the provider.">
+  <meta name="theme-color" content="#f5f6f2">
+  <meta property="og:title" content="Bazi — Engagement intelligence for digital care">
+  <meta property="og:description" content="See participation change, inspect the evidence, and keep engagement decisions with the care team.">
   <meta property="og:type" content="website">
-    <link rel="icon" href="assets/bazi-logo.png" type="image/png">
+  <link rel="icon" href="assets/bazi-logo.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/bazi-logo.png">
   <link rel="preload" href="assets/fonts/HankenGrotesk.woff" as="font" type="font/woff" crossorigin>
-    <link rel="stylesheet" href="assets/website.css">
+  <link rel="stylesheet" href="assets/website.css">
   <link rel="stylesheet" href="assets/editorial-product.css">
+  <link rel="stylesheet" href="assets/apple-story.css">
   <script type="module" src="assets/website.js"></script>
 </head>
-<body class="home">
+<body class="home launch-home">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="announcement"><span>Research alpha · synthetic benchmark</span><a href="app/">Open the workspace</a></div>
-<header class="site-header">
+<header class="site-header launch-header">
   <a class="brand" href="./" aria-label="Bazi home"><img src="assets/bazi-logo.png" alt="" width="40" height="40"><span>bazi</span></a>
-  <nav id="main-navigation" aria-label="Main navigation"><a href="#product">Meet Bazi</a><a href="#how-it-works">How it works</a><a href="#science">Our approach</a><a href="#pilot">For care teams</a></nav>
+  <nav id="main-navigation" aria-label="Main navigation"><a href="#product">Product</a><a href="#evidence">Evidence</a><a href="#science">Research</a><a href="#pilot">Pilot</a></nav>
   <div class="header-actions"><a class="button light small" href="app/">Open Bazi</a><button class="menu-toggle" id="site-menu-toggle" aria-expanded="false" aria-controls="main-navigation" aria-label="Open navigation"><span></span><span></span></button></div>
 </header>
+
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title">
-    <img class="hero-image restored-hero-image" src="assets/imagery/bazi-forest-hero.webp" alt="A quiet everyday moment outdoors, representing participation beyond the clinic." width="1536" height="1024" fetchpriority="high">
-    <div class="hero-content">
-      <p class="eyebrow light-eyebrow">ENGAGEMENT INTELLIGENCE FOR DIGITAL-CARE TEAMS</p>
+  <section class="launch-hero" aria-labelledby="hero-title">
+    <img src="assets/imagery/bazi-forest-hero.webp" alt="A quiet everyday moment outdoors." width="1536" height="1024" fetchpriority="high">
+    <div class="launch-hero-scrim"></div>
+    <div class="launch-hero-copy">
+      <p class="eyebrow light-eyebrow">ENGAGEMENT INTELLIGENCE FOR DIGITAL CARE</p>
       <h1 id="hero-title">See participation change before disengagement becomes obvious.</h1>
-      <p class="hero-description">Bazi gives digital-care teams a longitudinal view of participation, flags meaningful change for review, and keeps every engagement decision with the provider. It does not diagnose patients or autonomously modify treatment.</p>
-      <div class="hero-actions"><a class="button light" href="app/#patient/BZ-001">Open Aadi’s trajectory</a><a class="text-link light-link" href="#product">How Bazi works</a></div>
+      <p>Bazi turns longitudinal participation into a reviewable signal, with the evidence visible and the provider in control.</p>
+      <div class="launch-actions"><a class="button light" href="app/#patient/BZ-001">Explore Aadi’s journey</a><a class="text-link light-link" href="#product">See how it works</a></div>
     </div>
-    <a class="hero-data-card" href="app/#patient/BZ-001" aria-label="Explore Aadi Jain’s synthetic patient record">
-      <div class="hero-card-top"><span class="mini-brand">SYNTHETIC REFERENCE CASE · AADI JAIN</span></div>
-      <h2>Participation drift<br>detected early.</h2>
-      <div id="hero-sparkline" class="hero-sparkline"></div>
-      <div class="hero-card-bottom"><div><strong id="hero-warning">—</strong><span>days of simulated<br>warning time</span></div><span class="quiet-status"><span id="hero-review-state">Provider review</span></span></div>
-      <small>Engagement index + model signal · synthetic only</small>
-    </a>
-    <div class="hero-bottom"><span>Observed participation → review criterion → provider decision</span><span>Research alpha · Synthetic workspace</span></div>
+    <div class="launch-hero-foot"><span>Observed participation</span><span>Provider-controlled decisions</span><span>Synthetic research workspace</span></div>
   </section>
 
-  <section class="journey-section section" id="product" aria-labelledby="journey-title">
-    <div class="journey-intro"><p class="eyebrow">ONE CONNECTED WORKFLOW</p><h2 class="display-title" id="journey-title">From everyday participation to a provider decision.</h2><p>Observed behavior becomes longitudinal context. Meaningful change becomes a review, and the care team decides what happens next.</p></div>
-  </section>
-  <section class="journey-grid" aria-label="Person pattern and provider response workflow">
-    <a class="journey-card photograph" href="app/#patient/BZ-001">
-      <img class="journey-photo" src="assets/imagery/bazi-everyday.webp" alt="An everyday moment outside the clinical setting." width="1024" height="1280" loading="lazy">
-      <div class="journey-caption"><p class="eyebrow">OBSERVE</p><h3>Participation,<br>over time.</h3><span>Sessions, timing, duration, and reported barriers.</span></div>
-    </a>
-    <a class="journey-card pattern-card" href="#how-it-works">
-      <div class="pattern-heading"><span>PARTICIPATION OVER TIME</span></div>
-      <div class="pattern-chart" id="pattern-chart"></div>
-      <div class="pattern-detail"><span>Observed sessions</span><strong id="pattern-event-count">—</strong></div>
-      <div class="journey-caption"><p class="eyebrow">DETECT + UNDERSTAND</p><h3>Change that<br>crosses review criteria.</h3><span>Compare recent behavior with observed baseline.</span></div>
-    </a>
-    <a class="journey-card response-card" href="app/#interventions">
-      <div class="response-card-top"><span>REVIEW + OBSERVE OUTCOME</span></div>
-      <div class="response-card-body"><h3>Provider-controlled<br>engagement support.</h3><p>Approve, modify, dismiss, or defer. Bazi never changes treatment or sends outreach.</p></div>
-      <div class="response-card-footer"><span>Seven-day follow-up</span><strong>Recorded</strong></div>
-    </a>
+  <section class="launch-human-scene" aria-labelledby="between-title">
+    <div class="launch-scene-copy">
+      <p class="eyebrow">BETWEEN SESSIONS</p>
+      <h2 id="between-title">Participation keeps changing.</h2>
+      <p>Sessions get shorter. Timing shifts. Barriers appear. A pattern can develop before a care team has enough context to see it clearly.</p>
+    </div>
+    <figure class="launch-human-image">
+      <img src="assets/imagery/bazi-everyday.webp" alt="A person writing at a table during an everyday moment outside a clinical setting." width="1024" height="1280" loading="lazy">
+    </figure>
   </section>
 
-  <section class="product-section section" id="how-it-works" aria-labelledby="product-title">
-    <div class="product-intro"><div><p class="eyebrow">WORKING PRODUCT</p><h2 class="display-title" id="product-title">Aadi’s trajectory,<br><span class="title-emphasis">from signal to review.</span></h2></div><p>Observed events feed a fixed reference model. Bazi records the evidence, the provider decision, and subsequent participation without treating the score as a diagnosis.</p></div>
-    <div class="product-layout">
-      <div class="product-story">
-        <div class="story-tabs" role="tablist" aria-label="Explore how Bazi works" aria-orientation="vertical">
-          <button id="story-tab-0" class="story-tab active" role="tab" aria-selected="true" aria-controls="story-panel-0" tabindex="0" data-story="0"><span><strong>See the change.</strong><span>Follow each person’s participation over time. Put missed sessions, timing, and duration in context.</span></span><span class="tab-plus" aria-hidden="true">−</span></button>
-          <button id="story-tab-1" class="story-tab" role="tab" aria-selected="false" aria-controls="story-panel-1" tabindex="-1" data-story="1"><span><strong>Understand why.</strong><span>Compare recent behavior with observed history. Inspect the evidence behind the model signal.</span></span><span class="tab-plus" aria-hidden="true">+</span></button>
-          <button id="story-tab-2" class="story-tab" role="tab" aria-selected="false" aria-controls="story-panel-2" tabindex="-1" data-story="2"><span><strong>Choose the next step.</strong><span>Approve, adapt, dismiss, or defer engagement support. The provider makes the decision.</span></span><span class="tab-plus" aria-hidden="true">+</span></button>
-        </div>
-        <a class="button dark" href="app/#patient/BZ-001">Explore a patient journey</a>
-        <p class="product-boundary">Working product preview · Generated patient data</p>
-      </div>
-      <div class="product-canvas">
-        <div class="workspace-preview">
-          <div class="preview-topbar"><span class="mini-brand"><img src="assets/bazi-logo.png" alt="" width="22" height="22"> bazi</span><span>Engagement intelligence</span><span class="preview-role">SP</span></div>
-          <div class="preview-patient"><div><p class="eyebrow">A PERSON, OVER TIME</p><h3>Aadi Jain</h3><p>BZ-001 · Behavioral health · Synthetic patient</p></div><span id="preview-band" class="signal-tag">Loading signal</span></div>
-          <div class="story-panel" id="story-panel-0" role="tabpanel" aria-labelledby="story-tab-0" tabindex="0">
-            <div class="preview-chart-heading"><h4>Participation over time</h4><span>12-week reference journey</span></div>
-            <div id="preview-chart" class="preview-chart"></div>
-            <div class="chart-legend"><span><i class="legend-line"></i>Engagement</span><span><i class="legend-line amber"></i>Model signal (right axis)</span><span><i class="legend-window"></i>Warning window</span><span><i class="legend-line future"></i>Unobserved simulation</span></div>
-            <div class="preview-observations"><div><strong id="preview-warning">—</strong><span>days of simulated warning</span></div><div><strong id="preview-events">—</strong><span>observed session events</span></div><div><strong id="preview-score">—</strong><span>reference model score</span></div></div>
-          </div>
-          <div class="story-panel" id="story-panel-1" role="tabpanel" aria-labelledby="story-tab-1" tabindex="0" hidden>
-            <div class="preview-chart-heading"><h4>What changed?</h4><span>Recent events vs. observed baseline</span></div>
-            <div class="evidence-visual" id="story-evidence"></div>
-            <div class="evidence-explanation"><span class="eyebrow">WHY NOW?</span><p id="story-explanation"></p></div>
-            <a class="inline-action" href="app/#patient/BZ-001">Inspect the full chronology</a>
-          </div>
-          <div class="story-panel" id="story-panel-2" role="tabpanel" aria-labelledby="story-tab-2" tabindex="0" hidden>
-            <div class="preview-chart-heading"><h4>Recommended next step</h4><span>Provider review required</span></div>
-            <div class="preview-review"><h4>Supportive engagement<br>check-in</h4><p>Ask about scheduling, usability, fatigue, or participation barriers before choosing the next step.</p><a class="button dark small" href="app/#patient/BZ-001">Open provider review</a></div>
-            <p class="review-note">Bazi cannot autonomously modify treatment. This workspace records synthetic decisions and sends no outreach.</p>
-          </div>
-          <div class="preview-footnote">Research signal. Clinical performance is not established.</div>
-        </div>
-        
-      </div>
+  <section class="launch-product-scene" id="product" aria-labelledby="change-title">
+    <div class="launch-centered-copy">
+      <p class="eyebrow">SEE THE CHANGE</p>
+      <h2 id="change-title">One person. Over time.</h2>
+      <p>Bazi keeps observed participation in context, then surfaces meaningful change for review.</p>
+    </div>
+    <div class="launch-signal-stage">
+      <div class="signal-stage-head"><span>Aadi Jain · BZ-001</span><span>Generated reference case</span></div>
+      <div class="signal-stage-labels"><span>Participation over time</span><strong id="pattern-event-count">—</strong><small>observed events</small></div>
+      <div id="pattern-chart" class="launch-pattern-chart"></div>
+      <div class="signal-stage-bottom"><div><span>Observed engagement</span><i></i></div><div><span>Model signal</span><i class="amber"></i></div><a href="app/#patient/BZ-001">Open the full trajectory</a></div>
     </div>
   </section>
 
-  <section class="care-image-band" aria-label="Care team context"><img src="assets/imagery/bazi-care-team.webp" alt="Care team members in conversation." width="1536" height="1024" loading="lazy"><div><span>THE REVIEW BELONGS TO THE CARE TEAM</span><strong>Software surfaces the change. People decide what it means.</strong></div></section>
+  <section class="launch-workspace-scene" id="how-it-works" aria-labelledby="workspace-title">
+    <div class="launch-centered-copy">
+      <p class="eyebrow">THE WORKING PRODUCT</p>
+      <h2 id="workspace-title">The evidence stays visible.</h2>
+      <p>Move from the trajectory to the reason for review, then to a provider decision without losing the longitudinal context.</p>
+    </div>
 
-  <section class="human-section section" aria-labelledby="human-title">
-    <div class="human-copy"><p class="eyebrow">HUMAN AUTHORITY / SAFETY</p><h2 class="display-title" id="human-title">The signal informs.<br><span class="title-emphasis">The provider decides.</span></h2><p>Bazi surfaces observed change and the evidence behind a review criterion. The care team chooses whether engagement support is appropriate and what happens next.</p><a class="text-link" href="app/#governance">Inspect governance controls</a></div>
-    <div class="authority-card"><div><h3>Observe</h3><p>Events remain visible alongside the model signal.</p></div><div><h3>Review</h3><p>Approve, modify, dismiss, or defer with a recorded reason.</p></div><div><h3>Observe outcome</h3><p>Follow-up is retained as synthetic evidence, not a causal claim.</p></div><p class="authority-boundary">Bazi cannot autonomously modify treatment.</p></div>
+    <div class="launch-workspace-shell">
+      <div class="workspace-preview launch-workspace-preview">
+        <div class="preview-topbar"><span class="mini-brand"><img src="assets/bazi-logo.png" alt="" width="22" height="22"> bazi</span><span>Engagement intelligence</span><span class="preview-role">SP</span></div>
+        <div class="preview-patient"><div><p class="eyebrow">SYNTHETIC PATIENT</p><h3>Aadi Jain</h3><p>BZ-001 · Behavioral health · Observed longitudinal record</p></div><span id="preview-band" class="signal-tag">Loading signal</span></div>
+
+        <div class="launch-story-layout">
+          <div class="story-tabs launch-story-tabs" role="tablist" aria-label="Explore how Bazi works" aria-orientation="vertical">
+            <button id="story-tab-0" class="story-tab active" role="tab" aria-selected="true" aria-controls="story-panel-0" tabindex="0" data-story="0"><span><strong>See the change.</strong><span>Follow participation, missed sessions, timing, and duration in context.</span></span><span class="tab-plus" aria-hidden="true">−</span></button>
+            <button id="story-tab-1" class="story-tab" role="tab" aria-selected="false" aria-controls="story-panel-1" tabindex="-1" data-story="1"><span><strong>Understand why.</strong><span>Compare recent behavior with the observed baseline and inspect contributors.</span></span><span class="tab-plus" aria-hidden="true">+</span></button>
+            <button id="story-tab-2" class="story-tab" role="tab" aria-selected="false" aria-controls="story-panel-2" tabindex="-1" data-story="2"><span><strong>Choose the next step.</strong><span>Approve, modify, dismiss, or defer engagement support.</span></span><span class="tab-plus" aria-hidden="true">+</span></button>
+          </div>
+
+          <div class="launch-story-screen">
+            <div class="story-panel" id="story-panel-0" role="tabpanel" aria-labelledby="story-tab-0" tabindex="0">
+              <div class="preview-chart-heading"><h4>Participation over time</h4><span>12-week reference journey</span></div>
+              <div id="preview-chart" class="preview-chart"></div>
+              <div class="preview-observations"><div><strong id="preview-warning">—</strong><span>days simulated warning</span></div><div><strong id="preview-events">—</strong><span>observed session events</span></div><div><strong id="preview-score">—</strong><span>reference model score</span></div></div>
+            </div>
+            <div class="story-panel" id="story-panel-1" role="tabpanel" aria-labelledby="story-tab-1" tabindex="0" hidden>
+              <div class="preview-chart-heading"><h4>What changed?</h4><span>Recent events vs. observed baseline</span></div>
+              <div class="evidence-visual" id="story-evidence"></div>
+              <div class="evidence-explanation"><span class="eyebrow">WHY NOW?</span><p id="story-explanation"></p></div>
+              <a class="inline-action" href="app/#patient/BZ-001">Inspect the full chronology</a>
+            </div>
+            <div class="story-panel" id="story-panel-2" role="tabpanel" aria-labelledby="story-tab-2" tabindex="0" hidden>
+              <div class="preview-chart-heading"><h4>Provider review</h4><span>Human decision required</span></div>
+              <div class="preview-review"><h4>Supportive engagement check-in</h4><p>Review scheduling, usability, fatigue, and participation barriers before choosing the next step.</p><a class="button dark small" href="app/#patient/BZ-001">Open provider review</a></div>
+              <p class="review-note">Bazi cannot autonomously modify treatment or send outreach.</p>
+            </div>
+          </div>
+        </div>
+        <div class="preview-footnote">Research signal · Clinical performance is not established · All data shown here are synthetic</div>
+      </div>
+    </div>
   </section>
 
-  <section class="science-section section" id="science" aria-labelledby="science-title">
-    <div class="science-top"><div><p class="eyebrow light-eyebrow">SYNTHETIC BENCHMARK</p><h2 class="display-title" id="science-title">Useful warning time.<br><span class="title-emphasis">Acceptable review burden.</span></h2></div><div class="science-copy"><p>Explore how the threshold changes sensitivity, specificity, false alerts per patient-week, and median warning lead time in the deterministic benchmark environment.</p><a class="text-link light-link" href="app/#analytics">Open benchmark environment</a></div></div>
-    <div class="benchmark-question"><strong>Evaluation question</strong><p>Can the signal provide useful warning time without creating unacceptable review burden?</p><span>Sensitivity · specificity · AUPRC · false alerts per patient-week · median warning lead time</span></div>
-    <p class="science-boundary">A working research environment. Synthetic results demonstrate the workflow; they do not establish clinical performance or patient benefit.</p>
+  <section class="launch-evidence-scene" id="evidence" aria-labelledby="evidence-title">
+    <div class="launch-evidence-copy">
+      <p class="eyebrow light-eyebrow">WHY THIS PERSON, WHY NOW</p>
+      <h2 id="evidence-title">A signal you can inspect.</h2>
+      <p>Every review starts with observed history. Bazi keeps the recent change, baseline comparison, evidence quality, and review threshold visible.</p>
+      <a class="text-link light-link" href="app/#patient/BZ-001">Inspect Aadi’s evidence</a>
+    </div>
+    <div class="launch-evidence-panel">
+      <div class="evidence-kicker"><span>REFERENCE CASE</span><span>Aadi Jain</span></div>
+      <div id="story-evidence-mirror" aria-hidden="true"></div>
+      <div class="evidence-callout"><span>Provider review</span><strong>Evidence first.</strong><p>The score is a research signal, not a diagnosis or calibrated clinical probability.</p></div>
+    </div>
   </section>
 
-  <section class="partnership-section section" id="pilot" aria-labelledby="pilot-title">
-    <div class="partnership-copy"><p class="eyebrow">RETROSPECTIVE PILOT</p><h2 class="display-title" id="pilot-title">Start with one program.<br><span class="title-emphasis">One retrospective cohort.</span></h2><p>Together, define disengagement, evaluate whether Bazi identifies it early enough to matter, and quantify review burden before any prospective deployment.</p><a class="button dark" href="app/#pilot">Open pilot configuration</a><p class="partnership-note">Phase 1 has no autonomous patient-facing decisions. Dataset access, protocol, and evidence gates require partner review.</p></div>
-    <div class="pilot-steps" aria-label="Retrospective pilot steps"><div><strong>Define</strong><p>Outcome, observation window, useful warning time, and acceptable workload.</p></div><div><strong>Evaluate</strong><p>Freeze the protocol and test on a governed historical cohort.</p></div><div><strong>Decide</strong><p>Use evidence to determine whether a silent prospective study is warranted.</p></div></div>
+  <section class="launch-care-scene" aria-labelledby="provider-title">
+    <img src="assets/imagery/bazi-care-team.webp" alt="Care team members in conversation." width="1536" height="1024" loading="lazy">
+    <div class="launch-care-scrim"></div>
+    <div class="launch-care-copy">
+      <p class="eyebrow light-eyebrow">HUMAN AUTHORITY</p>
+      <h2 id="provider-title">The provider decides.</h2>
+      <p>Bazi surfaces observed change and the evidence behind a review. The care team decides whether engagement support is appropriate and records what happens next.</p>
+      <a class="text-link light-link" href="app/#governance">Inspect governance controls</a>
+    </div>
   </section>
 
-  <section class="faq-section section" aria-labelledby="faq-title"><div><p class="eyebrow">A LITTLE MORE CLARITY</p><h2 class="display-title" id="faq-title">Good questions.<br><span class="title-emphasis">Clear answers.</span></h2></div><div class="faq-list">
-    <details><summary>What does Bazi help a care team see?<span aria-hidden="true">+</span></summary><p>Bazi brings changes in participation, session duration, timing, and reported barriers into one longitudinal view. Its reference signal helps frame a provider review; it does not diagnose or modify treatment.</p></details>
-    <details><summary>What can I try in the workspace?<span aria-hidden="true">+</span></summary><p>Explore Aadi’s synthetic record, advance the observed timeline, inspect the evidence, record a provider decision, and compare simulated follow-ups. You can also explore validation, export records, and generate a draft study protocol.</p></details>
-    <details><summary>Does Bazi automatically contact patients?<span aria-hidden="true">+</span></summary><p>No outreach is sent from this research workspace. Permitted engagement actions require a recorded provider approval. All decisions and synthetic follow-ups remain in your browser.</p></details>
-    <details><summary>Has the model been clinically validated?<span aria-hidden="true">+</span></summary><p>The frozen reference model has synthetic provenance and has not been clinically validated. Its scores are research signals, not calibrated clinical probabilities. Generated outcomes do not establish clinical benefit.</p></details>
-    <details><summary>What would a first collaboration look like?<span aria-hidden="true">+</span></summary><p>Start with a jointly defined engagement endpoint and a governed retrospective dataset. The proposed first phase evaluates historical records without patient-facing decisions. Real data requires a separate environment and appropriate agreements and review.</p></details>
-  </div></section>
+  <section class="launch-science-scene" id="science" aria-labelledby="science-title">
+    <div class="launch-centered-copy">
+      <p class="eyebrow">RESEARCH ENVIRONMENT</p>
+      <h2 id="science-title">Useful warning time. Acceptable review burden.</h2>
+      <p>The synthetic benchmark asks whether earlier warning remains useful when sensitivity, specificity, false alerts, and review workload are considered together.</p>
+    </div>
+    <div class="launch-benchmark">
+      <div><span>Evaluation question</span><strong>Can the signal warn early enough to matter without creating unacceptable review burden?</strong></div>
+      <div class="launch-benchmark-measures"><span>Sensitivity</span><span>Specificity</span><span>AUPRC</span><span>False alerts / patient-week</span><span>Median warning lead time</span></div>
+      <a class="text-link" href="app/#analytics">Open the benchmark environment</a>
+    </div>
+    <p class="launch-boundary">Synthetic results demonstrate the evaluation workflow. They do not establish clinical performance or patient benefit.</p>
+  </section>
+
+  <section class="launch-pilot-scene" id="pilot" aria-labelledby="pilot-title">
+    <div>
+      <p class="eyebrow">RETROSPECTIVE PILOT</p>
+      <h2 id="pilot-title">Start with one program.</h2>
+    </div>
+    <div class="launch-pilot-copy">
+      <p>Define the engagement endpoint together. Freeze the evaluation protocol. Test on a governed historical cohort before any prospective deployment.</p>
+      <a class="button dark" href="app/#pilot">Open pilot configuration</a>
+      <small>Phase 1 has no autonomous patient-facing decisions. Real partner data requires a separate governed environment and appropriate agreements.</small>
+    </div>
+  </section>
+
+  <section class="launch-faq" aria-labelledby="faq-title">
+    <div><p class="eyebrow">QUESTIONS</p><h2 id="faq-title">What a care team should know.</h2></div>
+    <div class="faq-list">
+      <details><summary>What does Bazi help a care team see?<span aria-hidden="true">+</span></summary><p>Bazi brings changes in participation, session duration, timing, and reported barriers into one longitudinal view. Its reference signal helps frame a provider review; it does not diagnose or modify treatment.</p></details>
+      <details><summary>What can I try in the workspace?<span aria-hidden="true">+</span></summary><p>Explore Aadi’s synthetic record, advance the observed timeline, inspect the evidence, record a provider decision, compare simulated follow-ups, and explore the benchmark and governance views.</p></details>
+      <details><summary>Does Bazi automatically contact patients?<span aria-hidden="true">+</span></summary><p>No. This research workspace sends no outreach. Permitted engagement actions require a recorded provider approval.</p></details>
+      <details><summary>Has the model been clinically validated?<span aria-hidden="true">+</span></summary><p>No. The frozen reference model has synthetic provenance and has not been clinically validated. Its scores are research signals, not calibrated clinical probabilities.</p></details>
+      <details><summary>What would a first collaboration look like?<span aria-hidden="true">+</span></summary><p>Start with a jointly defined engagement endpoint and a governed retrospective dataset. Evaluate historical records first, without patient-facing decisions.</p></details>
+    </div>
+  </section>
 </main>
-<footer class="site-footer">
-  <div class="footer-top"><div><a class="brand footer-brand" href="./" aria-label="Bazi home"><img src="assets/bazi-logo.png" alt="" width="48" height="48"><span>bazi</span></a><p>Observed participation. Provider-controlled action. Synthetic evidence.</p></div><a class="footer-workspace" href="app/">Open the working<br><span class="title-emphasis">research workspace.</span></a></div>
+
+<footer class="site-footer launch-footer">
+  <div class="footer-top"><div><a class="brand footer-brand" href="./" aria-label="Bazi home"><img src="assets/bazi-logo.png" alt="" width="48" height="48"><span>bazi</span></a><p>Observed participation. Provider-controlled action. Synthetic evidence.</p></div><a class="footer-workspace" href="app/">Open the working research workspace.</a></div>
   <div class="footer-bottom"><span>© 2026 Bazi · Research alpha</span><nav aria-label="Footer"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://github.com/aryaaupa/bazi" target="_blank" rel="noopener noreferrer">GitHub</a></nav><span>Synthetic product data · Research alpha</span></div>
 </footer>
+<div id="hero-sparkline" hidden></div>
 <noscript><p class="noscript-note">The live product preview and workspace require JavaScript. All workspace data is synthetic.</p></noscript>
 </body>
 </html>
