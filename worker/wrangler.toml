@@ -1,0 +1,9 @@
+name = "bazi-evidence-synthesis"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[ai]
+binding = "AI"
+
+# Synthetic-only demonstration endpoint. Real-data use requires a separately
+# governed architecture, agreements, access controls, logging, and retention.

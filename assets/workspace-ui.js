@@ -159,6 +159,7 @@ function patientDetail() {
     ${metric('Late sessions',x.late,'Observed status; no delay inferred')}
     ${metric('Engagement',signed(x.engagementChange,0)+' pts','Relative to first usable observations')}</div>
     <details class="why-now" open><summary>Why now?</summary><p>${esc(x.narrative)}</p><ol class="chronology">${x.chronology.map(event=>`<li><span>Day ${decimal(event.day+1,0)}</span><div><strong>${esc(event.label)}</strong><p>${esc(event.detail)}</p></div></li>`).join('')||'<li><p>No review threshold crossing has been observed. Continue collecting usable events.</p></li>'}</ol></details>
+    <section class="ai-synthesis" aria-labelledby="ai-synthesis-title"><div class="ai-synthesis-head"><div><span>OPTIONAL AI SYNTHESIS</span><h3 id="ai-synthesis-title">Evidence summary</h3></div>${button('Generate summary','ai-synthesis',{patient:patientId,class:'small'})}</div><p>Summarizes the synthetic evidence already shown on this page. It cannot change the engagement signal, threshold, action policy, or provider decision.</p><div id="ai-synthesis-result" class="ai-synthesis-result" aria-live="polite"><span>Not generated</span><p>The deterministic record remains authoritative.</p></div></section>
     <details class="risk-details"><summary>Signal contributors and baseline scenarios</summary><p class="technical-note">Additive changes in model log-odds relative to the first six observed events. These are model sensitivities, not causal effects.</p>${contributors||'<p class="muted">No material positive contribution or insufficient usable evidence.</p>'}<div id="counterfactual-result" class="counterfactual-result" aria-live="polite" tabindex="-1"></div></details></section>
     <aside class="review-section"><div class="eyebrow">PROVIDER REVIEW</div><h2>Engagement-support decision</h2><p class="review-scope">Confirm the observed history and evidence sufficiency before acting. Clinical assessment, treatment decisions, and urgent-risk workflows remain outside this system.</p>${reviewBlock(patient,decision,x)}</aside></div>
     <div class="record-bottom"><section class="quality-section"><h2>Evidence sufficiency</h2><dl class="facts"><div><dt>Usable recent observations</dt><dd>${result.features.observedCount} of ${result.features.windowCount}</dd></div><div><dt>Coverage</dt><dd>${percent(result.features.coverage)}</dd></div><div><dt>Applicable review threshold</dt><dd>${decimal(result.effectiveThreshold,3)}${result.thresholdAdjustment>0?` <small>base ${decimal(result.baseThreshold)} + evidence adjustment</small>`:''}</dd></div><div><dt>Clinical uncertainty</dt><dd>Not quantified</dd></div></dl><p class="technical-note">${!result.available?'At least three usable observations and 60% usable coverage are required.':result.thresholdAdjustment>0?'Limited history or quality raises the review threshold. This is an evidence gate, not a confidence estimate.':'A full usable six-event window meets the reference evidence gate.'} ${x.baselineCount} usable events establish the observed explanation baseline.</p><div class="action-row">${button('Add observation','add-event',{patient:patientId,class:'small'})}${button('Evaluate current history','evaluate',{patient:patientId,class:'small subtle'})}${patientId==='BZ-001'?button('Replay from baseline','start-demo',{class:'small subtle'}):''}</div></section>
@@ -372,6 +373,36 @@ async function perform(action,element) {
   }
   else if(action==='dismiss') openModal('Dismiss with a reason',`<p>Capture why this engagement recommendation should not proceed.</p><form id="modal-form"><div class="field"><label for="dismiss-reason">Reason</label><select id="dismiss-reason" name="reason">${DISMISS_REASONS.map(reason=>`<option>${reason}</option>`).join('')}</select></div>${noteField}${formButtons('Record dismissal')}</form>`,async form=>{await workspace.review(id,'dismiss',Object.fromEntries(new FormData(form)));toast('Dismissal and reason recorded.');});
   else if(action==='followup'||action==='followup-no-change'){await workspace.followUp(id,action==='followup'?'recovery':'no_change');toast('Seven-day synthetic follow-up recorded.');}
+  else if(action==='ai-synthesis'){
+    const target=$('#ai-synthesis-result'),control=element;
+    const p=workspace.patient(patient??patientId),x=explanation(p),r=x.result;
+    const evidence={
+      schemaVersion:'bazi-evidence-summary-v1',
+      dataClass:'synthetic-only',
+      patient:{id:p.id,displayName:p.name},
+      observedThrough:x.last?.occurred_at??null,
+      engagementSignal:r.available?Number(r.score.toFixed(3)):null,
+      reviewBand:r.band,
+      evidence:{usableRecent:r.features.observedCount,windowCount:r.features.windowCount,coverage:Number(r.features.coverage.toFixed(3)),effectiveThreshold:Number(r.effectiveThreshold.toFixed(3))},
+      observedChange:{durationPercent:x.durationChange===null?null:Math.round(x.durationChange*100),missedRecent:x.missed,lateRecent:x.late,engagementPoints:Math.round(x.engagementChange)},
+      chronology:x.chronology.map(item=>({day:Math.round(item.day+1),label:item.label,detail:item.detail})).slice(-6),
+      contributors:r.contributions.filter(item=>item.delta>.01).slice(0,5).map(item=>({label:item.label,logOddsDelta:Number(item.delta.toFixed(3))}))
+    };
+    control.disabled=true;control.textContent='Synthesizing…';
+    target.classList.add('loading');target.innerHTML='<span>Generating from visible synthetic evidence</span><p>No score or policy state is being changed.</p>';
+    try{
+      const response=await fetch('/api/evidence-summary',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(evidence)});
+      if(!response.ok) throw new Error('AI synthesis service unavailable');
+      const value=await response.json();
+      if(!value?.summary) throw new Error('AI synthesis returned no summary');
+      target.innerHTML=`<span>AI-GENERATED · ${esc(value.model??'Workers AI')}</span><p>${esc(value.summary)}</p><small>Generated from synthetic engagement evidence only. Verify against the record above. Not a diagnosis, clinical assessment, treatment recommendation, or acute-risk evaluation.</small>`;
+    }catch(error){
+      target.innerHTML=`<span>AI SYNTHESIS UNAVAILABLE</span><p>${esc(x.narrative)}</p><small>Deterministic fallback shown. The Bazi signal and provider workflow continue without the AI service.</small>`;
+    }finally{
+      target.classList.remove('loading');control.disabled=false;control.textContent='Generate summary';
+    }
+    return;
+  }
   else if(action==='counterfactual'){
     const result=workspace.assessment(patientId),contributor=result.contributions.find(item=>item.index===Number(id));
     if(!contributor) throw new Error('That sensitivity scenario is unavailable for the current record.');

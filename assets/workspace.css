@@ -432,3 +432,15 @@ dialog::backdrop{background:#262d1d55;backdrop-filter:blur(3px)}
  .contributor>.counterfactual-trigger{grid-column:1/-1;justify-self:start;margin-top:5px;min-height:40px}
  .counterfactual{margin-top:14px;padding:18px 16px}
 }
+
+/* Optional provider-facing AI evidence synthesis. */
+.ai-synthesis{margin:26px 0 8px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ai-synthesis-head{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.ai-synthesis-head span,.ai-synthesis-result>span{display:block;font-size:8px;letter-spacing:.1em;color:#6f746a}
+.ai-synthesis-head h3{margin-top:5px;font-size:16px}
+.ai-synthesis>p{max-width:700px;margin-top:10px;font-size:10px;line-height:1.7;color:#6f746a}
+.ai-synthesis-result{margin-top:16px;padding:15px 16px;background:#f5f7f1;border-left:2px solid #698171}
+.ai-synthesis-result p{margin-top:7px;font-size:11px;line-height:1.7;color:#485149}
+.ai-synthesis-result small{display:block;margin-top:10px;font-size:9px;line-height:1.65;color:#747b72}
+.ai-synthesis-result.loading{opacity:.72}
+@media(max-width:720px){.ai-synthesis-head{align-items:flex-start;flex-direction:column}.ai-synthesis-head .button{min-height:40px}.ai-synthesis-result{padding:14px}}
