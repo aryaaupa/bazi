@@ -30,7 +30,7 @@ function sparkline({pattern=false}={}) {
   const points=(items,y)=>items.map(([day,value])=>x(day).toFixed(1)+','+y(value).toFixed(1)).join(' ');
   const observed=events.map(e=>[e.day,e.engagement]);
   const signal=explanation.history.filter(v=>v.result.available).map(v=>[v.day,v.result.score]);
-  return '<svg viewBox="0 0 '+width+' '+height+'" role="img" aria-label="Observed synthetic engagement and reference model signal across Maya’s first 24 events">'+
+  return '<svg viewBox="0 0 '+width+' '+height+'" role="img" aria-label="Observed synthetic engagement and reference model signal across Aadi’s first 24 events">'+
     (pattern?[25,50,75].map(value=>'<line x1="0" x2="'+width+'" y1="'+engagementY(value)+'" y2="'+engagementY(value)+'" stroke="#f7f0db" stroke-opacity=".12"/>').join(''):'')+
     '<polyline points="'+points(observed,engagementY)+'" fill="none" stroke="'+(pattern?'#edead1':'#788f63')+'" stroke-width="'+(pattern?'2.8':'1.8')+'" stroke-linejoin="round"/>'+
     '<polyline points="'+points(signal,signalY)+'" fill="none" stroke="'+(pattern?'#d5c396':'#b8a065')+'" stroke-width="'+(pattern?'2':'1.3')+'" stroke-dasharray="4 5" stroke-linejoin="round"/>'+
@@ -46,7 +46,7 @@ function trajectory() {
   const future=patient.events.slice(events.length-1).map(e=>[e.day,e.engagement]);
   const scores=explanation.history.filter(v=>v.result.available).map(v=>[v.day,v.result.score]);
   const w=explanation.warning;
-  let svg='<svg viewBox="0 0 600 227" role="img" aria-label="Maya’s 12-week synthetic journey: observed engagement, computed signal, and the retrospective warning window. Dashed gray events are unobserved and excluded from current scoring.">';
+  let svg='<svg viewBox="0 0 600 227" role="img" aria-label="Aadi’s 12-week synthetic journey: observed engagement, computed signal, and the retrospective warning window. Dashed gray events are unobserved and excluded from current scoring.">';
   svg+=[0,50,100].map(value=>'<line x1="36" x2="578" y1="'+engagementY(value)+'" y2="'+engagementY(value)+'" stroke="#e9edde"/><text x="7" y="'+(engagementY(value)+3)+'" fill="#879779" font-size="8" font-family="Arial">'+value+'</text>').join('');
   svg+=[0,.5,1].map(value=>'<text x="582" y="'+(signalY(value)+3)+'" fill="#a18752" font-size="8" font-family="Arial">'+value.toFixed(1)+'</text>').join('');
   if(w)svg+='<rect x="'+x(w.detectedDay)+'" y="35" width="'+(x(w.endpointDay)-x(w.detectedDay))+'" height="157" fill="#f0e3c0"/><path d="M'+x(w.detectedDay)+',26 v-7 H'+x(w.endpointDay)+' v7" fill="none" stroke="#b19b65"/><text x="'+(x(w.detectedDay)-27)+'" y="11" fill="#8d7b49" font-size="8" font-family="Arial">'+w.leadDays.toFixed(0)+'-day warning window</text>';
