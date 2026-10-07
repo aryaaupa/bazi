@@ -6,8 +6,8 @@ export const SEED = 90317;
 export const START = Date.parse('2026-07-06T14:00:00Z');
 export const DAY = 86400000;
 export const LANDMARK_DAY = 53;
-const FIRST = ['Maya', 'Jordan', 'Sam', 'Anika', 'Marcus', 'Noor', 'Avery', 'Alex', 'Riley', 'Priya', 'Elliot', 'Morgan', 'Taylor', 'Sofia', 'Kai', 'Amara', 'Jamie', 'Dev', 'Nina', 'Rowan'];
-const LAST = ['Chen', 'Lee', 'Rivera', 'Shah', 'Hill', 'Patel', 'Reed', 'Park', 'Ellis', 'Singh', 'Martin', 'Ali', 'Nguyen', 'Ortiz', 'Brooks', 'Khan', 'Young', 'Davis', 'Garcia', 'Bennett', 'Lewis', 'Wright', 'Thomas', 'Kim', 'Wilson'];
+const FIRST = ['Aadi', 'Jordan', 'Sam', 'Anika', 'Marcus', 'Noor', 'Avery', 'Alex', 'Riley', 'Priya', 'Elliot', 'Morgan', 'Taylor', 'Sofia', 'Kai', 'Amara', 'Jamie', 'Dev', 'Nina', 'Rowan'];
+const LAST = ['Jain', 'Lee', 'Rivera', 'Shah', 'Hill', 'Patel', 'Reed', 'Park', 'Ellis', 'Singh', 'Martin', 'Ali', 'Nguyen', 'Ortiz', 'Brooks', 'Khan', 'Young', 'Davis', 'Garcia', 'Bennett', 'Lewis', 'Wright', 'Thomas', 'Kim', 'Wilson'];
 export const SCENARIO_LABELS = {
   stable: 'Steady participation', gradual: 'Gradual disengagement', sudden: 'Sudden dropout', intermittent: 'Intermittent adherence',
   recovering: 'Recovering participation', fatigue: 'High fatigue, adherent', false_positive: 'Decline without dropout', schedule: 'Schedule disruption', low_data: 'Limited telemetry'
@@ -24,7 +24,7 @@ export function generateCohort(count = 500, seed = SEED) {
     const scenario = index === 0 ? 'gradual' : r < 0.36 ? 'stable' : r < 0.54 ? 'gradual' : r < 0.62 ? 'sudden' : r < 0.72 ? 'intermittent' : r < 0.81 ? 'recovering' : r < 0.88 ? 'fatigue' : r < 0.93 ? 'false_positive' : r < 0.97 ? 'schedule' : 'low_data';
     const patient = {
       id: `BZ-${String(index + 1).padStart(3, '0')}`,
-      name: index === 0 ? 'Maya Chen' : `${FIRST[index % FIRST.length]} ${LAST[Math.floor(index / FIRST.length) % LAST.length]}`,
+      name: index === 0 ? 'Aadi Jain' : `${FIRST[index % FIRST.length]} ${LAST[Math.floor(index / FIRST.length) % LAST.length]}`,
       program: 'Digital behavioral health', ageGroup: ['18–34', '35–54', '55+'][Math.floor(random() * 3)],
       baseline_duration: 22 + Math.round(random() * 12), baseline_engagement: 80 + Math.round(random() * 12),
       scenario, events: []
