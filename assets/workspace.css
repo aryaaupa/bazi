@@ -444,3 +444,24 @@ dialog::backdrop{background:#262d1d55;backdrop-filter:blur(3px)}
 .ai-synthesis-result small{display:block;margin-top:10px;font-size:9px;line-height:1.65;color:#747b72}
 .ai-synthesis-result.loading{opacity:.72}
 @media(max-width:720px){.ai-synthesis-head{align-items:flex-start;flex-direction:column}.ai-synthesis-head .button{min-height:40px}.ai-synthesis-result{padding:14px}}
+
+/* Product workbench: inputs, notes, comparison, and benchmark context. */
+.compare-check{width:58px;text-align:center}
+.compare-check input{width:16px;height:16px;accent-color:var(--green)}
+.compare-dock{position:sticky;bottom:14px;z-index:8;display:flex;align-items:center;gap:10px;margin:14px 0 20px;padding:13px 15px;background:#eef1e9;border:1px solid #d8ddd1;border-radius:6px;box-shadow:0 8px 24px rgba(38,45,39,.08)}
+.compare-dock>div{flex:1}.compare-dock strong{display:block;font-size:11px}.compare-dock span{display:block;margin-top:2px;color:var(--muted);font-size:10px}
+.patient-notes{margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.note-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.patient-note{padding:15px 16px;background:#f7f7f2;border:1px solid #e7e8df;border-radius:5px}
+.patient-note>div{display:flex;justify-content:space-between;gap:12px}.patient-note strong{font-size:10px;font-weight:550}.patient-note span{font-size:9px;color:var(--muted)}
+.patient-note p{font-size:11px;line-height:1.7;margin:10px 0 8px;white-space:pre-wrap}
+.input-contract{margin-bottom:18px;padding:12px 14px;background:#f3f5ef;border-left:2px solid var(--green)}.input-contract strong{font-size:11px}.input-contract p{font-size:10px;color:var(--muted);margin-top:4px}
+.field label small{display:block;color:var(--muted);font-weight:400;font-size:9px;margin-top:2px}
+.derived-preview{margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:5px}.derived-preview strong{display:block;font-size:10px}.derived-preview span{display:block;color:var(--muted);font-size:9px;line-height:1.7;margin-top:4px}
+.model-input-map{margin:0 0 32px;padding:22px 0;border-bottom:1px solid var(--line)}
+.input-map-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.input-map-grid>div{padding-top:12px;border-top:2px solid #d9ddd4}.input-map-grid span,.benchmark-context span{display:block;font-size:8px;letter-spacing:.1em;color:var(--muted)}.input-map-grid strong{display:block;margin-top:7px;font-size:12px}.input-map-grid p{margin-top:7px;color:var(--muted);font-size:10px;line-height:1.7}
+.compare-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:32px}.compare-summary article{padding:18px;border:1px solid var(--line);border-radius:5px}.compare-summary article>span{font-size:9px;color:var(--muted)}.compare-summary h2{margin-top:5px}.compare-summary article>strong{display:block;font-size:30px;font-weight:500;margin-top:18px}.compare-summary article>small{display:block;color:var(--muted);margin-bottom:12px}
+.comparison-table table{min-width:760px}.comparison-table td:first-child{color:var(--muted)}
+.benchmark-context{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-top:32px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.benchmark-context h2{margin-top:6px}.benchmark-context p{max-width:760px;margin-top:7px;font-size:11px;color:var(--muted);line-height:1.7}
+@media(max-width:900px){.note-list,.input-map-grid{grid-template-columns:1fr}.compare-summary{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.compare-dock{align-items:stretch;flex-direction:column}.compare-summary{grid-template-columns:1fr}.benchmark-context{align-items:flex-start;flex-direction:column}.patient-note>div{flex-direction:column;gap:3px}}
