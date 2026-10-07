@@ -498,6 +498,7 @@ document.addEventListener('input',event=>{
   if(event.target.id==='threshold-slider') thresholdPreview(Number(event.target.value));
 });
 document.addEventListener('change',async event=>{
+  if(event.target.classList.contains('compare-select')){const id=event.target.dataset.patient;if(event.target.checked){if(compareIds.length>=4){event.target.checked=false;toast('Compare up to four patients at a time.',true);return;}if(!compareIds.includes(id))compareIds.push(id);}else compareIds=compareIds.filter(value=>value!==id);render();return;}
   if(event.target.id==='band-filter'){queueBand=event.target.value;queuePage=0;render();}
   else if(event.target.id==='sort-patients'){queueSort=event.target.value;render();}
   else if(event.target.id==='event-status'&&event.target.value==='skipped') $('#event-duration').value=0;
