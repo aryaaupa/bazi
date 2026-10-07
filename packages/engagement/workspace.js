@@ -11,7 +11,7 @@ export const DISMISS_REASONS = ['Clinically inappropriate', 'Already contacted',
 export const STORAGE_KEY = 'bazi-connected-workspace-v1';
 export function freshState() {
   return { version: 1, seed: SEED, threshold: MODEL.defaultThreshold, protocolEnabled: true,
-    cursors: { 'BZ-001': 24 }, extraEvents: {}, newPatients: [], decisions: [], audit: [], pilot: null };
+    cursors: { 'BZ-001': 24 }, extraEvents: {}, newPatients: [], decisions: [], notes: {}, audit: [], pilot: null };
 }
 
 export class Workspace {
@@ -243,6 +243,23 @@ export class Workspace {
     decision.status='followup_complete';this.save();
     await this.log('followup_observed',{decisionId:id,patientId:patient.id,response:decision.outcome.response,generatedEventCount:observations.length,observationDays:7,windowEnd:decision.outcome.windowEnd,synthetic:true,causalConclusion:false});
     return decision;
+  }
+  notes(id) { this.patient(id); return [...(this.state.notes?.[id] ?? [])].sort((a,b)=>Date.parse(b.at)-Date.parse(a.at)); }
+  async addNote(id, text) {
+    this.patient(id);
+    const value=String(text??'').trim();
+    if(!value || value.length>2000) throw new Error('Notes must be between 1 and 2,000 characters.');
+    this.state.notes ??= {};
+    const note={id:`NOTE-${this.clock()}-${(this.state.notes[id]??[]).length+1}`,patientId:id,at:new Date(this.clock()).toISOString(),author:'Synthetic provider',text:value};
+    this.state.notes[id]=[...(this.state.notes[id]??[]),note]; this.save();
+    await this.log('patient_note_added',{patientId:id,noteId:note.id});
+    return note;
+  }
+  async deleteNote(id,noteId) {
+    this.patient(id); this.state.notes ??= {};
+    const before=this.state.notes[id]??[],after=before.filter(note=>note.id!==noteId);
+    if(after.length===before.length) throw new Error('Note not found.');
+    this.state.notes[id]=after;this.save();await this.log('patient_note_deleted',{patientId:id,noteId});
   }
   async setProtocol(enabled) { this.state.protocolEnabled = Boolean(enabled); this.save(); await this.log('protocol_status_changed', { enabled: this.state.protocolEnabled }); }
   async setThreshold(value) {
