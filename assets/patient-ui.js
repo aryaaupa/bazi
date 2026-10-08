@@ -34,4 +34,5 @@ async function saveActivity(event){
  feedback='Activity saved to this browser’s synthetic record. Open the clinician workspace to inspect it.';render();
  }catch(error){feedback='Could not save activity: '+error.message;render();}
 }
+window.addEventListener('storage',event=>{if(event.key==='bazi-connected-workspace-v1')window.location.reload();});
 workspace.initialize().then(render).catch(error=>{$('patient-app').textContent='Unable to open synthetic experience: '+error.message;});
