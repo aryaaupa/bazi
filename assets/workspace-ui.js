@@ -30,7 +30,7 @@ const SECONDARY_ROUTES = [['pilot','Partner readiness'],['audit','Audit'],['inte
 let storage;
 try { storage = localStorage; } catch { storage = null; }
 export const workspace = new Workspace({ storage });
-let busy=false, route='overview', patientId='BZ-001', queuePage=0, showFuture=true;
+let busy=false, route='overview', patientId='BZ-001', queuePage=0, showFuture=true, compareIds=[];
 let queueSearch='', queueBand='all', queueSort='risk', interventionFilter='pending';
 let modalHandler=null, toastTimer=null, modelHash='', bootstrap=null;
 const evaluationRows = validationRows(workspace.cohort);
