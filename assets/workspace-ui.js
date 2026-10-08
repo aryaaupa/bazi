@@ -353,7 +353,7 @@ function render() {
   if(route==='patient'&&selectedObservation!==null&&selectedObservation>=workspace.events(patientId).length)selectedObservation=null;
   const hash=location.hash.slice(1)||'overview',[path]=hash.split('?'),allRoutes=[...ROUTES,...SECONDARY_ROUTES];
   route=path.startsWith('patient/')?'patient':path==='compare'?'compare':allRoutes.some(([id])=>id===path)?path:'overview';
-  if(route==='patient')patientId=decodeURIComponent(path.slice(8));
+  if(route==='patient'){const nextId=decodeURIComponent(path.slice(8));if(patientId!==nextId)selectedObservation=null;patientId=nextId;}
   const title=route==='patient'?'Patient record':route==='compare'?'Patient comparison':allRoutes.find(([id])=>id===route)?.[1]??'Overview';
   document.title=`${title} | Bazi engagement intelligence`;
   $('#breadcrumb').innerHTML=`Engagement intelligence <span aria-hidden="true">/</span> <strong>${title}</strong>`;
@@ -491,7 +491,10 @@ async function perform(action,element) {
   render();
 }
 
+function selectObservation(index){const events=workspace.events(patientId);if(!Number.isInteger(index)||index<0||index>=events.length)return;selectedObservation=index;const inspector=$('#observation-inspector');if(inspector){inspector.innerHTML=observationDetail(events[index],index,events.length);document.querySelectorAll('.observation-point').forEach(point=>{const active=Number(point.dataset.observation)===index;point.classList.toggle('selected',active);point.setAttribute('stroke',active?'#5142c5':'#6658d9');point.setAttribute('stroke-width',active?'3':'2');point.setAttribute('r',active?'8':'5');});}}
+document.addEventListener('keydown',event=>{const point=event.target.closest?.('.observation-point');if(point&&(event.key==='Enter'||event.key===' ')){event.preventDefault();selectObservation(Number(point.dataset.observation));}});
 document.addEventListener('click',async event=>{
+  const point=event.target.closest('.observation-point');if(point){selectObservation(Number(point.dataset.observation));return;}
   const element=event.target.closest('[data-action]');if(!element)return;
   if(element.tagName==='TR'&&event.target.closest('a'))return;
   event.preventDefault();if(busy)return;busy=true;
@@ -504,6 +507,7 @@ document.addEventListener('input',event=>{
   if(event.target.id==='threshold-slider') thresholdPreview(Number(event.target.value));
 });
 document.addEventListener('change',async event=>{
+  if(event.target.id==='timeline-filter'){timelineFilter=event.target.value;render();return;}
   if(event.target.classList.contains('compare-select')){const id=event.target.dataset.patient;if(event.target.checked){if(compareIds.length>=4){event.target.checked=false;toast('Compare up to four patients at a time.',true);return;}if(!compareIds.includes(id))compareIds.push(id);}else compareIds=compareIds.filter(value=>value!==id);render();return;}
   if(event.target.id==='band-filter'){queueBand=event.target.value;queuePage=0;render();}
   else if(event.target.id==='sort-patients'){queueSort=event.target.value;render();}
