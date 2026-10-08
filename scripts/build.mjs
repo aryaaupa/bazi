@@ -6,7 +6,7 @@ const dist = resolve(root, 'dist');
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 // Explicit deployment allowlist: no credentials, SQL, datasets, or source metadata.
-for (const path of ['index.html','app','assets','packages/engagement','pilot/model-artifact.js','sdk/src','privacy.html','terms.html','404.html','sw.js','robots.txt','_headers']) {
+for (const path of ['index.html','app','patient','assets','packages/engagement','pilot/model-artifact.js','sdk/src','privacy.html','terms.html','404.html','sw.js','robots.txt','_headers']) {
   await mkdir(dirname(resolve(dist,path)),{recursive:true});
   await cp(resolve(root,path),resolve(dist,path),{recursive:true});
 }
