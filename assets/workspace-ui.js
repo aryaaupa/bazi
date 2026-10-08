@@ -530,6 +530,7 @@ document.addEventListener('submit',async event=>{
   finally{busy=false;submit.disabled=false;}
 });
 $('#menu-toggle').addEventListener('click',()=>{const open=$('.sidebar').classList.toggle('open');$('#menu-toggle').setAttribute('aria-expanded',String(open));});
+window.addEventListener('storage',event=>{if(event.key==='bazi-connected-workspace-v1')window.location.reload();});
 window.addEventListener('hashchange',()=>{$('.sidebar').classList.remove('open');$('#menu-toggle').setAttribute('aria-expanded','false');render();window.scrollTo(0,0);});
 async function boot() {
   await workspace.initialize();await workspace.prepareReferenceCases();modelHash=await fingerprint(MODEL);
